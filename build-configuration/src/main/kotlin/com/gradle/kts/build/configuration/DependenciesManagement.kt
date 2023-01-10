@@ -1,4 +1,4 @@
-package com.gradle.kts.build.source
+package com.gradle.kts.build.configuration
 
 import org.gradle.api.Action
 import org.gradle.api.artifacts.ExternalModuleDependency
@@ -7,6 +7,7 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 
+const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 
 inline fun <T> uncheckedCast(obj: Any?): T =
     obj as T

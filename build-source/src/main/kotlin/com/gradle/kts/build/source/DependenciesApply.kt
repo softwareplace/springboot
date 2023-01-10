@@ -1,10 +1,8 @@
 package com.gradle.kts.build.source
 
-import com.gradle.kts.build.configuration.Dependencies
+import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
-
-const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 
 fun DependencyHandlerScope.jackson() {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
