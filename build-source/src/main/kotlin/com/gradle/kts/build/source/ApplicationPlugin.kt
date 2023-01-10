@@ -18,14 +18,15 @@ class ApplicationPlugin : Plugin<Project> {
 
     private fun Project.applyApplicationDependencies() {
         dependencies {
-            logBack()
+            kotlin()
             springSecurity()
             jsonLogger()
-            kotlin()
 
             implementation("org.passay:passay:1.6.1")
             implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
             implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+            test()
         }
     }
 }

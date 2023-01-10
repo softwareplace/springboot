@@ -41,6 +41,13 @@ fun DependencyHandler.implementation(
     this, "implementation", dependencyNotation, dependencyConfiguration
 )
 
+fun DependencyHandler.testImplementation(
+    dependencyNotation: String,
+    dependencyConfiguration: Action<ExternalModuleDependency>
+): ExternalModuleDependency = addDependencyTo(
+    this, "implementation", dependencyNotation, dependencyConfiguration
+)
+
 fun DependencyHandlerScope.testImplementation(target: String) {
     add("testImplementation", target)
 }
@@ -52,4 +59,30 @@ fun DependencyHandlerScope.runtimeOnly(target: String) {
 fun DependencyHandlerScope.annotationProcessor(target: String) {
     add("annotationProcessor", target)
 }
+
+fun DependencyHandlerScope.addSpringframeworkBoot(module: String) {
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
+}
+
+fun DependencyHandlerScope.addSpringframeworkBoot(
+    module: String,
+    dependencyConfiguration: Action<ExternalModuleDependency>
+): ExternalModuleDependency = addDependencyTo(
+    this, "implementation",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
+    dependencyConfiguration
+)
+
+fun DependencyHandlerScope.addSpringframeworkBootTest(module: String) {
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
+}
+
+fun DependencyHandlerScope.addSpringframeworkBootTest(
+    module: String,
+    dependencyConfiguration: Action<ExternalModuleDependency>
+): ExternalModuleDependency = addDependencyTo(
+    this, "implementation",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
+    dependencyConfiguration
+)
 
