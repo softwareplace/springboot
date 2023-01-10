@@ -1,6 +1,6 @@
 plugins {
     `kotlin-dsl`
-    id("org.jetbrains.kotlin.jvm") version "1.7.22"
+    kotlin("jvm") version "1.7.22"
 }
 
 val sourceGroup = "com.gradle.kts.build.configuration"

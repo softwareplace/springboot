@@ -2,11 +2,10 @@ import com.gradle.kts.build.configuration.Dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    `maven-publish`
     `kotlin-dsl`
+    kotlin("jvm") version "1.7.22"
     id("build-configuration-plugin")
-    id("org.springframework.boot") version "2.6.2"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.jetbrains.kotlin.jvm") version "1.7.22"
     id("org.jetbrains.kotlin.plugin.spring") version "1.7.22"
 
 }
@@ -15,6 +14,11 @@ repositories {
     mavenCentral()
     mavenLocal()
     gradlePluginPortal()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 val sourceGroup = "com.gradle.kts.build.source"
