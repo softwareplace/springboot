@@ -4,12 +4,6 @@ import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-fun DependencyHandlerScope.test() {
-//    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-//    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-//    testImplementation("io.mockk:mockk:1.13.2")
-}
-
 fun DependencyHandlerScope.springSecurity() {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("org.passay:passay:1.6.1")
@@ -21,6 +15,13 @@ fun DependencyHandlerScope.springSecurity() {
 
     addSpringframeworkBoot("spring-boot-starter-web") {
         exclude(group = "$ORG_SPRINGFRAMEWORK_BOOT", module = "spring-boot-starter-tomcat")
+    }
+
+    addSpringframeworkBoot("spring-boot-starter-log4j2")
+    modules {
+        module("org.springframework.boot:spring-boot-starter-logging") {
+            replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
+        }
     }
 
     addSpringframeworkBoot("spring-boot-starter-security")
@@ -42,9 +43,15 @@ fun DependencyHandlerScope.kotlin() {
 }
 
 fun DependencyHandlerScope.baseSpringApi() {
-    addSpringframeworkBoot("spring-boot-starter")
+    addSpringframeworkBoot("spring-boot-starter") {
+        excludeSpringLogging()
+    }
+    modules {
+        module("org.springframework.boot:spring-boot-starter-logging") {
+            replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
+        }
+    }
     addSpringframeworkBoot("spring-boot-starter-webflux")
-
     annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
 }
 
@@ -74,9 +81,7 @@ fun DependencyHandlerScope.postGreSql() {
 fun DependencyHandlerScope.springDoc() {
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
     implementation("org.openapitools:openapi-generator-gradle-plugin:6.2.0")
-    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1") {
-        exclude("org.slf4j", "slf4j-api")
-    }
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
     implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.14")
     implementation("org.springdoc:springdoc-openapi-ui:1.6.14")

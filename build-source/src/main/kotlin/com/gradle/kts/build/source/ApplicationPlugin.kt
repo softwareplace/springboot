@@ -22,7 +22,6 @@ class ApplicationPlugin : Plugin<Project> {
             kotlin()
             springSecurity()
             fasterXmlJackson()
-            test()
         }
     }
 }
