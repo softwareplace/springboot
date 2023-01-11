@@ -21,12 +21,7 @@ class ApplicationPlugin : Plugin<Project> {
         dependencies {
             kotlin()
             springSecurity()
-            jsonLogger()
-
-            implementation("org.passay:passay:1.6.1")
-            implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-            implementation("io.jsonwebtoken:jjwt:0.9.1")
-
+            fasterXmlJackson()
             test()
         }
     }

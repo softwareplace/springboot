@@ -45,4 +45,3 @@ gradlePlugin {
 dependencies {
     springDoc()
 }
-
