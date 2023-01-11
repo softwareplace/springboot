@@ -7,7 +7,8 @@ plugins {
     kotlin("jvm") version "1.7.22"
     id("build-configuration-plugin")
     id("org.jetbrains.kotlin.plugin.spring") version "1.7.22"
-
+    id("org.springframework.boot") version "2.7.2"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 repositories {
