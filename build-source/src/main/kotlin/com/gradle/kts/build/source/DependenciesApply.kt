@@ -4,11 +4,6 @@ import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-fun DependencyHandlerScope.jackson() {
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
-}
-
 fun DependencyHandlerScope.test() {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
@@ -75,6 +70,8 @@ fun DependencyHandlerScope.flayWayMigration() {
 
 
 fun DependencyHandlerScope.fasterXmlJackson() {
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
     runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
     runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
@@ -90,12 +87,16 @@ fun DependencyHandlerScope.postGreSql() {
 }
 
 fun DependencyHandlerScope.springDoc() {
-    implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
-    implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
-    implementation("org.openapitools:jackson-databind-nullable:0.2.3")
+    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
+    implementation("org.openapitools:openapi-generator-gradle-plugin:6.2.0")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
+
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.14")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.14")
+    implementation("org.openapitools:jackson-databind-nullable:0.2.4")
     implementation("io.swagger:swagger-annotations:1.6.6")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
-    runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
-    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
+    runtimeOnly("org.springdoc:springdoc-openapi-data-rest:1.6.14")
+    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.6.14")
 }
 
