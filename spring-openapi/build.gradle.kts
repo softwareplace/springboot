@@ -1,10 +1,8 @@
-import com.gradle.kts.build.source.springDoc
 
 plugins {
     `maven-publish`
     `kotlin-dsl`
     kotlin("jvm") version "1.7.22"
-    id("build-source-plugin")
     id("org.openapi.generator") version "5.3.0"
 }
 
@@ -24,15 +22,6 @@ group = sourceGroup
 
 version = "1.0.0"
 
-//extra["snippetsDir"] = file("build/generated-snippets")
-
-//sourceSets {
-//    val targetPath = "${rootProject.buildDir.path.replace("spring-boot-included-builds/spring-openapi/", "")}/generated/src/main/kotlin"
-//    println(targetPath)
-//    kotlin.sourceSets["main"].kotlin.srcDir("$targetPath")
-//}
-
-
 gradlePlugin {
     plugins {
         register("build-spring-openapi-plugin") {
@@ -43,5 +32,27 @@ gradlePlugin {
 }
 
 dependencies {
-    springDoc()
+    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
+    implementation("org.openapitools:openapi-generator-gradle-plugin:6.2.0")
 }
+
+openApiGenerate {
+    generatorName.set("kotlin-spring")
+    groupId.set("$group")
+    packageName.set("$group")
+    inputSpec.set("${projectDir.path}/src/main/resources/openapi/api.yaml")
+    generateApiDocumentation.set(false)
+    outputDir.set("${buildDir.path}/generated")
+    apiPackage.set("$group.controller")
+    invokerPackage.set("$group.invoker")
+    modelPackage.set("$group.model")
+    configOptions.set(
+        mapOf(
+            Pair("interfaceOnly", "true"),
+            Pair("delegatePattern", "false"),
+            Pair("useTags", "true"),
+            Pair("generateApis", "true"),
+        )
+    )
+}
+

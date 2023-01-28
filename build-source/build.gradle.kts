@@ -2,15 +2,24 @@ import com.gradle.kts.build.configuration.Dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    `maven-publish`
     `kotlin-dsl`
     kotlin("jvm") version "1.7.22"
     id("build-configuration-plugin")
+    id("org.jetbrains.kotlin.plugin.spring") version "1.7.22"
+    id("org.springframework.boot") version "2.7.2"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
     gradlePluginPortal()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 val sourceGroup = "com.gradle.kts.build.source"
@@ -36,14 +45,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.LibDomain.comGradleKtsConfiguration,
-            Dependencies.TargetLib.buildConfiguration,
-            Dependencies.Version.comGradleKtsConfiguration,
-        )
-    )
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 
     implementation(
         Dependencies.buildDependency(
@@ -52,12 +55,6 @@ dependencies {
             Dependencies.Version.kotlin,
         )
     )
-}
-
-configurations {
-    all {
-        exclude("org.springframework.boot", "spring-boot-starter-logging")
-    }
 }
 
 tasks.withType<KotlinCompile> {

@@ -8,7 +8,8 @@ object Dependencies {
         const val springDependencyManagement = "1.0.11"
         const val comGradleKtsConfiguration = "1.0.0"
         const val comGradleKtsSource = "1.0.0"
-        const val springBoot = "2.6.2"
+        const val springBoot = "2.7.2"
+        const val springBootSecurityTest = "5.7.6"
 
         const val springDocVersion = "1.6.9"
         const val jacksonVersion = "2.13.3"

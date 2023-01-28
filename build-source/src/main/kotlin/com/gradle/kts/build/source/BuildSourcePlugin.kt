@@ -5,16 +5,12 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.kotlin.dsl.exclude
 import org.gradle.kotlin.dsl.withType
 
 class BuildSourcePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             applyTask()
-            configurations.apply {
-                all { exclude("org.springframework.boot", "spring-boot-starter-logging") }
-            }
         }
     }
 

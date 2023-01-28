@@ -1,30 +1,15 @@
-package com.gradle.kts.build.spring.openapi
+package com.gradle.kts.build.openapi
 
+import com.gradle.kts.build.configuration.*
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
-
-fun OpenApiGeneratorGenerateExtension.generateBuild(
-    group: String,
-    yamlPath: String,
-    buildDir: String
-) {
-    generatorName.set("kotlin-spring")
-    groupId.set(group)
-    packageName.set(group)
-    inputSpec.set(yamlPath)
-    generateApiDocumentation.set(false)
-    outputDir.set("${buildDir}/generated")
-    apiPackage.set("${group}.controller")
-    invokerPackage.set("$group.invoker")
-    modelPackage.set("$group.model")
-    importMappings.set(mapOf("Response" to "Response"))
-    configOptions.set(
-        mapOf(
-            Pair("interfaceOnly", "true"),
-            Pair("delegatePattern", "false"),
-            Pair("useTags", "true"),
-            Pair("generateApis", "true"),
-        )
-    )
+fun DependencyHandlerScope.springDoc() {
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
+    implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
+    implementation("org.openapitools:jackson-databind-nullable:0.2.3")
+    implementation("io.swagger:swagger-annotations:1.6.6")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
+    runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
+    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
 }
 

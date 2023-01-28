@@ -3,6 +3,7 @@ package com.gradle.kts.build.configuration
 import org.gradle.api.Action
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.ModuleDependency
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
@@ -35,6 +36,10 @@ fun DependencyHandlerScope.implementation(target: String) {
     add("implementation", target)
 }
 
+fun DependencyHandlerScope.implementation(target: ProjectDependency) {
+    add("implementation", target)
+}
+
 fun DependencyHandler.implementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
@@ -62,7 +67,7 @@ fun DependencyHandlerScope.annotationProcessor(target: String) {
 }
 
 fun DependencyHandlerScope.addSpringframeworkBoot(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}")
 }
 
 fun DependencyHandlerScope.addSpringframeworkBoot(
@@ -70,12 +75,12 @@ fun DependencyHandlerScope.addSpringframeworkBoot(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "implementation",
-    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}",
     dependencyConfiguration
 )
 
 fun DependencyHandlerScope.addSpringframeworkBootTest(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}")
 }
 
 fun DependencyHandlerScope.addSpringframeworkBootTest(
@@ -83,7 +88,7 @@ fun DependencyHandlerScope.addSpringframeworkBootTest(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "implementation",
-    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}",
     dependencyConfiguration
 )
 
