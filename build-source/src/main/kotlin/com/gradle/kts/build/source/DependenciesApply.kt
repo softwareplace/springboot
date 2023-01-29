@@ -47,7 +47,7 @@ private fun ExternalModuleDependency.excludeSpringLogging() {
 
 fun DependencyHandlerScope.jsonLogger() {
     implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
-    implementation("com.softwareplace:json-logger:1.0.0")
+    implementation("com.github.eliasmeireles:json-logger:0.0.1")
 }
 
 fun DependencyHandlerScope.kotlin() {

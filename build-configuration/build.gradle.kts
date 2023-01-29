@@ -7,11 +7,13 @@ val sourceGroup = "com.gradle.kts.build.configuration"
 group = sourceGroup
 version = "1.0.0"
 
+
 repositories {
     mavenCentral()
     mavenLocal()
     gradlePluginPortal()
 }
+
 
 gradlePlugin {
     plugins {
