@@ -6,10 +6,12 @@ plugins {
     id("org.openapi.generator") version "5.3.0"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+    }
 }
 
 java {
