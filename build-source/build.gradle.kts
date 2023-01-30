@@ -1,4 +1,3 @@
-//import com.gradle.kts.build.configuration.kotlinDeps
 import com.gradle.kts.build.configuration.Dependencies
 import com.gradle.kts.build.configuration.addSpringframeworkBoot
 import com.gradle.kts.build.configuration.implementation
