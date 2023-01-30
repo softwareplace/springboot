@@ -11,6 +11,9 @@ class ProjectPlugin : Plugin<Project> {
         with(target) {
             allprojects {
                 apply(plugin = "org.springframework.boot")
+                apply(plugin = "io.spring.dependency-management")
+                apply(plugin = "org.jetbrains.kotlin.jvm")
+                apply(plugin = "org.gradle.maven-publish")
                 repositories {
                     mavenCentral()
                     mavenLocal()

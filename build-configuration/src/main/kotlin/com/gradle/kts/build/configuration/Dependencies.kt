@@ -7,7 +7,9 @@ object Dependencies {
         const val kotlin = "1.7.22"
         const val springDependencyManagement = "1.0.11"
         const val comGradleKtsConfiguration = "1.0.0"
+        const val jsonLoggerVersion = "0.0.1"
         const val comGradleKtsSource = "1.0.0"
+        const val log4jApiKotlinVersion = "1.2.0"
         const val springBoot = "2.7.2"
         const val springBootSecurityTest = "5.7.6"
 
@@ -21,13 +23,17 @@ object Dependencies {
     object LibDomain {
         const val orgSpringFrameworkBoot = "org.springframework.boot"
         const val orgJetbrainsKotlin = "org.jetbrains.kotlin"
+        const val orgApacheLogging = "org.apache.logging.log4j"
         const val comGradleKtsConfiguration = "com.gradle.kts.build.configuration"
+        const val gitHubEliasMeireles = "com.github.eliasmeireles"
         const val comGradleKtsSource = "com.gradle.kts.build.source"
     }
 
     object TargetLib {
         const val buildConfiguration = "build-configuration"
         const val buildSource = "build-source"
+        const val jsonLogger = "json-logger"
+        const val log4jApiKotlin = "log4j-api-kotlin"
         const val springBootStarter = "spring-boot-starter"
         const val springBootStarterTest = "spring-boot-starter-test"
         const val kotlinReflect = "kotlin-reflect"

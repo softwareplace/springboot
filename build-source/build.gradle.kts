@@ -1,7 +1,8 @@
-import com.gradle.kts.build.configuration.addSpringframeworkBoot
-import com.gradle.kts.build.configuration.kotlinDeps
 //import com.gradle.kts.build.configuration.kotlinDeps
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.gradle.kts.build.configuration.Dependencies
+import com.gradle.kts.build.configuration.addSpringframeworkBoot
+import com.gradle.kts.build.configuration.implementation
+import com.gradle.kts.build.configuration.kotlinDeps
 
 plugins {
     `maven-publish`
@@ -51,6 +52,12 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     addSpringframeworkBoot("spring-boot-gradle-plugin")
-    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.comGradleKtsConfiguration,
+            Dependencies.TargetLib.buildConfiguration,
+            Dependencies.Version.comGradleKtsConfiguration,
+        )
+    )
 }
 

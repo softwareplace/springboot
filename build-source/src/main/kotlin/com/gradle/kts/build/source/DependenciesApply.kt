@@ -10,7 +10,6 @@ fun DependencyHandlerScope.test() {
     testImplementation("io.mockk:mockk:1.13.2")
 }
 
-
 fun DependencyHandlerScope.springSecurity() {
     addSpringframeworkBoot("spring-boot-starter-jetty")
     addSpringframeworkBoot("spring-boot-starter-validation") {
@@ -40,10 +39,21 @@ private fun ExternalModuleDependency.excludeSpringLogging() {
 }
 
 fun DependencyHandlerScope.jsonLogger() {
-    implementation("org.apache.logging.log4j:log4j-api-kotlin:1.2.0")
-    implementation("com.github.eliasmeireles:json-logger:0.0.1")
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.gitHubEliasMeireles,
+            Dependencies.TargetLib.jsonLogger,
+            Dependencies.Version.jsonLoggerVersion,
+        )
+    )
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.orgApacheLogging,
+            Dependencies.TargetLib.log4jApiKotlin,
+            Dependencies.Version.log4jApiKotlinVersion,
+        )
+    )
 }
-
 
 fun DependencyHandlerScope.baseSpringApi() {
     addSpringframeworkBoot("spring-boot-starter") {
@@ -60,16 +70,13 @@ fun DependencyHandlerScope.passay() {
     implementation("org.passay:passay:1.6.1")
 }
 
-
 fun DependencyHandlerScope.jsonWebToken() {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 }
 
-
 fun DependencyHandlerScope.flayWayMigration() {
     runtimeOnly("org.flywaydb:flyway-core:8.3.0")
 }
-
 
 fun DependencyHandlerScope.fasterXmlJackson() {
     runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
@@ -96,4 +103,3 @@ fun DependencyHandlerScope.springDoc() {
     runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
     runtimeOnly("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
 }
-
