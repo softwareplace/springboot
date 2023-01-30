@@ -13,6 +13,31 @@ const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 inline fun <T> uncheckedCast(obj: Any?): T =
     obj as T
 
+fun DependencyHandlerScope.kotlinDeps() {
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.TargetLib.kotlinReflect,
+            Dependencies.Version.kotlin,
+        )
+    )
+
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.TargetLib.kotlinStdlibJdk8,
+        )
+    )
+
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.TargetLib.kotlinGradlePlugin,
+            Dependencies.Version.kotlin
+        )
+    )
+}
+
 fun mapOfNonNullValuesOf(vararg entries: Pair<String, String?>): Map<String, String> =
     mutableMapOf<String, String>().apply {
         for ((k, v) in entries) {

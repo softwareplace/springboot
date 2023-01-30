@@ -1,4 +1,6 @@
-import com.gradle.kts.build.configuration.Dependencies
+import com.gradle.kts.build.configuration.addSpringframeworkBoot
+import com.gradle.kts.build.configuration.kotlinDeps
+//import com.gradle.kts.build.configuration.kotlinDeps
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -16,6 +18,7 @@ repositories {
     mavenLocal()
     gradlePluginPortal()
     maven("https://jitpack.io")
+    maven("https://repo.spring.io/milestone")
 }
 
 java {
@@ -46,25 +49,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+    kotlinDeps()
+    addSpringframeworkBoot("spring-boot-gradle-plugin")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
-
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlin,
-            Dependencies.TargetLib.kotlinReflect,
-            Dependencies.Version.kotlin,
-        )
-    )
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}

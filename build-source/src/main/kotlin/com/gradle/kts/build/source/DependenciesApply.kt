@@ -3,12 +3,6 @@ package com.gradle.kts.build.source
 import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
-import org.gradle.kotlin.dsl.project
-
-fun DependencyHandlerScope.jackson() {
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
-}
 
 fun DependencyHandlerScope.test() {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
@@ -50,10 +44,6 @@ fun DependencyHandlerScope.jsonLogger() {
     implementation("com.github.eliasmeireles:json-logger:0.0.1")
 }
 
-fun DependencyHandlerScope.kotlin() {
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-}
 
 fun DependencyHandlerScope.baseSpringApi() {
     addSpringframeworkBoot("spring-boot-starter") {
@@ -98,6 +88,7 @@ fun DependencyHandlerScope.postGreSql() {
 
 fun DependencyHandlerScope.springDoc() {
     implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
     implementation("org.openapitools:jackson-databind-nullable:0.2.3")
     implementation("io.swagger:swagger-annotations:1.6.6")

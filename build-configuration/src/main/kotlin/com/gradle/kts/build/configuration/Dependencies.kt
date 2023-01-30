@@ -32,6 +32,7 @@ object Dependencies {
         const val springBootStarterTest = "spring-boot-starter-test"
         const val kotlinReflect = "kotlin-reflect"
         const val kotlinStdlibJdk8 = "kotlin-stdlib-jdk8"
+        const val kotlinGradlePlugin = "kotlin-gradle-plugin"
     }
 
     fun buildDependency(domain: String, targetLig: String): String {

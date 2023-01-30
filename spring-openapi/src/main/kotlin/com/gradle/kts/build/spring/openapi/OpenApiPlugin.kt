@@ -2,36 +2,43 @@ package com.gradle.kts.build.spring.openapi
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.*
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 
 class OpenApiPlugin : Plugin<Project> {
 
-//    val org.gradle.api.Project.`openApiGenerate`: org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension get() =
-//        (this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("openApiGenerate") as org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
-//
-//    private fun Project.openApiGenerate(configure: Action<OpenApiGeneratorGenerateExtension>): Unit =
-//        (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("openApiGenerate", configure)
-
     override fun apply(target: Project) {
-//        with(target) {
-//            openApiGenerate {
-//                generatorName.set("kotlin-spring")
-//                groupId.set("$group")
-//                packageName.set("$group")
-//                inputSpec.set("${projectDir.path}/src/main/resources/openapi/api.yaml")
-//                generateApiDocumentation.set(false)
-//                outputDir.set("${buildDir.path}/generated")
-//                apiPackage.set("$group.controller")
-//                invokerPackage.set("$group.invoker")
-//                modelPackage.set("$group.model")
-//                configOptions.set(
-//                    mapOf(
-//                        Pair("interfaceOnly", "true"),
-//                        Pair("delegatePattern", "false"),
-//                        Pair("useTags", "true"),
-//                        Pair("generateApis", "true"),
-//                    )
-//                )
-//            }
-//        }
+        with(target) {
+            apply(plugin = "org.openapi.generator")
+            applySourceSets()
+            openApiGenerateConfig()
+            applyTasks()
+        }
+    }
+
+    private fun Project.openApiGenerateConfig() {
+        afterEvaluate {
+            extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
+                groupId = "$group",
+                projectPath = projectDir.path,
+            )
+        }
+    }
+
+    private fun Project.applySourceSets() {
+        extra["snippetsDir"] = file("build/generated-snippets")
+        kotlinExtension.sourceSets["main"].kotlin.srcDir("$projectDir/build/generated/src/main/kotlin")
+    }
+
+    private fun Project.applyTasks() {
+        tasks.withType<KotlinCompile> {
+            dependsOn(tasks.findByName("openApiGenerate"))
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = "11"
+            }
+        }
     }
 }

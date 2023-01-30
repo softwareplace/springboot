@@ -6,6 +6,7 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class BuildSourcePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -27,6 +28,16 @@ class BuildSourcePlugin : Plugin<Project> {
                     TestLogEvent.SKIPPED
                 )
             }
+        }
+        tasks.withType<KotlinCompile> {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = "11"
+            }
+        }
+
+        tasks.withType<Test> {
+            useJUnitPlatform()
         }
     }
 
