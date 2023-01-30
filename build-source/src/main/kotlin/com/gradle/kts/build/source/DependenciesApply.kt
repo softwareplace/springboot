@@ -38,6 +38,16 @@ private fun ExternalModuleDependency.excludeSpringLogging() {
     exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
 }
 
+fun DependencyHandlerScope.springBootSecurityUtils() {
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.gitHubEliasMeireles,
+            Dependencies.TargetLib.springBootSecurityUtil,
+            Dependencies.Version.springBootSecurityUtilVersion,
+        )
+    )
+}
+
 fun DependencyHandlerScope.jsonLogger() {
     implementation(
         Dependencies.buildDependency(
