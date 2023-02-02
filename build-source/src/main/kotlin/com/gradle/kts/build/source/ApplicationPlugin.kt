@@ -13,11 +13,13 @@ class ApplicationPlugin : Plugin<Project> {
     }
 
     private fun Project.applyApplicationDependencies() {
-        dependencies {
-            fasterXmlJackson()
-            jsonLogger()
-            kotlinDeps()
-        }
+       allprojects {
+           dependencies {
+               fasterXmlJackson()
+               jsonLogger()
+               kotlinDeps()
+           }
+       }
     }
 }
 

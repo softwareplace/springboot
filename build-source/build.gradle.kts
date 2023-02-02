@@ -3,14 +3,20 @@ import com.gradle.kts.build.configuration.addSpringframeworkBoot
 import com.gradle.kts.build.configuration.implementation
 import com.gradle.kts.build.configuration.kotlinDeps
 
+
 plugins {
-    `maven-publish`
+    val kotlinVersion = "1.7.22"
+    val springBootVersion = "2.7.2"
+    val springDependencyManagement = "1.0.11.RELEASE"
+
     `kotlin-dsl`
-    kotlin("jvm") version "1.7.22"
-    id("build-configuration-plugin")
-    id("org.jetbrains.kotlin.plugin.spring") version "1.7.22"
-    id("org.springframework.boot") version "2.7.2"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    `maven-publish`
+    kotlin("jvm") version kotlinVersion
+    id("build-configuration-plugin") version kotlinVersion
+    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springDependencyManagement
 }
 
 repositories {

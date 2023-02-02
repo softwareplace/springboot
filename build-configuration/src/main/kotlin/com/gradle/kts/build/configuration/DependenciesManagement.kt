@@ -16,6 +16,20 @@ inline fun <T> uncheckedCast(obj: Any?): T =
 fun DependencyHandlerScope.kotlinDeps() {
     implementation(
         Dependencies.buildDependency(
+            Dependencies.LibDomain.orgJetbrainsKotlinSpring,
+            Dependencies.TargetLib.orgJetbrainsKotlinPluginSpring,
+            Dependencies.Version.kotlin,
+        )
+    )
+    implementation(
+        Dependencies.buildDependency(
+            Dependencies.LibDomain.orgJetbrainsKotlinJpa,
+            Dependencies.TargetLib.orgJetbrainsKotlinPluginJpa,
+            Dependencies.Version.kotlin,
+        )
+    )
+    implementation(
+        Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlin,
             Dependencies.TargetLib.kotlinReflect,
             Dependencies.Version.kotlin,

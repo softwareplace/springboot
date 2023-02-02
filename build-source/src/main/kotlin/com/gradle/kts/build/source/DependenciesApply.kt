@@ -4,6 +4,14 @@ import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
+
+private const val ORG_APACHE_TOMCAT_EMBED = "org.apache.tomcat.embed"
+private const val TOMCAT_EMBED_EL = "tomcat-embed-el"
+private const val SPRING_BOOT_STARTER_WEB = "spring-boot-starter-web"
+private const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
+private const val SPRING_BOOT_STARTER_TOMCAT = "spring-boot-starter-tomcat"
+
+
 fun DependencyHandlerScope.test() {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
@@ -11,34 +19,50 @@ fun DependencyHandlerScope.test() {
 }
 
 fun DependencyHandlerScope.springSecurity() {
-    addSpringframeworkBoot("spring-boot-starter-jetty")
+    springBootStartWeb()
+    addSpringframeworkBoot(SPRING_BOOT_STARTER_WEB) {
+        excludeSpringLogging()
+        exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_TOMCAT)
+    }
+
+    addSpringframeworkBoot("spring-boot-starter-security") {
+        excludeSpringLogging()
+    }
+
+    testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTest}") {
+        excludeSpringLogging()
+    }
+}
+
+fun DependencyHandlerScope.springBootStartWeb() {
+    addSpringframeworkBoot(SPRING_BOOT_STARTER_JETTY) {
+        excludeSpringLogging()
+    }
+
     addSpringframeworkBoot("spring-boot-starter-validation") {
         excludeSpringLogging()
     }
 
-    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
-
-    addSpringframeworkBoot("spring-boot-starter-web") {
-        excludeSpringLogging()
-        exclude(group = "$ORG_SPRINGFRAMEWORK_BOOT", module = "spring-boot-starter-tomcat")
-    }
-    addSpringframeworkBoot("spring-boot-starter-security") {
+    addSpringframeworkBoot("spring-boot-starter") {
         excludeSpringLogging()
     }
 
     addSpringframeworkBootTest("spring-boot-starter-test") {
         excludeSpringLogging()
     }
-    testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTest}") {
-        excludeSpringLogging()
-    }
 }
 
-private fun ExternalModuleDependency.excludeSpringLogging() {
-    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
+fun DependencyHandlerScope.baseSpringApi() {
+    springBootStartWeb()
+    addSpringframeworkBoot("spring-boot-starter-webflux") {
+        excludeSpringLogging()
+    }
+
+    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
 }
 
 fun DependencyHandlerScope.springBootSecurityUtils() {
+    springSecurity()
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.gitHubEliasMeireles,
@@ -46,6 +70,12 @@ fun DependencyHandlerScope.springBootSecurityUtils() {
             Dependencies.Version.springBootSecurityUtilVersion,
         )
     )
+}
+
+private fun ExternalModuleDependency.excludeSpringLogging() {
+    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
+    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_TOMCAT)
+    exclude(group = ORG_APACHE_TOMCAT_EMBED, module = TOMCAT_EMBED_EL)
 }
 
 fun DependencyHandlerScope.jsonLogger() {
@@ -63,17 +93,6 @@ fun DependencyHandlerScope.jsonLogger() {
             Dependencies.Version.log4jApiKotlinVersion,
         )
     )
-}
-
-fun DependencyHandlerScope.baseSpringApi() {
-    addSpringframeworkBoot("spring-boot-starter") {
-        excludeSpringLogging()
-    }
-    addSpringframeworkBoot("spring-boot-starter-webflux") {
-        excludeSpringLogging()
-    }
-
-    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
 }
 
 fun DependencyHandlerScope.passay() {
