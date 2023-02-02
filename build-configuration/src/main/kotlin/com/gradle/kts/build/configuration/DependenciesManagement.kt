@@ -8,6 +8,7 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 
+
 const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 
 inline fun <T> uncheckedCast(obj: Any?): T =
@@ -17,21 +18,21 @@ fun DependencyHandlerScope.kotlinDeps() {
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlinSpring,
-            Dependencies.TargetLib.orgJetbrainsKotlinPluginSpring,
+            Dependencies.Module.orgJetbrainsKotlinPluginSpring,
             Dependencies.Version.kotlin,
         )
     )
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlinJpa,
-            Dependencies.TargetLib.orgJetbrainsKotlinPluginJpa,
+            Dependencies.Module.orgJetbrainsKotlinPluginJpa,
             Dependencies.Version.kotlin,
         )
     )
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlin,
-            Dependencies.TargetLib.kotlinReflect,
+            Dependencies.Module.kotlinReflect,
             Dependencies.Version.kotlin,
         )
     )
@@ -39,14 +40,14 @@ fun DependencyHandlerScope.kotlinDeps() {
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlin,
-            Dependencies.TargetLib.kotlinStdlibJdk8,
+            Dependencies.Module.kotlinStdlibJdk8,
         )
     )
 
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgJetbrainsKotlin,
-            Dependencies.TargetLib.kotlinGradlePlugin,
+            Dependencies.Module.kotlinGradlePlugin,
             Dependencies.Version.kotlin
         )
     )

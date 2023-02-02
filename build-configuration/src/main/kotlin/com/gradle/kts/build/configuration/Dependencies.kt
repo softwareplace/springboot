@@ -9,7 +9,7 @@ object Dependencies {
         const val comGradleKtsConfiguration = "1.0.0"
         const val buildApplicationPluginVersion = "1.0.0"
         const val jsonLoggerVersion = "0.0.1"
-        const val springBootSecurityUtilVersion = "0.0.5"
+        const val springBootSecurityUtilVersion = "0.0.6"
         const val comGradleKtsSource = "1.0.0"
         const val log4jApiKotlinVersion = "1.2.0"
         const val springBoot = "2.7.2"
@@ -35,7 +35,7 @@ object Dependencies {
         const val comGradleKtsSource = "com.gradle.kts.build.source"
     }
 
-    object TargetLib {
+    object Module {
         const val buildConfiguration = "build-configuration"
         const val buildApplicationPlugin = "build-source-application-plugin"
         const val buildSource = "build-source"

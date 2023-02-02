@@ -10,7 +10,7 @@ private const val TOMCAT_EMBED_EL = "tomcat-embed-el"
 private const val SPRING_BOOT_STARTER_WEB = "spring-boot-starter-web"
 private const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
 private const val SPRING_BOOT_STARTER_TOMCAT = "spring-boot-starter-tomcat"
-
+private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 fun DependencyHandlerScope.test() {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
@@ -25,7 +25,7 @@ fun DependencyHandlerScope.springSecurity() {
         exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_TOMCAT)
     }
 
-    addSpringframeworkBoot("spring-boot-starter-security") {
+    addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
         excludeSpringLogging()
     }
 
@@ -62,14 +62,21 @@ fun DependencyHandlerScope.baseSpringApi() {
 }
 
 fun DependencyHandlerScope.springBootSecurityUtils() {
-    springSecurity()
+    addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
+        excludeSpringLogging()
+    }
+
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.gitHubEliasMeireles,
-            Dependencies.TargetLib.springBootSecurityUtil,
+            Dependencies.Module.springBootSecurityUtil,
             Dependencies.Version.springBootSecurityUtilVersion,
         )
-    )
+    ) {
+        exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_SECURITY)
+        exclude(group = Dependencies.LibDomain.gitHubEliasMeireles, module = Dependencies.Module.jsonLogger)
+        exclude(group = Dependencies.LibDomain.orgApacheLogging, module = Dependencies.Module.log4jApiKotlin)
+    }
 }
 
 private fun ExternalModuleDependency.excludeSpringLogging() {
@@ -82,14 +89,14 @@ fun DependencyHandlerScope.jsonLogger() {
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.gitHubEliasMeireles,
-            Dependencies.TargetLib.jsonLogger,
+            Dependencies.Module.jsonLogger,
             Dependencies.Version.jsonLoggerVersion,
         )
     )
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.orgApacheLogging,
-            Dependencies.TargetLib.log4jApiKotlin,
+            Dependencies.Module.log4jApiKotlin,
             Dependencies.Version.log4jApiKotlinVersion,
         )
     )

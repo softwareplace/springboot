@@ -60,7 +60,7 @@ dependencies {
     implementation(
         Dependencies.buildDependency(
             Dependencies.LibDomain.comGradleKtsConfiguration,
-            Dependencies.TargetLib.buildConfiguration,
+            Dependencies.Module.buildConfiguration,
             Dependencies.Version.comGradleKtsConfiguration,
         )
     )
