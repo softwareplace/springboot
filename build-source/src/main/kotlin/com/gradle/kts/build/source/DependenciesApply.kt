@@ -4,7 +4,6 @@ import com.gradle.kts.build.configuration.*
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-
 private const val ORG_APACHE_TOMCAT_EMBED = "org.apache.tomcat.embed"
 private const val TOMCAT_EMBED_EL = "tomcat-embed-el"
 private const val SPRING_BOOT_STARTER_WEB = "spring-boot-starter-web"
@@ -91,13 +90,6 @@ fun DependencyHandlerScope.jsonLogger() {
             Dependencies.LibDomain.gitHubEliasMeireles,
             Dependencies.Module.jsonLogger,
             Dependencies.Version.jsonLoggerVersion,
-        )
-    )
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.LibDomain.orgApacheLogging,
-            Dependencies.Module.log4jApiKotlin,
-            Dependencies.Version.log4jApiKotlinVersion,
         )
     )
 }
