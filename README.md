@@ -2,6 +2,14 @@
 
 ## Setup
 
+- Add as included build
+
+```shell
+# run this command inside root project directory
+
+git submodule add --force https://github.com/eliasmeireles/spring-boot-included-builds.git 
+```
+
 - Root project settings.gradle.kts
 
 ````kotlin
@@ -38,7 +46,24 @@ plugins {
     id("build-source-project-plugin")
 
     //   Requires resources/openapi.yaml
-    id("build-spring-openapi-plugin") 
+    id("build-spring-openapi-plugin")
+}
+
+dependencies {
+    // For spring boot security lib. See https://github.com/eliasmeireles/spring-boot-security-util
+    springBootSecurityUtils()
+    passay()
+    baseSpringApi()
+
+    // For database migration strategy
+    flayWayMigration()
+
+    // For postgres dependencies
+    postGreSql()
+
+    // For open api codegen 
+    springDoc()
+    test()
 }
 ```
 
