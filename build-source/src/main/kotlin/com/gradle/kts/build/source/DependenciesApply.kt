@@ -14,14 +14,15 @@ private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 fun DependencyHandlerScope.test() {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation("io.mockk:mockk:1.13.2")
+    testImplementation("io.mockk:mockk:1.13.2") {
+        exclude("org.slf4j", "slf4j-api")
+    }
 }
 
 fun DependencyHandlerScope.springSecurity() {
     springBootStartWeb()
     addSpringframeworkBoot(SPRING_BOOT_STARTER_WEB) {
         excludeSpringLogging()
-        exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_TOMCAT)
     }
 
     addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
