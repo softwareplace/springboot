@@ -30,7 +30,11 @@ gradlePlugin {
     plugins {
         register("build-spring-openapi-plugin") {
             id = "build-spring-openapi-plugin"
-            implementationClass = "$sourceGroup.OpenApiPlugin"
+            implementationClass = "$sourceGroup.JavaOpenApiPlugin"
+        }
+        register("build-kotlin-spring-openapi-plugin") {
+            id = "build-kotlin-spring-openapi-plugin"
+            implementationClass = "$sourceGroup.KotlinOpenApiPlugin"
         }
     }
 }

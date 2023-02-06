@@ -46,6 +46,8 @@ plugins {
     id("build-source-project-plugin")
 
     //   Requires resources/openapi.yaml
+    id("build-kotlin-spring-openapi-plugin")
+    // Or
     id("build-spring-openapi-plugin")
 }
 

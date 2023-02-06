@@ -113,11 +113,14 @@ fun DependencyHandlerScope.fasterXmlJackson() {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
 }
 
-fun DependencyHandlerScope.postGreSql() {
+fun DependencyHandlerScope.postgresql() {
     addSpringframeworkBoot("spring-boot-starter-data-jpa") {
         excludeSpringLogging()
     }
     runtimeOnly("org.postgresql:postgresql:${Dependencies.Version.postgreSqlVersion}")
+}
+
+fun DependencyHandlerScope.testContainersPostgresql() {
     testImplementation("org.testcontainers:junit-jupiter:1.17.3")
     testImplementation("org.testcontainers:postgresql:${Dependencies.Version.testContainersVersion}")
 }
