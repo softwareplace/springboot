@@ -39,15 +39,19 @@ fun DependencyHandlerScope.springBootStartWeb() {
         excludeSpringLogging()
     }
 
-    addSpringframeworkBoot("spring-boot-starter-validation") {
-        excludeSpringLogging()
-    }
+    adSpringBootStarterValidation()
 
     addSpringframeworkBoot("spring-boot-starter") {
         excludeSpringLogging()
     }
 
     addSpringframeworkBootTest("spring-boot-starter-test") {
+        excludeSpringLogging()
+    }
+}
+
+fun DependencyHandlerScope.adSpringBootStarterValidation() {
+    addSpringframeworkBoot("spring-boot-starter-validation") {
         excludeSpringLogging()
     }
 }
