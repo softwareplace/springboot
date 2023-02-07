@@ -17,6 +17,8 @@ object Dependencies {
 
         const val springDocVersion = "1.6.9"
         const val jacksonVersion = "2.13.3"
+        const val lombokVersion = "1.18.12"
+        const val retrofit2Version = "2.9.0"
         const val springBootVersion = "2.7.2"
         const val postgreSqlVersion = "42.3.6"
         const val testContainersVersion = "1.17.3"

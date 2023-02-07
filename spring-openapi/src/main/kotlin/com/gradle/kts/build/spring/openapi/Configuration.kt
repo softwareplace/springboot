@@ -1,6 +1,7 @@
 package com.gradle.kts.build.spring.openapi
 
 import org.gradle.api.Project
+import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
@@ -51,7 +52,11 @@ fun Project.applyKotlinSourceSets() {
 
 fun Project.applyJavaSourceSets() {
     extra["snippetsDir"] = file("build/generated-snippets")
-    kotlinExtension.sourceSets["main"].kotlin.srcDir("$projectDir/build/generated/src/main/java")
+    extensions.getByName<SourceSetContainer>("sourceSets").apply {
+        getByName("main").apply {
+            java.srcDir("$projectDir/build/generated/src/main/java")
+        }
+    }
 }
 
 fun Project.applyTasks() {

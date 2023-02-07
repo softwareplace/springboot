@@ -58,6 +58,10 @@ fun DependencyHandlerScope.baseSpringApi() {
         excludeSpringLogging()
     }
 
+    springConfigurationProcessor()
+}
+
+fun DependencyHandlerScope.springConfigurationProcessor() {
     annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
 }
 
@@ -108,9 +112,23 @@ fun DependencyHandlerScope.flayWayMigration() {
 }
 
 fun DependencyHandlerScope.fasterXmlJackson() {
-    runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
-    runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
+}
+
+fun DependencyHandlerScope.rxJava() {
+    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
+}
+fun DependencyHandlerScope.lombok() {
+    implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+}
+
+fun DependencyHandlerScope.retrofit2() {
+    implementation("com.squareup.retrofit2:retrofit:${Dependencies.Version.retrofit2Version}")
+    implementation("com.squareup.retrofit2:converter-jackson:${Dependencies.Version.retrofit2Version}")
 }
 
 fun DependencyHandlerScope.postgresql() {
@@ -129,7 +147,9 @@ fun DependencyHandlerScope.springDoc() {
     implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
-    implementation("org.openapitools:jackson-databind-nullable:0.2.3")
+    implementation("org.openapitools:jackson-databind-nullable:0.2.4")
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("io.swagger:swagger-annotations:1.6.6")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
     runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
