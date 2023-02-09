@@ -9,7 +9,7 @@ object Dependencies {
         const val comGradleKtsConfiguration = "1.0.0"
         const val buildApplicationPluginVersion = "1.0.0"
         const val jsonLoggerVersion = "0.0.3"
-        const val springBootSecurityUtilVersion = "0.0.8"
+        const val springBootSecurityUtilVersion = "0.0.9"
         const val comGradleKtsSource = "1.0.0"
         const val log4jApiKotlinVersion = "1.2.0"
         const val springBoot = "2.7.2"
