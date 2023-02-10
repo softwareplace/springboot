@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
     `maven-publish`
     kotlin("jvm") version System.getProperty("kotlinVersion")
-    id("build-configuration-plugin") version System.getProperty("kotlinVersion")
+    id("build-configuration-plugin")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
