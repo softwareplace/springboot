@@ -1,22 +1,14 @@
-import com.gradle.kts.build.configuration.Dependencies
-import com.gradle.kts.build.configuration.addSpringframeworkBoot
-import com.gradle.kts.build.configuration.implementation
-import com.gradle.kts.build.configuration.kotlinDeps
-
+import com.gradle.kts.build.configuration.*
 
 plugins {
-    val kotlinVersion = "1.7.22"
-    val springBootVersion = "2.7.2"
-    val springDependencyManagement = "1.0.11.RELEASE"
-
     `kotlin-dsl`
     `maven-publish`
-    kotlin("jvm") version kotlinVersion
-    id("build-configuration-plugin") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version springBootVersion
-    id("io.spring.dependency-management") version springDependencyManagement
+    kotlin("jvm") version System.getProperty("kotlinVersion")
+    id("build-configuration-plugin") version System.getProperty("kotlinVersion")
+    id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
+    id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
+    id("org.springframework.boot") version System.getProperty("springBootVersion")
+    id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
 }
 
 repositories {
@@ -43,13 +35,10 @@ gradlePlugin {
             id = "build-source-plugin"
             implementationClass = "$sourceGroup.BuildSourcePlugin"
         }
-        register("build-source-application-plugin") {
-            id = "build-source-application-plugin"
-            implementationClass = "$sourceGroup.ApplicationPlugin"
-        }
-        register("build-source-project-plugin") {
-            id = "build-source-project-plugin"
-            implementationClass = "$sourceGroup.ProjectPlugin"
+
+        register("build-submodule-source-plugin") {
+            id = "build-submodule-source-plugin"
+            implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
         }
     }
 }
@@ -57,12 +46,6 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     addSpringframeworkBoot("spring-boot-gradle-plugin")
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.LibDomain.comGradleKtsConfiguration,
-            Dependencies.Module.buildConfiguration,
-            Dependencies.Version.comGradleKtsConfiguration,
-        )
-    )
+    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 }
 

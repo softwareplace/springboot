@@ -1,11 +1,12 @@
 package com.gradle.kts.build.configuration
 
 import org.gradle.api.Action
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.*
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 
 
@@ -17,21 +18,21 @@ inline fun <T> uncheckedCast(obj: Any?): T =
 fun DependencyHandlerScope.kotlinDeps() {
     implementation(
         Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlinSpring,
+            Dependencies.Group.orgJetbrainsKotlinSpring,
             Dependencies.Module.orgJetbrainsKotlinPluginSpring,
             Dependencies.Version.kotlin,
         )
     )
     implementation(
         Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlinJpa,
+            Dependencies.Group.orgJetbrainsKotlinJpa,
             Dependencies.Module.orgJetbrainsKotlinPluginJpa,
             Dependencies.Version.kotlin,
         )
     )
     implementation(
         Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.Group.orgJetbrainsKotlin,
             Dependencies.Module.kotlinReflect,
             Dependencies.Version.kotlin,
         )
@@ -39,14 +40,14 @@ fun DependencyHandlerScope.kotlinDeps() {
 
     implementation(
         Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.Group.orgJetbrainsKotlin,
             Dependencies.Module.kotlinStdlibJdk8,
         )
     )
 
     implementation(
         Dependencies.buildDependency(
-            Dependencies.LibDomain.orgJetbrainsKotlin,
+            Dependencies.Group.orgJetbrainsKotlin,
             Dependencies.Module.kotlinGradlePlugin,
             Dependencies.Version.kotlin
         )
@@ -131,4 +132,11 @@ fun DependencyHandlerScope.addSpringframeworkBootTest(
     "$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}",
     dependencyConfiguration
 )
+
+fun ConfigurationContainer.exclude(group: String, modules: Array<String>) {
+    modules.forEach {
+        all { exclude(group = group, module = it) }
+    }
+}
+
 

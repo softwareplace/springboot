@@ -1,11 +1,11 @@
+import com.gradle.kts.build.configuration.Dependencies
 import com.gradle.kts.build.configuration.kotlinDeps
 
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version System.getProperty("kotlinVersion")
     id("build-source-plugin")
-    id("build-configuration-plugin")
     id("org.openapi.generator") version "5.3.0"
 }
 
@@ -42,7 +42,9 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:6.2.0")
+    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openapitools}") {
+        exclude("com.fasterxml.jackson.core", "jackson-databind")
+    }
 }
 
 

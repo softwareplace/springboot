@@ -1,7 +1,7 @@
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
 repositories {
