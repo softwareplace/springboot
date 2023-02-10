@@ -12,7 +12,8 @@ import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
 
 const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 
-inline fun <T> uncheckedCast(obj: Any?): T =
+@Suppress("UNCHECKED_CAST")
+fun <T> uncheckedCast(obj: Any?): T =
     obj as T
 
 fun DependencyHandlerScope.kotlinDeps() {
