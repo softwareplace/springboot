@@ -75,7 +75,6 @@ fun DependencyHandlerScope.springWebFlux() {
 
 fun DependencyHandlerScope.baseSpringApi() {
     springBootStartWeb()
-    implementation("")
     springConfigurationProcessor()
 }
 
@@ -174,13 +173,14 @@ fun DependencyHandlerScope.testContainersPostgresql() {
 
 fun DependencyHandlerScope.springDoc() {
     implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
-    implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotation}")
     implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:${Dependencies.Version.springDocVersion}")
+    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
+    runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
+    implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotation}")
     implementation("org.openapitools:jackson-databind-nullable:${Dependencies.Version.openapitoolsJacksonDatabindNullable}")
     implementation("javax.annotation:javax.annotation-api:${Dependencies.Version.javaxAnnotationApi}")
     implementation("javax.validation:validation-api:${Dependencies.Version.javaxValidationApi}")
     implementation("io.swagger:swagger-annotations:${Dependencies.Version.swaggerAnnotation}")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${Dependencies.Version.springRstDocsMockMVC}")
-    runtimeOnly("org.springdoc:springdoc-openapi-data-rest:${Dependencies.Version.springDocVersion}")
-    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
 }

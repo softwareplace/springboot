@@ -46,7 +46,7 @@ class BuildSourcePlugin : Plugin<Project> {
 
     private fun Project.applyPlugins() {
         allprojects {
-            extensions.getByName<JavaPluginExtension>("java").sourceCompatibility = JavaVersion.VERSION_11
+//            extensions.getByName<JavaPluginExtension>("java").sourceCompatibility = JavaVersion.VERSION_11
             apply(plugin = "org.springframework.boot")
             apply(plugin = "io.spring.dependency-management")
             apply(plugin = "org.jetbrains.kotlin.plugin.spring")
