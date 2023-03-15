@@ -16,8 +16,8 @@ object Dependencies {
         val jsonwebtoken: String by lazy { getProperty("jsonwebtokenVersion") { "0.9.1" } }
         val flywaydb: String by lazy { getProperty("flywaydbVersion") { "8.3.0" } }
         val kotlin: String by lazy { getProperty("kotlinVersion") { "1.6.21" } }
-        val jsonLoggerVersion: String by lazy { getProperty("jsonLoggerVersion") { "0.0.4" } }
-        val springBootSecurityUtilVersion: String by lazy { getProperty("springBootSecurityUtilVersion") { "0.0.12" } }
+        val jsonLoggerVersion: String by lazy { getProperty("jsonLoggerVersion") { "0.0.5" } }
+        val springBootSecurityUtilVersion: String by lazy { getProperty("springBootSecurityUtilVersion") { "0.0.14" } }
         val springBoot: String by lazy { getProperty("springBootVersion") { "2.7.2" } }
         val springBootSecurityTest: String by lazy { getProperty("springBootSecurityTestVersion") { "5.7.6" } }
         val jakartaAnnotation: String by lazy { getProperty("jakartaAnnotationVersion") { "2.1.1" } }
