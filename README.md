@@ -14,19 +14,10 @@ git submodule add --force https://github.com/eliasmeireles/spring-boot-included-
 
 ````kotlin
 rootProject.name = "your-app-name"
-include(":app")
 
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven("https://jitpack.io")
-    }
-}
+apply(from = "spring-boot-included-builds/libs.settings.gradle.kts")
+apply(from = "spring-boot-included-builds/included.build.settings.gradle.kts")
 
-includeBuild("spring-boot-included-builds/build-configuration")
-includeBuild("spring-boot-included-builds/build-source")
-includeBuild("spring-boot-included-builds/spring-openapi")
 ````
 
 - Root project build.gradle.kts
