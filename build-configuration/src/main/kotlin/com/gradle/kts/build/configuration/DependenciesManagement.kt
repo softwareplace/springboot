@@ -6,8 +6,9 @@ import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
+import org.gradle.kotlin.dsl.exclude
 
 
 const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
@@ -102,6 +103,10 @@ fun DependencyHandlerScope.testImplementation(target: String) {
 
 fun DependencyHandlerScope.runtimeOnly(target: String) {
     add("runtimeOnly", target)
+}
+
+fun DependencyHandlerScope.kaptAnnotationProcessor(target: String) {
+    add("kapt", target)
 }
 
 fun DependencyHandlerScope.annotationProcessor(target: String) {

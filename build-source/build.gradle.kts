@@ -1,11 +1,15 @@
-import com.gradle.kts.build.configuration.*
+import com.gradle.kts.build.configuration.addSpringframeworkBoot
+import com.gradle.kts.build.configuration.implementation
+import com.gradle.kts.build.configuration.kotlinDeps
 
 plugins {
     `kotlin-dsl`
     `maven-publish`
     kotlin("jvm") version System.getProperty("kotlinVersion")
     id("build-configuration-plugin")
+    kotlin("kapt") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
+//    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
@@ -46,6 +50,7 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     addSpringframeworkBoot("spring-boot-gradle-plugin")
+//    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 }
 

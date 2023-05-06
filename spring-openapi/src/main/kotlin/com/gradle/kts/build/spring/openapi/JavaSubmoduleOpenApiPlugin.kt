@@ -4,14 +4,16 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 
-class KotlinOpenApiPlugin : Plugin<Project> {
+class JavaSubmoduleOpenApiPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.openapi.generator")
-            openApiGenerateConfig(generator = "kotlin-spring")
-            applyKotlinSourceSets()
+            applyJavaSourceSets()
+            openApiGenerateConfig()
             applyTasks()
         }
     }
+
+
 }
