@@ -14,7 +14,7 @@ object Dependencies {
         val jdk: String by lazy { getProperty("jdkVersion") }
         val glassfishJakarta: String by lazy { getProperty("glassfishJakarta") }
         val loggBack: String by lazy { getProperty("loggBack") }
-        val graalvmBuildToolsNativeVersion: String by lazy { getProperty("graalvmBuildToolsNativeVersion") }
+        val graalvmBuildToolsNative: String by lazy { getProperty("graalvmBuildToolsNativeVersion") }
         val eclipseJettyHttp2Server: String by lazy { getProperty("eclipseJettyHttp2ServerVersion") }
         val passay: String by lazy { getProperty("passayVersion") }
         val jsonwebtoken: String by lazy { getProperty("jsonwebtokenVersion") }
@@ -35,7 +35,7 @@ object Dependencies {
         val postgresqlVersion: String by lazy { getProperty("postgresqlVersion") }
         val testContainersVersion: String by lazy { getProperty("testContainersVersion") }
         val ioMockkMockk: String by lazy { getProperty("ioMockkMockkVersion") }
-        val openapitoolsJacksonDatabindNullable: String by lazy { getProperty("openapitoolsJacksonDatabindNullableVersion") }
+        val openapiToolsJacksonDatabindNullable: String by lazy { getProperty("openapitoolsJacksonDatabindNullableVersion") }
         val javaxAnnotationApi: String by lazy { getProperty("javaxAnnotationApiVersion") }
         val javaxValidationApi: String by lazy { getProperty("javaxValidationApiVersion") }
         val swaggerAnnotation: String by lazy { getProperty("swaggerAnnotationVersion") }
@@ -43,9 +43,9 @@ object Dependencies {
         val springRstDocsMockMVC: String by lazy { getProperty("springRstDocsMockMVCVersion") }
         val mockitoKotlin: String by lazy { getProperty("mockitoKotlinVersion") }
         val jUnitJupiter: String by lazy { getProperty("jUnitJupiterVersion") }
-        val openapitools: String by lazy { getProperty("openapitoolsVersion") }
+        val openapiTools: String by lazy { getProperty("openapitoolsVersion") }
         val benManesCaffeine: String by lazy { getProperty("benManesCaffeine") }
-        val mappstruct: String by lazy { getProperty("mappstruct") }
+        val mappStruct: String by lazy { getProperty("mappstruct") }
     }
 
     object Group {

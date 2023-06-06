@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Construo example api
+  description: |-
+    Construo sample
+  version: 1.0.11
+paths:
+  /example:
+    get:
+      tags:
+        - Example
+      summary: Example swagger
+      description: Example swagger
+      operationId: exampleBuild
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponseDTO"
+
+components:
+  schemas:
+    EnumTest:
+      type: string
+      enum:
+        - TEST
+        - TEST_TEST
+    BaseResponseDTO:
+      type: object
+      properties:
+        success:
+          type: boolean
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+
+#  securitySchemes:
+#    petstore_auth:
+#      type: oauth2
+#      flows:
+#        implicit:
+#          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+#          scopes:
+#            write:pets: modify pets in your account
+#            read:pets: read your pets
+#    api_key:
+#      type: apiKey
+#      name: api_key
+#      in: header

@@ -39,7 +39,7 @@ buildscript {
     System.setProperty("javaxServletVersion", "2.5")
     System.setProperty("rxJavaVersion", "2.2.21")
     System.setProperty("modelMapperVersion", "3.1.0")
-    System.setProperty("lombokVersion", "1.18.12")
+    System.setProperty("lombokVersion", "1.18.28")
 
     System.setProperty("retrofit2Version", "2.9.0")
 

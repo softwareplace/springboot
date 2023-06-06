@@ -55,7 +55,7 @@ dependencies {
     kotlinDeps()
     jakarta()
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openapitools}") {
+    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openapiTools}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
 }

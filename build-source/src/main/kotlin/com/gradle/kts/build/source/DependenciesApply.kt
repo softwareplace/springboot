@@ -139,8 +139,8 @@ fun DependencyHandlerScope.jsonWebToken() {
 }
 
 fun DependencyHandlerScope.mappstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappstruct}")
-    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappstruct}")
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
+    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {
@@ -165,7 +165,9 @@ fun DependencyHandlerScope.modelMapper() {
 
 fun DependencyHandlerScope.lombok() {
     implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+    mappstruct()
 }
 
 fun DependencyHandlerScope.retrofit2() {
@@ -197,7 +199,7 @@ fun DependencyHandlerScope.springDoc() {
     implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:${Dependencies.Version.springDocVersion}")
     implementation("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
-    implementation("org.openapitools:jackson-databind-nullable:${Dependencies.Version.openapitoolsJacksonDatabindNullable}")
+    implementation("org.openapitools:jackson-databind-nullable:${Dependencies.Version.openapiToolsJacksonDatabindNullable}")
     implementation("io.swagger:swagger-annotations:${Dependencies.Version.swaggerAnnotation}")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${Dependencies.Version.springRstDocsMockMVC}")
 }
