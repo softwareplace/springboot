@@ -1,4 +1,4 @@
-package com.gradle.kts.java.buildsource
+package com.gradle.kts.kotlin.buildsource
 
 import com.gradle.kts.build.configuration.Dependencies
 import com.gradle.kts.build.configuration.implementation
@@ -13,6 +13,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 open class BuildSourcePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -56,6 +58,7 @@ open class BuildSourcePlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
             apply(plugin = "org.jetbrains.kotlin.jvm")
             apply(plugin = "org.gradle.maven-publish")
+            apply(plugin = "org.jetbrains.kotlin.kapt")
             repositories {
                 mavenCentral()
                 mavenLocal()
