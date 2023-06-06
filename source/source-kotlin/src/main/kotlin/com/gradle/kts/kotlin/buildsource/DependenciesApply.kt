@@ -158,6 +158,12 @@ fun DependencyHandlerScope.fasterXmlJackson() {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
 }
 
+fun DependencyHandlerScope.kotlinReactive() {
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    testImplementation("io.projectreactor:reactor-test")
+}
+
 fun DependencyHandlerScope.rxJava() {
     implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJava}")
 }
