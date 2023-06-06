@@ -15,8 +15,8 @@ git submodule add --force https://github.com/eliasmeireles/spring-boot-included-
 ````kotlin
 rootProject.name = "your-app-name"
 
-apply(from = "spring-boot-included-builds/libs.settings.gradle.kts")
-apply(from = "spring-boot-included-builds/included.build.settings.gradle.kts")
+apply(from = "java-boot-included-builds/libs.settings.gradle.kts")
+apply(from = "java-boot-included-builds/included.build.settings.gradle.kts")
 
 ````
 
@@ -24,7 +24,7 @@ apply(from = "spring-boot-included-builds/included.build.settings.gradle.kts")
 
 ```kotlin
 plugins {
-    id("build-source-plugin")
+    id("source-plugin")
 }
 ```
 
@@ -33,17 +33,17 @@ plugins {
 ```kotlin
 plugins {
     `kotlin-dsl`
-    id("build-source-application-plugin")
-    id("build-source-project-plugin")
+    id("source-application-plugin")
+    id("source-project-plugin")
 
     //   Requires resources/openapi.yaml
-    id("build-kotlin-spring-openapi-plugin")
+    id("build-openapi-source-kotlin-java-openapi-plugin")
     // Or
-    id("build-spring-openapi-plugin")
+    id("build-java-openapi-plugin")
 }
 
 dependencies {
-    // For spring boot security lib. See https://github.com/eliasmeireles/spring-boot-security-util
+    // For java boot security lib. See https://github.com/eliasmeireles/spring-boot-security-util
     springBootSecurityUtils()
     passay()
     baseSpringApi()

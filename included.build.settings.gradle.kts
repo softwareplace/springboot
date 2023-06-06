@@ -1,3 +1,5 @@
 includeBuild("spring-boot-included-builds/build-configuration")
-includeBuild("spring-boot-included-builds/build-source")
-includeBuild("spring-boot-included-builds/spring-openapi")
+includeBuild("spring-boot-included-builds/source/source-java")
+includeBuild("spring-boot-included-builds/source/source-kotlin")
+includeBuild("spring-boot-included-builds/openapi/openapi-java")
+includeBuild("spring-boot-included-builds/openapi/openapi-kotlin")

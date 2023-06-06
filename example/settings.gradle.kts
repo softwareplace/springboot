@@ -4,8 +4,11 @@ include("java-example")
 include("kotlin-example")
 
 includeBuild("../build-configuration")
-includeBuild("../build-source")
-includeBuild("../spring-openapi")
+includeBuild("../source/source-java")
+includeBuild("../source/source-kotlin")
+
+includeBuild("../openapi/openapi-java")
+includeBuild("../openapi/openapi-kotlin")
 
 apply(from = "../libs.settings.gradle.kts")
 

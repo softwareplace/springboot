@@ -5,11 +5,9 @@ import com.spring.example.model.BaseResponseMapper;
 import com.spring.example.openapi.controller.ExampleApi;
 import com.spring.example.openapi.model.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,7 +21,6 @@ public class JavaControllerImpl implements ExampleApi {
 
     @Override
     public ResponseEntity<BaseResponseDTO> exampleBuild() {
-        val scAccepted = HttpServletResponse.SC_ACCEPTED;
         var response = BaseResponse.builder()
                 .message("Application is running")
                 .success(true)

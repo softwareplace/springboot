@@ -1,8 +1,8 @@
-import com.gradle.kts.build.source.*
+import com.gradle.kts.java.buildsource.*
 
 plugins {
-    id("build-source-plugin")
-    id("build-spring-openapi-plugin")
+    id("java-source-plugin")
+    id("java-openapi-plugin")
 }
 
 group = "com.spring.example.openapi"
