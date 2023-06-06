@@ -1,7 +1,4 @@
-import com.gradle.kts.build.source.mappstruct
-import com.gradle.kts.build.source.springDoc
-import com.gradle.kts.build.source.springJettyApi
-import com.gradle.kts.build.source.test
+import com.gradle.kts.build.source.*
 
 plugins {
     id("build-source-plugin")
@@ -14,6 +11,7 @@ version = "1.0.0"
 dependencies {
     springJettyApi()
     mappstruct()
+    jsonLogger()
     springDoc()
     test()
 }

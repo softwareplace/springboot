@@ -1,9 +1,9 @@
 openapi: 3.0.3
 info:
-  title: Construo example api
+  title: Spring boot example api
   description: |-
-    Construo sample
-  version: 1.0.11
+    Spring sample
+  version: 1.0.0
 paths:
   /example:
     get:
@@ -37,6 +37,24 @@ components:
           format: int64
         message:
           type: string
+        date:
+          type: string
+          format: date
+        dateTime:
+          type: string
+          format: local-date-time
+          example: 2023-06-06T10:42:42.590Z
+        time:
+          type: string
+          format: time
+          example: 10:55
+      required:
+        - success
+        - message
+        - timestamp
+        - date
+        - dateTime
+        - time
 
 #  securitySchemes:
 #    petstore_auth:

@@ -8,17 +8,19 @@ pluginManagement {
 
 buildscript {
     System.setProperty("jdkVersion", "17")
-    System.setProperty("kotlinVersion", "1.8.20")
-    System.setProperty("springBootVersion", "3.0.6")
+    System.setProperty("kotlinVersion", "1.8.21")
+
+    System.setProperty("springBootVersion", "3.1.0")
+    System.setProperty("springBootSecurityTestVersion", "5.7.6")
+    System.setProperty("springDocVersion", "1.7.0")
+    System.setProperty("springRstDocsMockMVCVersion", "3.0.0")
+    System.setProperty("springDependencyManagementVersion", "1.1.0")
 
     System.setProperty("openapitoolsVersion", "6.5.0")
     System.setProperty("openapitoolsJacksonDatabindNullableVersion", "0.2.4")
     System.setProperty("swaggerAnnotationVersion", "2.0.0-rc2")
-    System.setProperty("springDocVersion", "1.7.0")
-    System.setProperty("springRstDocsMockMVCVersion", "3.0.0")
 
     System.setProperty("graalvmBuildToolsNativeVersion", "0.9.21")
-    System.setProperty("springDependencyManagementVersion", "1.1.0")
     System.setProperty("glassfishJakarta", "4.0.2")
     System.setProperty("loggBack", "1.2.11")
     System.setProperty("graalvmBuildToolsNativeVersion", "0.9.21")
@@ -31,8 +33,6 @@ buildscript {
     System.setProperty("jsonLoggerVersion", "0.0.7")
 
     System.setProperty("springBootSecurityUtilVersion", "0.0.13")
-
-    System.setProperty("springBootSecurityTestVersion", "5.7.6")
 
     System.setProperty("jakartaAnnotationVersion", "2.1.1")
     System.setProperty("jacksonVersion", "2.14.2")
