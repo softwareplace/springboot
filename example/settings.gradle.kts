@@ -1,5 +1,9 @@
 rootProject.name = "example"
 
+buildscript {
+    System.setProperty("jdkVersion", "17")
+}
+
 include("java-example")
 include("kotlin-example")
 
