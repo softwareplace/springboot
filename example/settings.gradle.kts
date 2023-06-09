@@ -1,8 +1,6 @@
 rootProject.name = "example"
 
-buildscript {
-    System.setProperty("jdkVersion", "17")
-}
+
 
 include(":security")
 include(":java-example")

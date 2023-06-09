@@ -7,6 +7,7 @@ pluginManagement {
 }
 
 buildscript {
+    System.setProperty("jdkVersion", "19")
     System.setProperty("kotlinVersion", "1.8.21")
 
     System.setProperty("springBootVersion", "3.1.0")
