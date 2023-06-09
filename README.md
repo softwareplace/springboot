@@ -56,8 +56,26 @@ apply("spring-boot-included-builds/included.build.settings.gradle.kts")
 > procedure, follow the examples below
 
 1. Inside the root directory create a new directory. In this example we will use the name of `application`
-2. In the `settings.gradle.kts` file add `include(":application")`
-3. Inside `application` directory create a new file named `build.gradle.kts`
+2. Create project package and main class by running
+
+````shell
+mkdir -p application/src/main/kotlin/com/spring/example
+touch application/src/main/kotlin/com/spring/example/MainApp.kt
+echo "package com.spring.example
+
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+
+@SpringBootApplication
+class MainApp 
+
+fun main(args: Array<String>) {
+    SpringApplication.run(MainApp::class.java, *args)
+}" > "application/src/main/kotlin/com/spring/example/MainApp.kt"
+````
+
+3. In the `settings.gradle.kts` file add `include(":application")`
+4. Inside `application` directory create a new file named `build.gradle.kts`
 
 > After creating the `build.gradle.kts` file, add it to configure the project as shown in the example below
 
