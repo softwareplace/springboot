@@ -5,7 +5,6 @@ import com.gradle.kts.build.configuration.kotlinDeps
 plugins {
     `kotlin-dsl`
     `maven-publish`
-    kotlin("jvm") version System.getProperty("kotlinVersion")
     id("build-configuration-plugin")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
 //    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")

@@ -5,7 +5,6 @@ import com.gradle.kts.java.buildsource.jakarta
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    kotlin("jvm") version System.getProperty("kotlinVersion")
     id("java-source-plugin")
     id("org.openapi.generator") version System.getProperty("openapitoolsVersion")
 }

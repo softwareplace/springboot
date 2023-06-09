@@ -5,7 +5,6 @@ import com.gradle.kts.build.configuration.kotlinDeps
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    kotlin("jvm") version System.getProperty("kotlinVersion")
     id("source-plugin")
     id("org.openapi.generator") version System.getProperty("openapitoolsVersion")
 }
