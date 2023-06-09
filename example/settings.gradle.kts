@@ -4,8 +4,11 @@ buildscript {
     System.setProperty("jdkVersion", "17")
 }
 
-include("java-example")
-include("kotlin-example")
+include(":security")
+include(":java-example")
+include(":kotlin-example")
+
+project(":security").projectDir = file("shared-modules/security")
 
 includeBuild("../build-configuration")
 includeBuild("../source/source-java")

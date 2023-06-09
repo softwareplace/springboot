@@ -9,6 +9,7 @@ group = "com.spring.example.openapi"
 version = "1.0.0"
 
 dependencies {
+    implementation(project(":security"))
     springWebFlux()
     jsonLogger()
     springDoc()
