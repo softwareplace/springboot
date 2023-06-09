@@ -39,8 +39,8 @@ gradlePlugin {
             implementationClass = "$sourceGroup.BuildSourcePlugin"
         }
 
-        register("java-build-submodule-source-plugin") {
-            id = "java-build-submodule-source-plugin"
+        register("java-submodule-source-plugin") {
+            id = "java-submodule-source-plugin"
             implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
         }
     }

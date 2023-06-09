@@ -96,7 +96,7 @@ fun DependencyHandlerScope.baseSpringApi() {
 }
 
 fun DependencyHandlerScope.springConfigurationProcessor() {
-    kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
+    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
 }
 
 fun DependencyHandlerScope.springBootSecurity() {
@@ -143,7 +143,7 @@ fun DependencyHandlerScope.mappstructJava() {
 
 fun DependencyHandlerScope.mappstruct() {
     implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
-    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {

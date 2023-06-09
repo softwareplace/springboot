@@ -33,10 +33,6 @@ gradlePlugin {
             id = "openapi-plugin"
             implementationClass = "$sourceGroup.OpenApiPlugin"
         }
-        register("submodule-java-openapi-plugin") {
-            id = "submodule-java-openapi-plugin"
-            implementationClass = "$sourceGroup.SubmoduleOpenApiPlugin"
-        }
     }
 }
 

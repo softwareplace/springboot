@@ -136,11 +136,6 @@ fun DependencyHandlerScope.jsonWebToken() {
     implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwt}")
 }
 
-fun DependencyHandlerScope.mappstructJava() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
-}
-
 fun DependencyHandlerScope.mappstruct() {
     implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
     kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
@@ -170,13 +165,6 @@ fun DependencyHandlerScope.rxJava() {
 
 fun DependencyHandlerScope.modelMapper() {
     implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapper}")
-}
-
-fun DependencyHandlerScope.lombok() {
-    implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-    annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    mappstructJava()
 }
 
 fun DependencyHandlerScope.retrofit2() {
