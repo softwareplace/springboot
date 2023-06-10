@@ -15,6 +15,10 @@ jobs:
         with:
           java-version: 19
 
-      - name: Build validation
+      - name: Kotlin example validation
         run: |
-          cd example && ./gradlew build
+          cd example && ./gradlew kotlin-example:build
+
+      - name: Java example validation
+        run: |
+          cd example && ./gradlew java-example:build
