@@ -1,11 +1,7 @@
 springdoc:
-  api-docs:
-    enabled: true
   swagger-ui:
-    csrf:
-      enabled: true
-    path: docs
-    operations-sorter: method
-    tags-sorter: alpha
-    try-it-out-enabled: true
+    use-root-path: true
+    default-models-expand-depth: -1
+  api-docs:
+    version: openapi_3_1
 

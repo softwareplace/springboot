@@ -13,10 +13,11 @@ buildscript {
     System.setProperty("springBootVersion", "3.1.0")
     System.setProperty("springBootSecurityTestVersion", "5.7.6")
     System.setProperty("springDocVersion", "1.7.0")
+    System.setProperty("springdocStarterWebmvc", "2.1.0")
     System.setProperty("springRstDocsMockMVCVersion", "3.0.0")
     System.setProperty("springDependencyManagementVersion", "1.1.0")
 
-    System.setProperty("openapitoolsVersion", "6.5.0")
+    System.setProperty("openapitoolsVersion", "6.6.0")
     System.setProperty("openapitoolsJacksonDatabindNullableVersion", "0.2.4")
     System.setProperty("swaggerAnnotationVersion", "2.0.0-rc2")
 

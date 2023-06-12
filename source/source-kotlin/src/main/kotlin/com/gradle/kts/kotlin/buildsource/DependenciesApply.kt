@@ -188,15 +188,3 @@ fun DependencyHandlerScope.testContainersPostgresql() {
     testImplementation("org.testcontainers:junit-jupiter:${Dependencies.Version.testContainersVersion}")
     testImplementation("org.testcontainers:postgresql:${Dependencies.Version.testContainersVersion}")
 }
-
-fun DependencyHandlerScope.springDoc() {
-    jakarta()
-    javaxServlet()
-    implementation("org.springdoc:springdoc-openapi-webmvc-core:${Dependencies.Version.springDocVersion}")
-    implementation("org.springdoc:springdoc-openapi-ui:${Dependencies.Version.springDocVersion}")
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:${Dependencies.Version.springDocVersion}")
-    implementation("org.springdoc:springdoc-openapi-kotlin:${Dependencies.Version.springDocVersion}")
-    implementation("org.openapitools:jackson-databind-nullable:${Dependencies.Version.openapiToolsJacksonDatabindNullable}")
-    implementation("io.swagger:swagger-annotations:${Dependencies.Version.swaggerAnnotation}")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${Dependencies.Version.springRstDocsMockMVC}")
-}

@@ -1,4 +1,7 @@
-import com.gradle.kts.java.buildsource.*
+import com.gradle.kts.java.buildsource.jsonLogger
+import com.gradle.kts.java.buildsource.lombok
+import com.gradle.kts.java.buildsource.springWebFlux
+import com.gradle.kts.java.buildsource.test
 
 plugins {
     id("java-source-plugin")
@@ -12,7 +15,6 @@ dependencies {
     implementation(project(":security"))
     springWebFlux()
     jsonLogger()
-    springDoc()
     lombok()
     test()
 }

@@ -14,7 +14,6 @@ dependencies {
     springJettyApi()
     mappstruct()
     jsonLogger()
-    springDoc()
     test()
 }
 
