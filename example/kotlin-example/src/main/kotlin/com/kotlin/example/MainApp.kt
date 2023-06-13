@@ -1,4 +1,4 @@
-package com.spring.example
+package com.kotlin.example
 
 import com.example.shared.SharedModuleExample
 import com.softwareplace.jsonlogger.log.kLogger

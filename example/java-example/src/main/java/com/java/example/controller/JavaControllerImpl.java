@@ -1,9 +1,9 @@
-package com.spring.example.controller;
+package com.java.example.controller;
 
-import com.spring.example.model.BaseResponse;
-import com.spring.example.model.BaseResponseMapper;
-import com.spring.example.openapi.controller.ExampleApi;
-import com.spring.example.openapi.model.BaseResponseDTO;
+import com.java.example.model.BaseResponse;
+import com.java.example.model.BaseResponseMapper;
+import com.java.example.rest.controller.ExampleApi;
+import com.java.example.rest.model.BaseResponseRest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +20,9 @@ public class JavaControllerImpl implements ExampleApi {
     private final BaseResponseMapper mapper;
 
     @Override
-    public ResponseEntity<BaseResponseDTO> exampleBuild() {
+    public ResponseEntity<BaseResponseRest> exampleBuild() {
         var response = BaseResponse.builder()
-                .message("Application is running")
+                .message("[java-example] Application is running")
                 .success(true)
                 .time(LocalTime.now())
                 .date(LocalDate.now())

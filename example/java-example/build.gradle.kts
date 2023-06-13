@@ -8,7 +8,7 @@ plugins {
     id("java-openapi-plugin")
 }
 
-group = "com.spring.example.openapi"
+group = "com.java.example"
 version = "1.0.0"
 
 dependencies {

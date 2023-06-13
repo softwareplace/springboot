@@ -7,18 +7,6 @@ plugins {
     id("org.openapi.generator") version System.getProperty("openapitoolsVersion")
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
-    maven("https://jitpack.io")
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 val sourceGroup = "com.gradle.kts.build.java.openapi"
 group = sourceGroup
 

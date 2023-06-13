@@ -1,4 +1,4 @@
-package com.spring.example.model
+package com.webflux.example.model
 
 import java.time.LocalDate
 import java.time.LocalDateTime

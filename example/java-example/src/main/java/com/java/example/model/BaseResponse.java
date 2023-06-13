@@ -1,4 +1,4 @@
-package com.spring.example.model;
+package com.java.example.model;
 
 
 import lombok.Builder;

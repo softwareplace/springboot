@@ -1,10 +1,10 @@
-package com.spring.example.controller
+package com.kotlin.example.controller
 
 
-import com.spring.example.model.BaseResponse
-import com.spring.example.model.BaseResponseMapper
-import com.spring.example.openapi.controller.ExampleController
-import com.spring.example.openapi.model.BaseResponseDTO
+import com.kotlin.example.model.BaseResponse
+import com.kotlin.example.model.BaseResponseMapper
+import com.kotlin.example.openapi.rest.controller.ExampleController
+import com.kotlin.example.openapi.rest.model.BaseResponseRest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
@@ -15,9 +15,9 @@ import java.time.LocalTime
 class ControllerImpl(
     private val mapper: BaseResponseMapper
 ) : ExampleController {
-    override fun exampleBuild(): ResponseEntity<BaseResponseDTO> {
+    override fun exampleBuild(): ResponseEntity<BaseResponseRest> {
         val response = BaseResponse(
-            message = "Application is running",
+            message = "[kotlin-example] Application is running",
             success = true,
             timestamp = System.currentTimeMillis(),
             time = LocalTime.now(),
@@ -27,6 +27,4 @@ class ControllerImpl(
 
         return ResponseEntity.ok(mapper.parse(response))
     }
-
-
 }

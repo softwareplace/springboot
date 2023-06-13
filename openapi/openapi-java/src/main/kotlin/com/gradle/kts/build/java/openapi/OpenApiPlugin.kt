@@ -13,8 +13,8 @@ class OpenApiPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.openapi.generator")
-            applyJavaSourceSets()
             openApiGenerateConfig()
+            applyJavaSourceSets()
             applyTasks()
             allprojects {
                 dependencies {

@@ -88,6 +88,7 @@ fun Project.springJettyApi() {
 
 fun DependencyHandlerScope.springWebFlux() {
     addSpringframeworkBoot("spring-boot-starter-webflux")
+    kotlinReactive()
 }
 
 fun DependencyHandlerScope.baseSpringApi() {

@@ -15,16 +15,24 @@ enum class DocumentationProvider(val type: String) {
     SOURCE("source")
 }
 
+class OpenApiSettings(
+    var generator: String = "spring",
+    var sourceFolder: String = "rest",
+    var modelNameSuffix: String = "Rest",
+    var swaggerFileName: String = "openapi.yaml",
+)
+
+val openApiSettings: OpenApiSettings by lazy { OpenApiSettings() }
+
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
 private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
 
 fun OpenApiGeneratorGenerateExtension.apply(
-    groupId: String,
+    groupId: String = "app",
     projectPath: String,
-    generator: String = "spring",
-    openApiYamlFilePath: String = "${projectPath}/src/main/resources/openapi.yaml"
+    openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openApiSettings.swaggerFileName}"
 ) {
     schemaMappings.putAll(
         mapOf(
@@ -44,20 +52,23 @@ fun OpenApiGeneratorGenerateExtension.apply(
         )
     )
 
-    generatorName.set(generator)
-    this.groupId.set(groupId)
-    packageName.set(groupId)
+    generatorName.set(openApiSettings.generator)
+    this.groupId.set("${groupId}.${openApiSettings.sourceFolder}")
+    packageName.set("${groupId}.${openApiSettings.sourceFolder}")
     inputSpec.set(openApiYamlFilePath)
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generated")
-    apiPackage.set("${groupId}.controller")
-    invokerPackage.set("${groupId}.invoker")
+    apiPackage.set("${groupId}.${openApiSettings.sourceFolder}.controller")
+    invokerPackage.set("${groupId}.${openApiSettings.sourceFolder}.invoker")
     apiNameSuffix.set("Controller")
-    modelPackage.set("${groupId}.model")
+    modelNameSuffix.set(openApiSettings.modelNameSuffix)
+    modelPackage.set("${groupId}.${openApiSettings.sourceFolder}.model")
     skipOperationExample.set(true)
     configOptions.set(
         mapOf(
             "apiSuffix" to "Controller",
+            "apiNameSuffix" to "Controller",
+            "additionalModelTypeAnnotations" to "@lombok.Builder",
             "interfaceOnly" to "true",
             "skipDefaultInterface" to "true",
             "defaultInterfaces" to "false",
@@ -76,13 +87,10 @@ fun OpenApiGeneratorGenerateExtension.apply(
     )
 }
 
-fun Project.openApiGenerateConfig(
-    generator: String = "spring",
-) {
+fun Project.openApiGenerateConfig() {
     afterEvaluate {
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
             groupId = "$group",
-            generator = generator,
             projectPath = projectDir.path,
         )
     }

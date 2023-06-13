@@ -1,4 +1,4 @@
-package com.spring.example;
+package com.java.example;
 
 import com.example.shared.SharedModuleExample;
 import jakarta.annotation.PostConstruct;

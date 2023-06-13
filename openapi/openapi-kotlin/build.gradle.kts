@@ -1,5 +1,4 @@
 import com.gradle.kts.build.configuration.Dependencies
-import com.gradle.kts.build.configuration.kotlinDeps
 
 
 plugins {
@@ -7,18 +6,6 @@ plugins {
     `kotlin-dsl`
     id("source-plugin")
     id("org.openapi.generator") version System.getProperty("openapitoolsVersion")
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
-    maven("https://jitpack.io")
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 val sourceGroup = "com.gradle.kts.kotlin.openapi"
@@ -36,8 +23,6 @@ gradlePlugin {
 }
 
 dependencies {
-    kotlinDeps()
-//    jakarta()
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openapiTools}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")

@@ -13,7 +13,7 @@ class OpenApiPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.openapi.generator")
-            openApiGenerateConfig(generator = "kotlin-spring")
+            openApiGenerateConfig()
             applyKotlinSourceSets()
             applyTasks()
             allprojects {

@@ -5,7 +5,7 @@ plugins {
     id("openapi-plugin")
 }
 
-group = "com.spring.example.openapi"
+group = "com.kotlin.example.openapi"
 version = "1.0.0"
 
 dependencies {
