@@ -68,7 +68,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
         mapOf(
             "apiSuffix" to "Controller",
             "apiNameSuffix" to "Controller",
-            "additionalModelTypeAnnotations" to "@lombok.Builder",
+            "additionalModelTypeAnnotations" to "@lombok.Builder\n@lombok.Data",
             "interfaceOnly" to "true",
             "skipDefaultInterface" to "true",
             "defaultInterfaces" to "false",
