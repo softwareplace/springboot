@@ -18,8 +18,8 @@ private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 
 fun DependencyHandlerScope.loggBack() {
-    implementation("ch.qos.logback:logback-classic:${Dependencies.Version.loggBack}")
-    implementation("ch.qos.logback:logback-core:${Dependencies.Version.loggBack}")
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:${Dependencies.Version.slf4jApiVersion}")
 }
 
 fun DependencyHandlerScope.test() {
@@ -111,6 +111,7 @@ fun DependencyHandlerScope.springBootSecurityUtil() {
 }
 
 fun DependencyHandlerScope.jsonLogger() {
+    loggBack()
     implementation("com.github.eliasmeireles:json-logger:${Dependencies.Version.jsonLoggerVersion}")
 }
 
@@ -138,8 +139,8 @@ fun DependencyHandlerScope.jsonWebToken() {
 }
 
 fun DependencyHandlerScope.mappstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
-    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
+    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {

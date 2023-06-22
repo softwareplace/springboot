@@ -46,7 +46,8 @@ object Dependencies {
         val jUnitJupiter: String by lazy { getProperty("jUnitJupiterVersion") }
         val openapiTools: String by lazy { getProperty("openapitoolsVersion") }
         val benManesCaffeine: String by lazy { getProperty("benManesCaffeine") }
-        val mappStruct: String by lazy { getProperty("mappstruct") }
+        val mapStruct: String by lazy { getProperty("mapStruct") }
+        val slf4jApiVersion: String by lazy { getProperty("slf4jApiVersion") }
     }
 
     object Group {

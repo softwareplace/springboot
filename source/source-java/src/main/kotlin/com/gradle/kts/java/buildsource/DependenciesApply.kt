@@ -136,14 +136,14 @@ fun DependencyHandlerScope.jsonWebToken() {
     implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwt}")
 }
 
-fun DependencyHandlerScope.mappstructJava() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
+fun DependencyHandlerScope.mapStructJava() {
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
 }
 
-fun DependencyHandlerScope.mappstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mappStruct}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mappStruct}")
+fun DependencyHandlerScope.mapstruct() {
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {
@@ -170,7 +170,7 @@ fun DependencyHandlerScope.lombok() {
     implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
     implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    mappstructJava()
+    mapStructJava()
 }
 
 fun DependencyHandlerScope.retrofit2() {
