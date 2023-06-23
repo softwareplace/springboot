@@ -12,7 +12,9 @@ plugins {
 group = "com.webflux.example"
 version = "1.0.0"
 
-openapiSettings(reactive = true)
+openapiSettings(
+    reactive = true,
+)
 
 dependencies {
     implementation(project(":security"))

@@ -4,6 +4,9 @@ info:
   description: |-
     Spring sample
   version: 1.0.0
+tags:
+  - name: Example
+    description: Example resource
 paths:
   /example:
     get:
@@ -14,6 +17,12 @@ paths:
       operationId: exampleBuild
       responses:
         '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponse"
+        '404':
           description: Successful operation
           content:
             application/json:
@@ -30,6 +39,9 @@ components:
     BaseResponse:
       type: object
       properties:
+        test:
+          type: string
+          format: local-date-time
         success:
           type: boolean
         timestamp:
@@ -41,8 +53,7 @@ components:
           type: string
           format: date
         dateTime:
-          type: string
-          format: local-date-time
+          type: LocalDateTime
           example: 2023-06-06T10:42:42.590Z
         time:
           type: string
