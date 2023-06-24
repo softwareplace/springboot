@@ -68,7 +68,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
     modelNameSuffix.set(openApiSettings.modelNameSuffix)
     modelPackage.set("${groupId}${openApiSettings.sourceFolder}.model")
     skipOperationExample.set(true)
-    this.instantiationTypes.putAll(mapOf("MapEx" to "com.webflux.example.model.MapEx"))
+
     val pluginConfigOptions = mutableMapOf(
         "apiSuffix" to "Controller",
         "apiNameSuffix" to "Controller",
