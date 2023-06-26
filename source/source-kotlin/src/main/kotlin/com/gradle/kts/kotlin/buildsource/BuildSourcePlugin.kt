@@ -9,7 +9,7 @@ open class BuildSourcePlugin : BasePluginConfiguration() {
     override fun customApply(target: Project) {
         with(target) {
             allprojects {
-                apply(plugin = "org.jetbrains.kotlin.jvm")
+                apply(plugin = "org.jetbrains.kotlin.kapt")
             }
         }
     }

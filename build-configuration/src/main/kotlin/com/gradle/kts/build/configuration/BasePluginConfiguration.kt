@@ -31,5 +31,7 @@ abstract class BasePluginConfiguration : Plugin<Project> {
         }
     }
 
-    open fun customApply(target: Project) {}
+    open fun customApply(target: Project) {
+        // Override if needed
+    }
 }
