@@ -97,7 +97,7 @@ fun DependencyHandlerScope.baseSpringApi() {
 }
 
 fun DependencyHandlerScope.springConfigurationProcessor() {
-    kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
+    kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
 }
 
 fun DependencyHandlerScope.springBootSecurity() {

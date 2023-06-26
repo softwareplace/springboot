@@ -1,4 +1,5 @@
-import com.gradle.kts.build.configuration.addSpringframeworkBoot
+import com.gradle.kts.build.configuration.Dependencies
+import com.gradle.kts.build.configuration.ORG_SPRINGFRAMEWORK_BOOT
 import com.gradle.kts.build.configuration.implementation
 import com.gradle.kts.build.configuration.kotlinDeps
 
@@ -11,19 +12,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
-    maven("https://jitpack.io")
-    maven("https://repo.spring.io/milestone")
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 val sourceGroup = "com.gradle.kts.kotlin.buildsource"
@@ -47,7 +35,7 @@ gradlePlugin {
 
 dependencies {
     kotlinDeps()
-    addSpringframeworkBoot("spring-boot-gradle-plugin")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBoot}")
 //    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 }

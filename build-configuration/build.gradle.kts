@@ -1,8 +1,14 @@
+import org.gradle.api.JavaVersion.toVersion
+
 plugins {
     `maven-publish`
     `kotlin-dsl`
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
+
+val sourceGroup = "com.gradle.kts.build.configuration"
+group = sourceGroup
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -12,14 +18,25 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
+beforeEvaluate {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+        sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
+        targetCompatibility = toVersion(System.getProperty("jdkVersion"))
+    }
 }
 
-val sourceGroup = "com.gradle.kts.build.configuration"
-group = sourceGroup
-version = "1.0.0"
+afterEvaluate {
+    allprojects {
+        java {
+            withJavadocJar()
+            withSourcesJar()
+            sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
+            targetCompatibility = toVersion(System.getProperty("jdkVersion"))
+        }
+    }
+}
 
 
 gradlePlugin {
@@ -29,6 +46,13 @@ gradlePlugin {
             implementationClass = "$sourceGroup.BuildConfigurationPlugin"
         }
     }
+}
+
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${System.getProperty("kotlinVersion")}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
 }
 
 

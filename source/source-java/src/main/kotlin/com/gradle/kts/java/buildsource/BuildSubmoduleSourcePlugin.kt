@@ -10,29 +10,34 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 class BuildSubmoduleSourcePlugin : BuildSourcePlugin() {
-    override fun Project.applyCustomTasks() {
-        tasks.named<Jar>("bootJar").configure {
-            enabled = false
-        }
 
-        tasks.named<BootRun>("bootRun").configure {
-            enabled = false
-        }
+    override fun customApply(target: Project) {
+        super.customApply(target)
 
-        extensions.getByName<SourceSetContainer>("sourceSets").apply {
-            getByName("main").apply {
-                java {
-                    exclude(
-                        "**/SpringDocConfiguration.java",
-                    )
+        with(target) {
+            tasks.named<Jar>("bootJar").configure {
+                enabled = false
+            }
+
+            tasks.named<BootRun>("bootRun").configure {
+                enabled = false
+            }
+
+            extensions.getByName<SourceSetContainer>("sourceSets").apply {
+                getByName("main").apply {
+                    java {
+                        exclude(
+                            "**/SpringDocConfiguration.java",
+                        )
+                    }
                 }
             }
-        }
 
-        kotlinExtension.sourceSets["main"].kotlin {
-            exclude(
-                "**/SpringDocConfiguration.java",
-            )
+            kotlinExtension.sourceSets["main"].kotlin {
+                exclude(
+                    "**/SpringDocConfiguration.java",
+                )
+            }
         }
     }
 }

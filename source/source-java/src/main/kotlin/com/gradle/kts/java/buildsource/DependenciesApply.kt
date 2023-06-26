@@ -96,7 +96,7 @@ fun DependencyHandlerScope.baseSpringApi() {
 }
 
 fun DependencyHandlerScope.springConfigurationProcessor() {
-    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor:${Dependencies.Version.springBoot}")
+    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
 }
 
 fun DependencyHandlerScope.springBootSecurity() {
@@ -148,14 +148,6 @@ fun DependencyHandlerScope.mapstruct() {
 
 fun DependencyHandlerScope.flayWayMigration() {
     runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydb}")
-}
-
-fun DependencyHandlerScope.fasterXmlJackson() {
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.core:jackson-databind:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
 }
 
 fun DependencyHandlerScope.rxJava() {

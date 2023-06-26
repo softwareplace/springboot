@@ -1,10 +1,4 @@
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven("https://jitpack.io")
-    }
-}
+
 
 buildscript {
     System.setProperty("jdkVersion", "19")
@@ -33,7 +27,7 @@ buildscript {
 
     System.setProperty("jsonLoggerVersion", "0.0.7")
 
-    System.setProperty("springBootSecurityUtilVersion", "0.0.18")
+    System.setProperty("springBootSecurityUtilVersion", "0.0.16")
 
     System.setProperty("jakartaAnnotationVersion", "2.1.1")
     System.setProperty("jacksonVersion", "2.14.2")

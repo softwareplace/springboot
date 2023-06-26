@@ -17,6 +17,14 @@ const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 fun <T> uncheckedCast(obj: Any?): T =
     obj as T
 
+fun DependencyHandlerScope.fasterXmlJackson() {
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${Dependencies.Version.jacksonVersion}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
+}
+
 fun DependencyHandlerScope.kotlinDeps() {
     implementation(
         Dependencies.buildDependency(
@@ -114,7 +122,7 @@ fun DependencyHandlerScope.annotationProcessor(target: String) {
 }
 
 fun DependencyHandlerScope.addSpringframeworkBoot(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
 }
 
 fun DependencyHandlerScope.addSpringframeworkBoot(
@@ -122,12 +130,12 @@ fun DependencyHandlerScope.addSpringframeworkBoot(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "implementation",
-    "$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
     dependencyConfiguration
 )
 
 fun DependencyHandlerScope.addSpringframeworkBootTest(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
 }
 
 fun DependencyHandlerScope.addSpringframeworkBootTest(
@@ -135,7 +143,7 @@ fun DependencyHandlerScope.addSpringframeworkBootTest(
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
     this, "implementation",
-    "$ORG_SPRINGFRAMEWORK_BOOT:$module:${Dependencies.Version.springBoot}",
+    "$ORG_SPRINGFRAMEWORK_BOOT:$module",
     dependencyConfiguration
 )
 
