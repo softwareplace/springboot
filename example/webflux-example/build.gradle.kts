@@ -2,7 +2,8 @@ import com.gradle.kts.kotlin.buildsource.jsonLogger
 import com.gradle.kts.kotlin.buildsource.mappstruct
 import com.gradle.kts.kotlin.buildsource.springWebFlux
 import com.gradle.kts.kotlin.buildsource.test
-import com.gradle.kts.kotlin.openapi.openapiSettings
+import com.gradle.kts.kotlin.openapi.OpenApiSettings
+import com.gradle.kts.kotlin.openapi.openApiSettings
 
 plugins {
     id("source-plugin")
@@ -12,9 +13,7 @@ plugins {
 group = "com.webflux.example"
 version = "1.0.0"
 
-openapiSettings(
-    reactive = true,
-)
+openApiSettings(OpenApiSettings(reactive = true))
 
 dependencies {
     implementation(project(":security"))

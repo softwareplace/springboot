@@ -11,8 +11,8 @@ buildscript {
     System.setProperty("springRstDocsMockMVCVersion", "3.0.0")
     System.setProperty("springDependencyManagementVersion", "1.1.0")
 
-    System.setProperty("openapitoolsVersion", "6.6.0")
-    System.setProperty("openapitoolsJacksonDatabindNullableVersion", "0.2.4")
+    System.setProperty("openApiToolsVersion", "6.6.0")
+    System.setProperty("openApiToolsJacksonDatabindNullableVersion", "0.2.4")
     System.setProperty("swaggerAnnotationVersion", "2.0.0-rc2")
 
     System.setProperty("graalvmBuildToolsNativeVersion", "0.9.21")

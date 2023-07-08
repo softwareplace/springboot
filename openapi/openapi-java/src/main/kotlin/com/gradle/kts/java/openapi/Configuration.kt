@@ -1,4 +1,4 @@
-package com.gradle.kts.build.java.openapi
+package com.gradle.kts.java.openapi
 
 import com.gradle.kts.build.configuration.Dependencies
 import org.gradle.api.Project
@@ -16,16 +16,15 @@ enum class DocumentationProvider(val type: String) {
     SOURCE("source")
 }
 
-class OpenApiSettings(
+open class OpenApiSettings(
     var generator: String = "spring",
     var sourceFolder: String = "rest",
     var modelNameSuffix: String = "Rest",
     var swaggerFileName: String = "openapi.yaml",
-    val importMapping: MutableMap<String, String> = mutableMapOf(),
-    val filesExclude: MutableList<String> = mutableListOf("**/ApiUtil.java")
+    var importMapping: MutableMap<String, String> = mutableMapOf(),
+    var filesExclude: List<String> = listOf("**/ApiUtil.java"),
+    var additionalModelTypeAnnotations: List<String> = listOf("@lombok.Data", "@lombok.Builder")
 )
-
-val openApiSettings: OpenApiSettings by lazy { OpenApiSettings() }
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -33,6 +32,7 @@ private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
 
 fun OpenApiGeneratorGenerateExtension.apply(
+    openApiSettings: OpenApiSettings,
     groupId: String = "app",
     projectPath: String,
     openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openApiSettings.swaggerFileName}"
@@ -72,7 +72,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
         mapOf(
             "apiSuffix" to "Controller",
             "apiNameSuffix" to "Controller",
-            "additionalModelTypeAnnotations" to "@lombok.Builder\n@lombok.Data",
+            "additionalModelTypeAnnotations" to openApiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
             "interfaceOnly" to "true",
             "skipDefaultInterface" to "true",
             "defaultInterfaces" to "false",
@@ -100,28 +100,26 @@ fun Project.getSettings(): OpenApiSettings {
     }
 }
 
-fun Project.openapiSettings(
-    generator: String = "spring",
-    sourceFolder: String = "rest",
-    modelNameSuffix: String = "Rest",
-    swaggerFileName: String = "openapi.yaml",
-    filesExclude: List<String> = listOf(),
-    importMapping: Map<String, String> = emptyMap(),
+fun Project.openApiSettings(
+    config: OpenApiSettings
 ) {
     configure<OpenApiSettings> {
-        this.generator = generator
-        this.sourceFolder = sourceFolder
-        this.modelNameSuffix = modelNameSuffix
-        this.swaggerFileName = swaggerFileName
-        this.filesExclude.addAll(filesExclude)
-        this.importMapping.putAll(importMapping)
+        this.generator = config.generator
+        this.sourceFolder = config.sourceFolder
+        this.modelNameSuffix = config.modelNameSuffix
+        this.swaggerFileName = config.swaggerFileName
+        this.filesExclude = config.filesExclude
+        this.importMapping = config.importMapping
+        this.additionalModelTypeAnnotations = config.additionalModelTypeAnnotations
     }
 }
 
 
 fun Project.openApiGenerateConfig() {
+    val openApiSettings = getSettings()
     afterEvaluate {
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
+            openApiSettings = openApiSettings,
             groupId = "$group",
             projectPath = projectDir.path,
         )

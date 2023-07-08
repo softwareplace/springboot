@@ -5,7 +5,7 @@ plugins {
     `maven-publish`
     `kotlin-dsl`
     id("source-plugin")
-    id("org.openapi.generator") version System.getProperty("openapitoolsVersion")
+    id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
 val sourceGroup = "com.gradle.kts.kotlin.openapi"
@@ -26,7 +26,7 @@ gradlePlugin {
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openapiTools}") {
+    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
 }

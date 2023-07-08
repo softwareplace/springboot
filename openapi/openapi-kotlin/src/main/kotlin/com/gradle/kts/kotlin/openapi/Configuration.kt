@@ -19,23 +19,21 @@ open class OpenApiSettings(
     var sourceFolder: String = ".rest",
     var modelNameSuffix: String = "Rest",
     var swaggerFileName: String = "openapi.yaml",
-    val importMapping: MutableMap<String, String> = mutableMapOf(),
-    val filesExclude: MutableList<String> = mutableListOf()
+    var importMapping: Map<String, String> = mapOf(
+        "date" to JAVA_LOCAL_DATE,
+        "local-date-time" to JAVA_LOCAL_DATE_TIME,
+        "time" to JAVA_LOCAL_TIME
+    ),
+    var filesExclude: List<String> = listOf("**/ApiUtil.kt"),
+    var additionalModelTypeAnnotations: List<String> = listOf()
 )
 
 fun Project.getSettings(): OpenApiSettings {
     return try {
         extensions.create("openApiSettings", OpenApiSettings::class.java)
     } catch (ex: Exception) {
-        logger.info("openApiSettings not found")
-        OpenApiSettings(
-            filesExclude = mutableListOf("**/ApiUtil.kt"),
-            importMapping = mutableMapOf(
-                "date" to JAVA_LOCAL_DATE,
-                "local-date-time" to JAVA_LOCAL_DATE_TIME,
-                "time" to JAVA_LOCAL_TIME
-            ),
-        )
+        logger.info("Creating a default OpenApiSettings")
+        OpenApiSettings()
     }
 }
 
@@ -76,6 +74,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
         "skipDefaultInterface" to "true",
         "defaultInterfaces" to "false",
         "delegatePattern" to "false",
+        "additionalModelTypeAnnotations" to openApiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
         "documentationProvider" to DocumentationProvider.SPRING_DOC.type,
         "serializationLibrary" to "jackson",
         "gradleBuildFile" to "false",
@@ -95,29 +94,18 @@ fun OpenApiGeneratorGenerateExtension.apply(
     configOptions.set(pluginConfigOptions)
 }
 
-fun Project.openapiSettings(
-    generator: String = "kotlin-spring",
-    reactive: Boolean = false,
-    sourceFolder: String = ".rest",
-    modelNameSuffix: String = "Rest",
-    swaggerFileName: String = "openapi.yaml",
-    filesExclude: List<String> = mutableListOf("**/ApiUtil.kt"),
-    importMapping: Map<String, String> = emptyMap(),
-    defaultImportMapping: Map<String, String> = mapOf(
-        "date" to JAVA_LOCAL_DATE,
-        "local-date-time" to JAVA_LOCAL_DATE_TIME,
-        "time" to JAVA_LOCAL_TIME
-    ),
+fun Project.openApiSettings(
+    config: OpenApiSettings
 ) {
     configure<OpenApiSettings> {
-        this.generator = generator
-        this.reactive = reactive
-        this.sourceFolder = sourceFolder
-        this.modelNameSuffix = modelNameSuffix
-        this.swaggerFileName = swaggerFileName
-        this.filesExclude.addAll(filesExclude)
-        this.importMapping.putAll(importMapping)
-        this.importMapping.putAll(defaultImportMapping)
+        this.generator = config.generator
+        this.reactive = config.reactive
+        this.sourceFolder = config.sourceFolder
+        this.modelNameSuffix = config.modelNameSuffix
+        this.swaggerFileName = config.swaggerFileName
+        this.filesExclude = config.filesExclude
+        this.importMapping = config.importMapping
+        this.additionalModelTypeAnnotations = config.additionalModelTypeAnnotations
     }
 }
 

@@ -35,7 +35,7 @@ object Dependencies {
         val postgresqlVersion: String by lazy { getProperty("postgresqlVersion") }
         val testContainersVersion: String by lazy { getProperty("testContainersVersion") }
         val ioMockkMockk: String by lazy { getProperty("ioMockkMockkVersion") }
-        val openapiToolsJacksonDatabindNullable: String by lazy { getProperty("openapitoolsJacksonDatabindNullableVersion") }
+        val openApiToolsJacksonDatabindNullable: String by lazy { getProperty("openApiToolsJacksonDatabindNullableVersion") }
         val springdocStarterWebmvc: String by lazy { getProperty("springdocStarterWebmvc") }
         val javaxAnnotationApi: String by lazy { getProperty("javaxAnnotationApiVersion") }
         val javaxValidationApi: String by lazy { getProperty("javaxValidationApiVersion") }
@@ -44,7 +44,7 @@ object Dependencies {
         val springRstDocsMockMVC: String by lazy { getProperty("springRstDocsMockMVCVersion") }
         val mockitoKotlin: String by lazy { getProperty("mockitoKotlinVersion") }
         val jUnitJupiter: String by lazy { getProperty("jUnitJupiterVersion") }
-        val openapiTools: String by lazy { getProperty("openapitoolsVersion") }
+        val openApiToolsVersion: String by lazy { getProperty("openApiToolsVersion") }
         val benManesCaffeine: String by lazy { getProperty("benManesCaffeine") }
         val mapStruct: String by lazy { getProperty("mapStruct") }
         val slf4jApiVersion: String by lazy { getProperty("slf4jApiVersion") }
