@@ -27,7 +27,7 @@ buildscript {
 
     System.setProperty("jsonLoggerVersion", "0.0.7")
 
-    System.setProperty("springBootSecurityUtilVersion", "1.0.1-SNAPSHOT")
+    System.setProperty("springBootSecurityUtilVersion", "1.0.2-SNAPSHOT")
 
     System.setProperty("jakartaAnnotationVersion", "2.1.1")
     System.setProperty("jacksonVersion", "2.14.2")
