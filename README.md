@@ -1,4 +1,4 @@
-# spring-boot-included-builds
+# spring-boot-builder-plugin
 
 > Plugin created with the aim of facilitating and speeding up the process of configuring and initializing modularized
 > projects that use spring boot. By default, all plugin settings are based on the project using `Kotlin`, but also
@@ -10,7 +10,7 @@
 > To add the plugin, having git already installed, run the command below inside the root directory of the project.
 
 ```shell
-git submodule add --force https://github.com/eliasmeireles/spring-boot-included-builds.git 
+git submodule add --force https://github.com/eliasmeireles/spring-boot-builder-plugin.git 
 ```
 
 > Still inside the root directory and create a file named `settings.gradle.kts`, in that file, add the settings below
@@ -22,9 +22,9 @@ git submodule add --force https://github.com/eliasmeireles/spring-boot-included-
 rootProject.name = "your-app-name"
 
 // Lib settings
-apply("spring-boot-included-builds/libs.settings.gradle.kts")
+apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
 
-apply("spring-boot-included-builds/kotlin-included.build.settings.gradle.kts")
+apply("spring-boot-builder-plugin/kotlin-included.build.settings.gradle.kts")
 ````
 
 - `Java` only
@@ -34,9 +34,9 @@ apply("spring-boot-included-builds/kotlin-included.build.settings.gradle.kts")
 rootProject.name = "your-app-name"
 
 // Lib settings
-apply("spring-boot-included-builds/libs.settings.gradle.kts")
+apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
 
-apply("spring-boot-included-builds/java-included.build.settings.gradle.kts")
+apply("spring-boot-builder-plugin/java-included.build.settings.gradle.kts")
 
 ````
 
@@ -47,9 +47,9 @@ apply("spring-boot-included-builds/java-included.build.settings.gradle.kts")
 rootProject.name = "your-app-name"
 
 // Lib settings
-apply("spring-boot-included-builds/libs.settings.gradle.kts")
+apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
 
-apply("spring-boot-included-builds/included.build.settings.gradle.kts")
+apply("spring-boot-builder-plugin/included.build.settings.gradle.kts")
 ````
 
 > After performing the above settings, it is necessary to add the plugin mapping to the project. To carry out this
@@ -103,8 +103,8 @@ dependencies {
 > Run the commands bellow and have fun
 
 ```shell
-cp -r  spring-boot-included-builds/example/gradle . 
-cp -r  spring-boot-included-builds/example/gradlew .
-cp -r  spring-boot-included-builds/example/gradlew.bat .
+cp -r  spring-boot-builder-plugin/example/gradle . 
+cp -r  spring-boot-builder-plugin/example/gradlew .
+cp -r  spring-boot-builder-plugin/example/gradlew.bat .
 ./gradlew build
 ```

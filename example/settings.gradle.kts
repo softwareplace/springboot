@@ -1,7 +1,6 @@
 rootProject.name = "example"
 
 
-
 include(":security")
 include(":java-example")
 include(":kotlin-example")
