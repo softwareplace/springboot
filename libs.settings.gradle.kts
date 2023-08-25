@@ -4,7 +4,7 @@ buildscript {
     System.setProperty("jdkVersion", "19")
     System.setProperty("kotlinVersion", "1.8.21")
 
-    System.setProperty("springBootVersion", "3.1.0")
+    System.setProperty("springBootVersion", "3.1.2")
     System.setProperty("springBootSecurityTestVersion", "5.7.6")
     System.setProperty("springDocVersion", "1.7.0")
     System.setProperty("springdocStarterWebmvc", "2.1.0")
@@ -27,7 +27,7 @@ buildscript {
 
     System.setProperty("jsonLoggerVersion", "0.0.7")
 
-    System.setProperty("springBootSecurityUtilVersion", "1.0.2-SNAPSHOT")
+    System.setProperty("springBootSecurityUtilVersion", "v0.0.1")
 
     System.setProperty("jakartaAnnotationVersion", "2.1.1")
     System.setProperty("jacksonVersion", "2.14.2")
