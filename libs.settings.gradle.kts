@@ -25,7 +25,7 @@ buildscript {
     System.setProperty("auth0JavaJwt", "3.18.2")
     System.setProperty("flywaydbVersion", "9.16.2")
 
-    System.setProperty("jsonLoggerVersion", "0.0.7")
+    System.setProperty("jsonLoggerVersion", "v0.0.1")
 
     System.setProperty("springBootSecurityUtilVersion", "v0.0.1")
 

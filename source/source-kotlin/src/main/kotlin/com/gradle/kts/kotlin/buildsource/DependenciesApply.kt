@@ -107,12 +107,12 @@ fun DependencyHandlerScope.springBootSecurity() {
 }
 
 fun DependencyHandlerScope.springBootSecurityUtil() {
-    implementation("com.github.eliasmeireles:spring-boot-security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
+    implementation("com.github.softwareplace:spring-boot-security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
 }
 
 fun DependencyHandlerScope.jsonLogger() {
     loggBack()
-    implementation("com.github.eliasmeireles:json-logger:${Dependencies.Version.jsonLoggerVersion}")
+    implementation("com.github.softwareplace:json-logger:${Dependencies.Version.jsonLoggerVersion}")
 }
 
 fun ExternalModuleDependency.excludeSpringLogging() {
@@ -145,14 +145,6 @@ fun DependencyHandlerScope.mappstruct() {
 
 fun DependencyHandlerScope.flayWayMigration() {
     runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydb}")
-}
-
-fun DependencyHandlerScope.fasterXmlJackson() {
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.core:jackson-databind:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
 }
 
 fun DependencyHandlerScope.kotlinReactive() {
