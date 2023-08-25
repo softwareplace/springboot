@@ -10,7 +10,7 @@
 > To add the plugin, having git already installed, run the command below inside the root directory of the project.
 
 ```shell
-git submodule add --force https://github.com/eliasmeireles/spring-boot-builder-plugin.git 
+git submodule add --force https://github.com/softwareplace/spring-boot-builder-plugin.git 
 ```
 
 > Still inside the root directory and create a file named `settings.gradle.kts`, in that file, add the settings below
