@@ -1,5 +1,7 @@
 # spring-boot-builder-plugin
 
+---
+
 > Plugin created with the aim of facilitating and speeding up the process of configuring and initializing modularized
 > projects that use spring boot. By default, all plugin settings are based on the project using `Kotlin`, but also
 > giving
@@ -7,6 +9,7 @@
 
 ## Setup
 
+---
 > To add the plugin, having git already installed, run the command below inside the root directory of the project.
 
 ```shell
@@ -15,7 +18,10 @@ git submodule add --force https://github.com/softwareplace/spring-boot-builder-p
 
 > Still inside the root directory and create a file named `settings.gradle.kts`, in that file, add the settings below
 
-- `Kotlin` only
+- Loading libs version
+
+> By applying this setting, the current libs version will be loaded
+> from [gradle.properties](build-configuration/gradle.properties)
 
 ````kotlin
 // Defines the root project name
@@ -23,32 +29,23 @@ rootProject.name = "your-app-name"
 
 // Lib settings
 apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
+````
 
+- `Kotlin` only
+
+````kotlin
 apply("spring-boot-builder-plugin/kotlin-included.build.settings.gradle.kts")
 ````
 
 - `Java` only
 
 ````kotlin
-// Defines the root project name
-rootProject.name = "your-app-name"
-
-// Lib settings
-apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
-
 apply("spring-boot-builder-plugin/java-included.build.settings.gradle.kts")
-
 ````
 
 - `Kotlin` and `Java`
 
 ````kotlin
-// Defines the root project name
-rootProject.name = "your-app-name"
-
-// Lib settings
-apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
-
 apply("spring-boot-builder-plugin/included.build.settings.gradle.kts")
 ````
 
@@ -108,3 +105,21 @@ cp -r  spring-boot-builder-plugin/example/gradlew .
 cp -r  spring-boot-builder-plugin/example/gradlew.bat .
 ./gradlew build
 ```
+
+This project is open-source and free for usage.
+
+## Contributing
+
+----
+
+We welcome contributions from the community. If you would like to contribute, please take time to familiarise yourself
+with our [Contribution Guidelines](./CONTRIBUTORS.md).
+
+Let's make something amazing together!
+
+## License
+
+----
+
+The spring-boot-builder-plugin is Open Source software released under
+the [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.html) file in the project root.
