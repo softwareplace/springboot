@@ -81,6 +81,11 @@ class BuildConfigurationPlugin : Plugin<Project> {
                         useVersion(System.getProperty("springBootVersion"))
                     }
                 }
+                resolutionStrategy.eachDependency {
+                    if (requested.group == "org.yaml") {
+                        useVersion(System.getProperty("snakeYaml"))
+                    }
+                }
             }
 
             repositories {
