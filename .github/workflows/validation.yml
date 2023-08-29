@@ -9,9 +9,9 @@ jobs:
     name: "Kotlin Build validate"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up JDK 19
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 19
 
@@ -23,9 +23,9 @@ jobs:
     name: "Webflux Build validate"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up JDK 19
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 19
 
@@ -36,9 +36,9 @@ jobs:
     name: "Java build validate"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up JDK 19
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 19
 
