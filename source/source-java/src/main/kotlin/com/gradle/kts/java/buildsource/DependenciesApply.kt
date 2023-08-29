@@ -106,11 +106,11 @@ fun DependencyHandlerScope.springBootSecurity() {
 }
 
 fun DependencyHandlerScope.springBootSecurityUtil() {
-    implementation("com.github.eliasmeireles:spring-boot-security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
+    implementation("com.github.softwareplace:spring-boot-security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
 }
 
 fun DependencyHandlerScope.jsonLogger() {
-    implementation("com.github.eliasmeireles:json-logger:${Dependencies.Version.jsonLoggerVersion}")
+    implementation("com.github.softwareplace:json-logger:${Dependencies.Version.jsonLoggerVersion}")
 }
 
 fun ExternalModuleDependency.excludeSpringLogging() {
