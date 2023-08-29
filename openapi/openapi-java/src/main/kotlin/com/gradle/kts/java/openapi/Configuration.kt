@@ -1,6 +1,5 @@
 package com.gradle.kts.java.openapi
 
-import com.gradle.kts.build.configuration.Dependencies
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.configure
@@ -144,7 +143,7 @@ fun Project.applyTasks() {
         dependsOn(tasks.findByName("openApiGenerate"))
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = Dependencies.Version.jdk
+            jvmTarget = System.getProperty("jdk")
         }
     }
 }

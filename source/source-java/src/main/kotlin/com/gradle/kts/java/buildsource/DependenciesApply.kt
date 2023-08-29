@@ -23,9 +23,9 @@ fun DependencyHandlerScope.loggBack() {
 }
 
 fun DependencyHandlerScope.test() {
-    testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiter}")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:${Dependencies.Version.mockitoKotlin}")
-    testImplementation("io.mockk:mockk:${Dependencies.Version.ioMockkMockk}") {
+    testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiterVersion}")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${Dependencies.Version.mockitoKotlinVersion}")
+    testImplementation("io.mockk:mockk:${Dependencies.Version.ioMockkMockkVersion}") {
         exclude("org.slf4j", "slf4j-api")
     }
 }
@@ -37,19 +37,19 @@ fun DependencyHandlerScope.springSecurity() {
         excludeSpringLogging()
     }
 
-    testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTest}") {
+    testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTestVersion}") {
         excludeSpringLogging()
     }
 }
 
 fun DependencyHandlerScope.javaxServlet() {
-    implementation("javax.annotation:javax.annotation-api:${Dependencies.Version.javaxAnnotationApi}")
-    implementation("javax.validation:validation-api:${Dependencies.Version.javaxValidationApi}")
-    implementation("javax.servlet:servlet-api:${Dependencies.Version.javaxServlet}")
+    implementation("javax.annotation:javax.annotation-api:${Dependencies.Version.javaxAnnotationApiVersion}")
+    implementation("javax.validation:validation-api:${Dependencies.Version.javaxValidationApiVersion}")
+    implementation("javax.servlet:servlet-api:${Dependencies.Version.javaxServletVersion}")
 }
 
 fun DependencyHandlerScope.jakarta() {
-    implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotation}")
+    implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotationVersion}")
 }
 
 fun DependencyHandlerScope.springBootStartWeb() {
@@ -79,7 +79,7 @@ fun Project.springJettyApi() {
     removeTomcatServer()
     dependencies {
         implementation("org.glassfish:jakarta.el:${Dependencies.Version.glassfishJakarta}")
-        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.eclipseJettyHttp2Server}")
+        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.eclipseJettyHttp2ServerVersion}")
         springBootStartWeb()
         addSpringframeworkBoot(SPRING_BOOT_STARTER_JETTY)
         springConfigurationProcessor()
@@ -129,7 +129,7 @@ fun Project.removeTomcatServer() {
 }
 
 fun DependencyHandlerScope.passay() {
-    implementation("org.passay:passay:${Dependencies.Version.passay}")
+    implementation("org.passay:passay:${Dependencies.Version.passayVersion}")
 }
 
 fun DependencyHandlerScope.jsonWebToken() {
@@ -147,15 +147,15 @@ fun DependencyHandlerScope.mapstruct() {
 }
 
 fun DependencyHandlerScope.flayWayMigration() {
-    runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydb}")
+    runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydbVersion}")
 }
 
 fun DependencyHandlerScope.rxJava() {
-    implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJava}")
+    implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJavaVersion}")
 }
 
 fun DependencyHandlerScope.modelMapper() {
-    implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapper}")
+    implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapperVersion}")
 }
 
 fun DependencyHandlerScope.lombok() {

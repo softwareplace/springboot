@@ -30,21 +30,21 @@ fun DependencyHandlerScope.kotlinDeps() {
         Dependencies.buildDependency(
             Dependencies.Group.orgJetbrainsKotlinSpring,
             Dependencies.Module.orgJetbrainsKotlinPluginSpring,
-            Dependencies.Version.kotlin,
+            Dependencies.Version.kotlinVersion,
         )
     )
     implementation(
         Dependencies.buildDependency(
             Dependencies.Group.orgJetbrainsKotlinJpa,
             Dependencies.Module.orgJetbrainsKotlinPluginJpa,
-            Dependencies.Version.kotlin,
+            Dependencies.Version.kotlinVersion,
         )
     )
     implementation(
         Dependencies.buildDependency(
             Dependencies.Group.orgJetbrainsKotlin,
             Dependencies.Module.kotlinReflect,
-            Dependencies.Version.kotlin,
+            Dependencies.Version.kotlinVersion,
         )
     )
 
@@ -59,7 +59,7 @@ fun DependencyHandlerScope.kotlinDeps() {
         Dependencies.buildDependency(
             Dependencies.Group.orgJetbrainsKotlin,
             Dependencies.Module.kotlinGradlePlugin,
-            Dependencies.Version.kotlin
+            Dependencies.Version.kotlinVersion
         )
     )
 }

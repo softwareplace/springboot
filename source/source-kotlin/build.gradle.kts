@@ -35,7 +35,7 @@ gradlePlugin {
 
 dependencies {
     kotlinDeps()
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBoot}")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
 //    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 }
