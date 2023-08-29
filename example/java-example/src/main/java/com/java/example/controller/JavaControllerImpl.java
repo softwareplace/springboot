@@ -2,7 +2,7 @@ package com.java.example.controller;
 
 import com.java.example.model.BaseResponse;
 import com.java.example.model.BaseResponseMapper;
-import com.java.example.rest.controller.ExampleApi;
+import com.java.example.rest.controller.ExampleController;
 import com.java.example.rest.model.BaseResponseRest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.time.LocalTime;
 
 @RestController
 @RequiredArgsConstructor
-public class JavaControllerImpl implements ExampleApi {
+public class JavaControllerImpl implements ExampleController {
 
     private final BaseResponseMapper mapper;
 
