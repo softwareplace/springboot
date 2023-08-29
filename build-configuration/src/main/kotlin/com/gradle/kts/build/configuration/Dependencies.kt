@@ -39,8 +39,6 @@ object Dependencies {
         val springdocStarterWebmvc: String by lazy { getProperty("springdocStarterWebmvc") }
         val javaxAnnotationApi: String by lazy { getProperty("javaxAnnotationApiVersion") }
         val javaxValidationApi: String by lazy { getProperty("javaxValidationApiVersion") }
-        val swaggerAnnotation: String by lazy { getProperty("swaggerAnnotationVersion") }
-        val springDocVersion: String by lazy { getProperty("springDocVersion") }
         val springRstDocsMockMVC: String by lazy { getProperty("springRstDocsMockMVCVersion") }
         val mockitoKotlin: String by lazy { getProperty("mockitoKotlinVersion") }
         val jUnitJupiter: String by lazy { getProperty("jUnitJupiterVersion") }

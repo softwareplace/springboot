@@ -1,7 +1,7 @@
-rootProject.name = "example"
-
+import java.util.*
 
 include(":security")
+rootProject.name = "example"
 include(":java-example")
 include(":kotlin-example")
 include(":webflux-example")
@@ -15,6 +15,10 @@ includeBuild("../source/source-kotlin")
 includeBuild("../openapi/openapi-java")
 includeBuild("../openapi/openapi-kotlin")
 
-apply(from = "../libs.settings.gradle.kts")
+val properties = Properties()
+val inputStream = rootDir.resolve("../build-configuration/gradle.properties").inputStream()
+properties.load(inputStream)
 
-
+properties.forEach { (key, value) ->
+    System.setProperty(key.toString(), value.toString())
+}
