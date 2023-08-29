@@ -38,7 +38,7 @@ buildscript {
 
     System.setProperty("retrofit2Version", "2.9.0")
 
-    System.setProperty("postgresqlVersion", "42.3.6")
+    System.setProperty("postgresqlVersion", "42.3.8")
     System.setProperty("testContainersVersion", "1.18.3")
     System.setProperty("ioMockkMockkVersion", "1.13.2")
 
