@@ -12,10 +12,8 @@ object Dependencies {
 
     object Version {
         val jdk: String by lazy { getProperty("jdkVersion") }
-        val glassfishJakarta: String by lazy { getProperty("glassfishJakarta") }
         val loggBack: String by lazy { getProperty("loggBack") }
         val graalvmBuildToolsNative: String by lazy { getProperty("graalvmBuildToolsNativeVersion") }
-        val eclipseJettyHttp2ServerVersion: String by lazy { getProperty("eclipseJettyHttp2ServerVersion") }
         val passayVersion: String by lazy { getProperty("passayVersion") }
         val jsonwebtokenVersion: String by lazy { getProperty("jsonwebtokenVersion") }
         val auth0JavaJwt: String by lazy { getProperty("auth0JavaJwt") }

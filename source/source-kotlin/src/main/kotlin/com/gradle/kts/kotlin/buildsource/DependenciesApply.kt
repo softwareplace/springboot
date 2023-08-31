@@ -78,8 +78,6 @@ fun DependencyHandlerScope.addCaching() {
 fun Project.springJettyApi() {
     removeTomcatServer()
     dependencies {
-        implementation("org.glassfish:jakarta.el:${Dependencies.Version.glassfishJakarta}")
-        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.eclipseJettyHttp2ServerVersion}")
         springBootStartWeb()
         addSpringframeworkBoot(SPRING_BOOT_STARTER_JETTY)
         springConfigurationProcessor()
