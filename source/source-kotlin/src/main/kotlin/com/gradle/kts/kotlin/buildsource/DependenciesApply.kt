@@ -76,17 +76,28 @@ fun DependencyHandlerScope.addCaching() {
 }
 
 fun Project.springJettyApi() {
-    removeTomcatServer()
+    configurations.all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+    }
     dependencies {
         springBootStartWeb()
-        addSpringframeworkBoot(SPRING_BOOT_STARTER_JETTY)
+        runtimeOnly("${ORG_SPRINGFRAMEWORK_BOOT}:${SPRING_BOOT_STARTER_JETTY}")
+        implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
         springConfigurationProcessor()
     }
 }
 
-fun DependencyHandlerScope.springWebFlux() {
-    addSpringframeworkBoot("spring-boot-starter-webflux")
-    kotlinReactive()
+fun Project.springWebFlux() {
+    configurations.all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+    }
+    dependencies {
+        kotlinReactive()
+        springConfigurationProcessor()
+        addSpringframeworkBoot("spring-boot-starter-webflux")
+        runtimeOnly("${ORG_SPRINGFRAMEWORK_BOOT}:${SPRING_BOOT_STARTER_JETTY}")
+        implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
+    }
 }
 
 fun DependencyHandlerScope.baseSpringApi() {
