@@ -75,6 +75,10 @@ fun DependencyHandlerScope.addCaching() {
     implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeine}")
 }
 
+fun DependencyHandlerScope.logstashLogbackEncoderVersion() {
+    implementation("net.logstash.logback:logstash-logback-encoder:${Dependencies.Version.logstashLogbackEncoderVersion}")
+}
+
 fun Project.springJettyApi() {
     configurations.all {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
