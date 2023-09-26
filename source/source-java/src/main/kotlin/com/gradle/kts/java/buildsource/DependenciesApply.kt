@@ -23,11 +23,9 @@ fun DependencyHandlerScope.loggBack() {
 }
 
 fun DependencyHandlerScope.test() {
+    testImplementation("org.mockito:mockito-core:${Dependencies.Version.mockitoVersion}")
+    testImplementation("org.mockito:mockito-junit-jupiter:${Dependencies.Version.mockitoVersion}")
     testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiterVersion}")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:${Dependencies.Version.mockitoKotlinVersion}")
-    testImplementation("io.mockk:mockk:${Dependencies.Version.ioMockkMockkVersion}") {
-        exclude("org.slf4j", "slf4j-api")
-    }
 }
 
 fun DependencyHandlerScope.springSecurity() {
