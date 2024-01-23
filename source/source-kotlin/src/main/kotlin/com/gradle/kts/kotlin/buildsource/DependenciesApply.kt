@@ -42,12 +42,6 @@ fun DependencyHandlerScope.springSecurity() {
     }
 }
 
-fun DependencyHandlerScope.javaxServlet() {
-    implementation("javax.annotation:javax.annotation-api:${Dependencies.Version.javaxAnnotationApiVersion}")
-    implementation("javax.validation:validation-api:${Dependencies.Version.javaxValidationApiVersion}")
-    implementation("javax.servlet:servlet-api:${Dependencies.Version.javaxServletVersion}")
-}
-
 fun DependencyHandlerScope.jakarta() {
     implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotationVersion}")
 }

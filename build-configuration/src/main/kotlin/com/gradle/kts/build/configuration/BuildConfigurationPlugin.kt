@@ -83,7 +83,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
                 }
                 resolutionStrategy.eachDependency {
                     if (requested.group == "org.yaml") {
-                        useVersion(System.getProperty("snakeYaml"))
+                        useVersion(System.getProperty("snakeYamlVersion"))
                     }
                 }
             }

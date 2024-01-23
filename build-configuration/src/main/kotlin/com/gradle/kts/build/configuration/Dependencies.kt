@@ -12,11 +12,11 @@ object Dependencies {
 
     object Version {
         val jdk: String by lazy { getProperty("jdkVersion") }
-        val loggBack: String by lazy { getProperty("loggBack") }
+        val loggBack: String by lazy { getProperty("loggBackVersion") }
         val graalvmBuildToolsNative: String by lazy { getProperty("graalvmBuildToolsNativeVersion") }
         val passayVersion: String by lazy { getProperty("passayVersion") }
-        val jsonwebtokenVersion: String by lazy { getProperty("jsonwebtokenVersion") }
-        val auth0JavaJwt: String by lazy { getProperty("auth0JavaJwt") }
+        val jsonwebtokenVersion: String by lazy { getProperty("jsonWebTokenVersion") }
+        val auth0JavaJwt: String by lazy { getProperty("auth0JavaJwtVersion") }
         val flywaydbVersion: String by lazy { getProperty("flywaydbVersion") }
         val kotlinVersion: String by lazy { getProperty("kotlinVersion") }
         val jsonLoggerVersion: String by lazy { getProperty("jsonLoggerVersion") }
@@ -25,7 +25,6 @@ object Dependencies {
         val springBootSecurityTestVersion: String by lazy { getProperty("springBootSecurityTestVersion") }
         val jakartaAnnotationVersion: String by lazy { getProperty("jakartaAnnotationVersion") }
         val jacksonVersion: String by lazy { getProperty("jacksonVersion") }
-        val javaxServletVersion: String by lazy { getProperty("javaxServletVersion") }
         val rxJavaVersion: String by lazy { getProperty("rxJavaVersion") }
         val modelMapperVersion: String by lazy { getProperty("modelMapperVersion") }
         val lombokVersion: String by lazy { getProperty("lombokVersion") }
@@ -35,16 +34,14 @@ object Dependencies {
         val ioMockkMockkVersion: String by lazy { getProperty("ioMockkMockkVersion") }
         val openApiToolsJacksonDatabindNullableVersion: String by lazy { getProperty("openApiToolsJacksonDatabindNullableVersion") }
         val springdocStarterWebmvc: String by lazy { getProperty("springdocStarterWebmvc") }
-        val javaxAnnotationApiVersion: String by lazy { getProperty("javaxAnnotationApiVersion") }
-        val javaxValidationApiVersion: String by lazy { getProperty("javaxValidationApiVersion") }
         val springRstDocsMockMVCVersion: String by lazy { getProperty("springRstDocsMockMVCVersion") }
         val mockitoKotlinVersion: String by lazy { getProperty("mockitoKotlinVersion") }
         val mockitoVersion: String by lazy { getProperty("mockitoVersion") }
         val jUnitJupiterVersion: String by lazy { getProperty("jUnitJupiterVersion") }
         val openApiToolsVersion: String by lazy { getProperty("openApiToolsVersion") }
-        val benManesCaffeine: String by lazy { getProperty("benManesCaffeine") }
+        val benManesCaffeine: String by lazy { getProperty("benManesCaffeineVersion") }
         val logstashLogbackEncoderVersion: String by lazy { getProperty("logstashLogbackEncoderVersion") }
-        val mapStruct: String by lazy { getProperty("mapStruct") }
+        val mapStruct: String by lazy { getProperty("mapStructVersion") }
         val slf4jApiVersion: String by lazy { getProperty("slf4jApiVersion") }
     }
 

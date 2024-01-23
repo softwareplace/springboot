@@ -1,2 +1,2 @@
 test:
-	cd example && ./gradlew test
+	cd example && ./gradlew clean test
