@@ -26,8 +26,6 @@ gradlePlugin {
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
     sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
     targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 

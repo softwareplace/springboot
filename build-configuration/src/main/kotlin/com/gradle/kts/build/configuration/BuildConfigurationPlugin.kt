@@ -80,8 +80,6 @@ class BuildConfigurationPlugin : Plugin<Project> {
                     if (requested.group == "org.springframework.boot") {
                         useVersion(System.getProperty("springBootVersion"))
                     }
-                }
-                resolutionStrategy.eachDependency {
                     if (requested.group == "org.yaml") {
                         useVersion(System.getProperty("snakeYamlVersion"))
                     }

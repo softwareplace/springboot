@@ -21,8 +21,6 @@ repositories {
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
     sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
     targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
@@ -33,8 +31,6 @@ java {
 
 beforeEvaluate {
     java {
-        withJavadocJar()
-        withSourcesJar()
         sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
         targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
@@ -47,8 +43,6 @@ beforeEvaluate {
 afterEvaluate {
     allprojects {
         java {
-            withJavadocJar()
-            withSourcesJar()
             sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
             targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
