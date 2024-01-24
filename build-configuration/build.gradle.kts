@@ -20,17 +20,10 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
-java {
-    sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
-    targetCompatibility = toVersion(System.getProperty("jdkVersion"))
-
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
-    }
-}
-
 beforeEvaluate {
     java {
+        withJavadocJar()
+        withSourcesJar()
         sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
         targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
@@ -43,6 +36,8 @@ beforeEvaluate {
 afterEvaluate {
     allprojects {
         java {
+            withJavadocJar()
+            withSourcesJar()
             sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
             targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 

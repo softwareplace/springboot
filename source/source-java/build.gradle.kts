@@ -30,21 +30,11 @@ allprojects {
     }
 }
 
-
 val sourceGroup = "com.gradle.kts.java.buildsource"
 val currentVersion = "1.0.0"
 
 group = sourceGroup
 version = currentVersion
-
-java {
-    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
-    }
-}
 
 gradlePlugin {
     plugins {
