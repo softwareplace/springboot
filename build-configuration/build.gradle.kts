@@ -24,6 +24,10 @@ beforeEvaluate {
         withSourcesJar()
         sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
         targetCompatibility = toVersion(System.getProperty("jdkVersion"))
+
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
+        }
     }
 }
 
