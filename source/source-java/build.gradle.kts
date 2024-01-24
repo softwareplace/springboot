@@ -32,20 +32,24 @@ allprojects {
 
 
 val sourceGroup = "com.gradle.kts.java.buildsource"
-group = sourceGroup
+val currentVersion = "1.0.0"
 
-version = "1.0.0"
+group = sourceGroup
+version = currentVersion
+
 
 gradlePlugin {
     plugins {
         register("java-source-plugin") {
             id = "java-source-plugin"
             implementationClass = "$sourceGroup.BuildSourcePlugin"
+            version = currentVersion
         }
 
         register("java-submodule-source-plugin") {
             id = "java-submodule-source-plugin"
             implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
+            version = currentVersion
         }
     }
 }

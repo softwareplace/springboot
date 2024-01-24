@@ -8,15 +8,17 @@ plugins {
 }
 
 val sourceGroup = "com.gradle.kts.java.openapi"
-group = sourceGroup
+val currentVersion = "1.0.0"
 
-version = "1.0.0"
+group = sourceGroup
+version = currentVersion
 
 gradlePlugin {
     plugins {
         register("java-openapi-plugin") {
             id = "java-openapi-plugin"
             implementationClass = "$sourceGroup.OpenApiPlugin"
+            version = currentVersion
         }
     }
 }

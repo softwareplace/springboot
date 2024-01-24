@@ -15,20 +15,23 @@ plugins {
 }
 
 val sourceGroup = "com.gradle.kts.kotlin.buildsource"
-group = sourceGroup
+val currentVersion = "1.0.0"
 
-version = "1.0.0"
+group = sourceGroup
+version = currentVersion
 
 gradlePlugin {
     plugins {
         register("source-plugin") {
             id = "source-plugin"
             implementationClass = "$sourceGroup.BuildSourcePlugin"
+            version = currentVersion
         }
 
         register("submodule-source-plugin") {
             id = "submodule-source-plugin"
             implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
+            version = currentVersion
         }
     }
 }
