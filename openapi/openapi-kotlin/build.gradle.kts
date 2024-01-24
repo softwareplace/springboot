@@ -25,6 +25,17 @@ gradlePlugin {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
+    }
+}
+
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
     implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")

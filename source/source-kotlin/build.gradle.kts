@@ -36,6 +36,17 @@ gradlePlugin {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
+    }
+}
+
 dependencies {
     kotlinDeps()
     implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
