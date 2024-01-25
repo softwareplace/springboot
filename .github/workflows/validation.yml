@@ -2,8 +2,7 @@ name: "Build validation"
 
 on:
   push:
-    branches:
-      - "*"
+
 jobs:
   kotlin-build:
     name: "Kotlin Build validate"
