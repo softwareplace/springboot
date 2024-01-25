@@ -1,4 +1,4 @@
-import com.gradle.kts.build.configuration.Dependencies
+import com.github.softwareplace.plugin.buildconfiguration.Dependencies
 
 
 plugins {
@@ -8,12 +8,29 @@ plugins {
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
-val sourceGroup = "com.gradle.kts.kotlin.openapi"
-val currentVersion = "1.0.0"
+val sourceGroup = "com.github.softwareplace.plugin.kotlinopenapi"
+val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
 version = currentVersion
 
+publishing {
+    publications {
+        create<MavenPublication>("openapiPlugin") {
+            groupId = sourceGroup
+            artifactId = "openapi-plugin"
+            version = currentVersion
+            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
 
 gradlePlugin {
     plugins {
@@ -27,7 +44,7 @@ gradlePlugin {
 
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
-    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
+    implementation("com.github.softwareplace.plugin.buildconfiguration:build-configuration:${System.getProperty("pluginsVersion")}")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }

@@ -1,7 +1,6 @@
-import com.gradle.kts.build.configuration.Dependencies
-import com.gradle.kts.build.configuration.ORG_SPRINGFRAMEWORK_BOOT
-import com.gradle.kts.build.configuration.implementation
-import com.gradle.kts.build.configuration.kotlinDeps
+import com.github.softwareplace.plugin.buildconfiguration.Dependencies
+import com.github.softwareplace.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
+import com.github.softwareplace.plugin.buildconfiguration.kotlinDeps
 
 plugins {
     `kotlin-dsl`
@@ -14,8 +13,8 @@ plugins {
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
 }
 
-val sourceGroup = "com.gradle.kts.kotlin.buildsource"
-val currentVersion = "1.0.0"
+val sourceGroup = "com.github.softwareplace.plugin.kotlinbuildsource"
+val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
 version = currentVersion
@@ -26,12 +25,39 @@ gradlePlugin {
             id = "source-plugin"
             implementationClass = "$sourceGroup.BuildSourcePlugin"
             version = currentVersion
+            publishing {
+                publications {
+                    create<MavenPublication>("sourcePlugin") {
+                        groupId = sourceGroup
+                        artifactId = "source-plugin"
+                        version = currentVersion
+                        java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                        java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+                        from(components["java"])
+                    }
+                }
+            }
         }
 
         register("submodule-source-plugin") {
             id = "submodule-source-plugin"
             implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
             version = currentVersion
+
+            publishing {
+                publications {
+                    create<MavenPublication>("submoduleSourcePlugin") {
+                        groupId = sourceGroup
+                        artifactId = "submodule-source-plugin"
+                        version = currentVersion
+                        java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                        java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+                        from(components["java"])
+                    }
+                }
+            }
         }
     }
 }
@@ -39,7 +65,7 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
+    implementation("com.github.softwareplace.plugin.buildconfiguration:build-configuration:${System.getProperty("pluginsVersion")}")
 //    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
-    implementation("com.gradle.kts.build.configuration:build-configuration:1.0.0")
 }
 

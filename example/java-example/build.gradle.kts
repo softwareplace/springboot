@@ -1,9 +1,10 @@
-import com.gradle.kts.java.buildsource.jsonLogger
-import com.gradle.kts.java.buildsource.lombok
-import com.gradle.kts.java.buildsource.springWebFlux
-import com.gradle.kts.java.buildsource.test
-import com.gradle.kts.java.openapi.OpenApiSettings
-import com.gradle.kts.java.openapi.openApiSettings
+import com.github.softwareplace.plugin.javabuildsource.jsonLogger
+import com.github.softwareplace.plugin.javabuildsource.lombok
+import com.github.softwareplace.plugin.javabuildsource.springWebFlux
+import com.github.softwareplace.plugin.javabuildsource.test
+import com.github.softwareplace.plugin.javaopenapi.OpenApiSettings
+import com.github.softwareplace.plugin.javaopenapi.openApiSettings
+
 
 plugins {
     id("java-source-plugin")

@@ -1,9 +1,10 @@
-import com.gradle.kts.kotlin.buildsource.jsonLogger
-import com.gradle.kts.kotlin.buildsource.mappstruct
-import com.gradle.kts.kotlin.buildsource.springWebFlux
-import com.gradle.kts.kotlin.buildsource.test
-import com.gradle.kts.kotlin.openapi.OpenApiSettings
-import com.gradle.kts.kotlin.openapi.openApiSettings
+import com.github.softwareplace.plugin.kotlinbuildsource.jsonLogger
+import com.github.softwareplace.plugin.kotlinbuildsource.mappstruct
+import com.github.softwareplace.plugin.kotlinbuildsource.springWebFlux
+import com.github.softwareplace.plugin.kotlinbuildsource.test
+import com.github.softwareplace.plugin.kotlinopenapi.OpenApiSettings
+import com.github.softwareplace.plugin.kotlinopenapi.openApiSettings
+
 
 plugins {
     id("source-plugin")

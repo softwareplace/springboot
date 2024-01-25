@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val sourceGroup = "com.gradle.kts.build.configuration"
+val sourceGroup = "com.github.softwareplace.plugin.buildconfiguration"
 val currentVersion = "1.0.0"
 
 group = sourceGroup
@@ -18,6 +18,24 @@ repositories {
     gradlePluginPortal()
     maven("https://jitpack.io")
     maven("https://repo.spring.io/milestone")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("build-configuration") {
+            groupId = sourceGroup
+            artifactId = "build-configuration"
+            version = currentVersion
+            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
 }
 
 beforeEvaluate {

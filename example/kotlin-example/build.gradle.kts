@@ -1,4 +1,4 @@
-import com.gradle.kts.kotlin.buildsource.*
+import com.github.softwareplace.plugin.kotlinbuildsource.*
 
 plugins {
     id("source-plugin")

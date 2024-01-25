@@ -22,3 +22,11 @@ properties.load(inputStream)
 properties.forEach { (key, value) ->
     System.setProperty(key.toString(), value.toString())
 }
+
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        // Add other repositories if needed
+    }
+}
