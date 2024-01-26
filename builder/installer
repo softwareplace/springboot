@@ -1,17 +1,19 @@
 #!/bin/sh
 
-# Define an array of module names
-modules=("spring-boot-build-configuration" "spring-boot-source-kotlin" "spring-boot-source-java" "spring-boot-openapi-kotlin" "spring-boot-openapi-java" "spring-boot-submodule-source-java" "spring-boot-submodule-source-kotlin")
+gradlePublishLocal() {
+  if ! gradle -Pgroup=com.github.softwareplace.plugin -xtest "$1":assemble "$1":publishToMavenLocal;
+  then
+    echo "Error: Failed to build and publish $1 to Maven Local."
+    exit 1
+  fi
+}
 
-# Iterate over the modules and execute the Gradle commands
-for module in "${modules[@]}"; do
-    gradle -Pgroup=com.github.softwareplace.plugin -xtest ${module}:assemble ${module}:publishToMavenLocal
-
-    # Check if the last command was successful
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to build and publish ${module} to Maven Local."
-        exit 1
-    fi
-done
+gradlePublishLocal "spring-boot-build-configuration"
+gradlePublishLocal "spring-boot-source-kotlin"
+gradlePublishLocal "spring-boot-source-java"
+gradlePublishLocal "spring-boot-openapi-kotlin"
+gradlePublishLocal "spring-boot-openapi-java"
+gradlePublishLocal "spring-boot-submodule-source-java"
+gradlePublishLocal "spring-boot-submodule-source-kotlin"
 
 echo "All modules built and published successfully."
