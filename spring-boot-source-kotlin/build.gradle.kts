@@ -16,10 +16,8 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.plugin"
-val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
-version = currentVersion
 
 tasks.named<Jar>("bootJar").configure {
     enabled = false
@@ -34,7 +32,6 @@ gradlePlugin {
         register("spring-boot-source-plugin") {
             id = "com.github.softwareplace.plugin.spring-boot-source-plugin"
             implementationClass = "$sourceGroup.kotlinbuildsource.BuildSourcePlugin"
-            version = currentVersion
         }
     }
 }
@@ -44,7 +41,6 @@ publishing {
         create<MavenPublication>("springBootSourcePlugin") {
             groupId = sourceGroup
             artifactId = "spring-boot-source-plugin"
-            version = currentVersion
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 

@@ -1,9 +1,13 @@
 #!/bin/sh
 
+
 gradlePublishLocal() {
-  if ! gradle -Pgroup=com.github.softwareplace.plugin -xtest "$1":assemble "$1":publishToMavenLocal;
+  buildTag=$(git describe --tags --abbrev=0)
+  rm -rf "$1/build"
+  echo "Publishing $1:$buildTag"
+  if ! gradle -Pgroup=com.github.softwareplace.plugin "$1":assemble "$1":publishToMavenLocal -Pversion="$buildTag";
   then
-    echo "Error: Failed to build and publish $1 to Maven Local."
+    echo "Publish failed $1:$buildTag"
     exit 1
   fi
 }

@@ -9,17 +9,14 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.plugin"
-val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
-version = currentVersion
 
 publishing {
     publications {
         create<MavenPublication>("springBootJavaOpenapiPlugin") {
             groupId = sourceGroup
             artifactId = "spring-boot-java-openapi-plugin"
-            version = currentVersion
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
@@ -37,7 +34,6 @@ gradlePlugin {
         register("spring-boot-java-openapi-plugin") {
             id = "com.github.softwareplace.plugin.spring-boot-java-openapi-plugin"
             implementationClass = "$sourceGroup.javaopenapi.OpenApiPlugin"
-            version = currentVersion
         }
     }
 }

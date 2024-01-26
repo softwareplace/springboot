@@ -11,17 +11,14 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.plugin"
-val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
-version = currentVersion
 
 publishing {
     publications {
         create<MavenPublication>("springBootOpenapiPlugin") {
             groupId = sourceGroup
             artifactId = "spring-boot-openapi-plugin"
-            version = currentVersion
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
@@ -39,7 +36,6 @@ gradlePlugin {
         register("spring-boot-openapi-plugin") {
             id = "com.github.softwareplace.plugin.spring-boot-openapi-plugin"
             implementationClass = "$sourceGroup.kotlinopenapi.OpenApiPlugin"
-            version = currentVersion
         }
     }
 }

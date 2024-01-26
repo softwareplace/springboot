@@ -8,10 +8,8 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.plugin"
-val currentVersion = System.getProperty("pluginsVersion")
 
 group = sourceGroup
-version = currentVersion
 
 repositories {
     mavenCentral()
@@ -26,7 +24,6 @@ publishing {
         create<MavenPublication>("spring-boot-build-configuration") {
             groupId = sourceGroup
             artifactId = "spring-boot-build-configuration"
-            version = currentVersion
             java.sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
@@ -96,7 +93,6 @@ gradlePlugin {
         register("spring-boot-build-configuration") {
             id = "com.github.softwareplace.plugin.spring-boot-build-configuration"
             implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
-            version = currentVersion
         }
     }
 }
