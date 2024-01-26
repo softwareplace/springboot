@@ -63,7 +63,6 @@ class BuildConfigurationPlugin : Plugin<Project> {
 
             tasks.withType<KotlinCompile>().configureEach {
                 kotlinOptions {
-                    jvmTarget = System.getProperty("jdkVersion")
                     freeCompilerArgs += "-Xjsr305=strict"
                 }
             }

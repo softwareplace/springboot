@@ -1,6 +1,5 @@
 package com.github.softwareplace.plugin.kotlinopenapi
 
-import com.github.softwareplace.plugin.buildconfiguration.Dependencies
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
@@ -140,9 +139,5 @@ fun Project.applyKotlinSourceSets() {
 fun Project.applyTasks() {
     tasks.withType<KotlinCompile> {
         dependsOn(tasks.findByName("openApiGenerate"))
-        kotlinOptions {
-            freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = Dependencies.Version.jdk
-        }
     }
 }

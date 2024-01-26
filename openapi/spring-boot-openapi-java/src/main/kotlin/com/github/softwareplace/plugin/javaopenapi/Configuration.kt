@@ -143,7 +143,7 @@ fun Project.applyTasks() {
         dependsOn(tasks.findByName("openApiGenerate"))
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = System.getProperty("jdk")
+            jvmTarget = System.getProperty("jdkVersion")
         }
     }
 }
