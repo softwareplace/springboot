@@ -35,20 +35,20 @@ gradlePlugin {
             id = "com.github.softwareplace.plugin.spring-boot-submodule-source-plugin"
             implementationClass = "$sourceGroup.kotlinbuildsource.BuildSubmoduleSourcePlugin"
             version = currentVersion
+        }
+    }
+}
 
-            publishing {
-                publications {
-                    create<MavenPublication>("springBootSubmoduleSourcePlugin") {
-                        groupId = sourceGroup
-                        artifactId = "spring-boot-submodule-source-plugin"
-                        version = currentVersion
-                        java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                        java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+publishing {
+    publications {
+        create<MavenPublication>("springBootSubmoduleSourcePlugin") {
+            groupId = sourceGroup
+            artifactId = "spring-boot-submodule-source-plugin"
+            version = currentVersion
+            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
-                        from(components["java"])
-                    }
-                }
-            }
+            from(components["java"])
         }
     }
 }

@@ -47,9 +47,9 @@ tasks.named<BootRun>("bootRun").configure {
 
 gradlePlugin {
     plugins {
-        register("spring-boot-java-submodule-source-plugin") {
-            id = "com.github.softwareplace.plugin.spring-boot-java-submodule-source-plugin"
-            implementationClass = "$sourceGroup.javabuildsource.BuildSubmoduleSourcePlugin"
+        register("spring-boot-java-source-plugin") {
+            id = "com.github.softwareplace.plugin.spring-boot-java-source-plugin"
+            implementationClass = "$sourceGroup.javabuildsource.BuildSourcePlugin"
             version = currentVersion
         }
     }
@@ -57,9 +57,9 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("springBootJavaSubmoduleSourcePlugin") {
+        create<MavenPublication>("springBootJavaSourcePlugin") {
             groupId = sourceGroup
-            artifactId = "spring-boot-java-submodule-source-plugin"
+            artifactId = "spring-boot-java-source-plugin"
             version = currentVersion
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
