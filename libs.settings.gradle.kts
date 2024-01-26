@@ -1,7 +1,7 @@
 import java.util.Properties
 
 val properties = Properties()
-val inputStream = rootDir.resolve("spring-boot-builder-plugin/build-configuration/gradle.properties").inputStream()
+val inputStream = rootDir.resolve("spring-boot-builder-plugin/spring-boot-build-configuration/src/main/resources/gradle.properties").inputStream()
 properties.load(inputStream)
 
 properties.forEach { (key, value) ->

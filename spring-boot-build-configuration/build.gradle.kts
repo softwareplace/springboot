@@ -6,8 +6,8 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val sourceGroup = "com.github.softwareplace.plugin.buildconfiguration"
-val currentVersion = "1.0.0"
+val sourceGroup = "com.github.softwareplace.plugin"
+val currentVersion = System.getProperty("pluginsVersion")
 
 group = sourceGroup
 version = currentVersion
@@ -22,12 +22,12 @@ repositories {
 
 publishing {
     publications {
-        create<MavenPublication>("build-configuration") {
+        create<MavenPublication>("spring-boot-build-configuration") {
             groupId = sourceGroup
-            artifactId = "build-configuration"
+            artifactId = "spring-boot-build-configuration"
             version = currentVersion
-            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+            java.sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
+            java.targetCompatibility = toVersion(System.getProperty("jdkVersion"))
 
             from(components["java"])
         }
@@ -36,6 +36,22 @@ publishing {
     repositories {
         mavenLocal()
     }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 beforeEvaluate {
@@ -68,9 +84,9 @@ afterEvaluate {
 
 gradlePlugin {
     plugins {
-        register("build-configuration-plugins") {
-            id = "build-configuration-plugin"
-            implementationClass = "$sourceGroup.BuildConfigurationPlugin"
+        register("spring-boot-build-configuration") {
+            id = "spring-boot-build-configuration"
+            implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
             version = currentVersion
         }
     }

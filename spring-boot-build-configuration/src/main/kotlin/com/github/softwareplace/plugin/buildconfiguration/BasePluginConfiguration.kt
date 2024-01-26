@@ -16,7 +16,7 @@ abstract class BasePluginConfiguration : Plugin<Project> {
 
     private fun Project.applyPlugins() {
         allprojects {
-            apply(plugin = "build-configuration-plugin")
+            apply(plugin = "spring-boot-build-configuration")
 
         }
     }

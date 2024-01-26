@@ -6,8 +6,7 @@ import com.github.softwareplace.plugin.buildconfiguration.kotlinDeps
 plugins {
     `kotlin-dsl`
     `maven-publish`
-    `java-gradle-plugin`
-    id("build-configuration-plugin")
+    id("spring-boot-build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
 //    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
@@ -15,22 +14,7 @@ plugins {
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
-allprojects {
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == ORG_SPRINGFRAMEWORK_BOOT) {
-                useVersion(System.getProperty("springBootVersion"))
-            }
-        }
-    }
-}
-
-val sourceGroup = "com.github.softwareplace.plugin.javabuildsource"
+val sourceGroup = "com.github.softwareplace.plugin"
 val currentVersion: String = System.getProperty("pluginsVersion")
 
 group = sourceGroup
@@ -38,16 +22,15 @@ version = currentVersion
 
 gradlePlugin {
     plugins {
-        register("java-source-plugin") {
-            id = "java-source-plugin"
-            implementationClass = "$sourceGroup.BuildSourcePlugin"
+        register("spring-boot-source-plugin") {
+            id = "spring-boot-source-plugin"
+            implementationClass = "$sourceGroup.kotlinbuildsource.BuildSourcePlugin"
             version = currentVersion
-
             publishing {
                 publications {
-                    create<MavenPublication>("javaSourcePlugin") {
+                    create<MavenPublication>("springBootSourcePlugin") {
                         groupId = sourceGroup
-                        artifactId = "java-source-plugin"
+                        artifactId = "spring-boot-source-plugin"
                         version = currentVersion
                         java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                         java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
@@ -58,16 +41,16 @@ gradlePlugin {
             }
         }
 
-        register("java-submodule-source-plugin") {
-            id = "java-submodule-source-plugin"
-            implementationClass = "$sourceGroup.BuildSubmoduleSourcePlugin"
+        register("spring-boot-submodule-source-plugin") {
+            id = "spring-boot-submodule-source-plugin"
+            implementationClass = "$sourceGroup.kotlinbuildsource.BuildSubmoduleSourcePlugin"
             version = currentVersion
 
             publishing {
                 publications {
-                    create<MavenPublication>("javaSubmoduleSourcePlugin") {
+                    create<MavenPublication>("springBootSubmoduleSourcePlugin") {
                         groupId = sourceGroup
-                        artifactId = "java-submodule-source-plugin"
+                        artifactId = "spring-boot-submodule-source-plugin"
                         version = currentVersion
                         java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                         java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
@@ -83,7 +66,7 @@ gradlePlugin {
 dependencies {
     kotlinDeps()
     implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
+    implementation("com.github.softwareplace.plugin:spring-boot-build-configuration:${System.getProperty("pluginsVersion")}")
 //    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
-    implementation("com.github.softwareplace.plugin.buildconfiguration:build-configuration:${System.getProperty("pluginsVersion")}")
 }
 

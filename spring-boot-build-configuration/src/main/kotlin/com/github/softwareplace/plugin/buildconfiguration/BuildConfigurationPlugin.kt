@@ -17,6 +17,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 class BuildConfigurationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+//            val properties = Properties()
+//            val versionResource = javaClass.getResourceAsStream("version.properties")
+//            versionResource.use { properties.load(it) }
+//
+//            properties.forEach { (key, value) ->
+//                System.setProperty(key.toString(), value.toString())
+//            }
+
             applyPlugins()
             applyTasks()
             applyRepositories()
@@ -32,7 +40,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.jetbrains.kotlin.jvm")
-            apply(plugin = "build-configuration-plugin")
+            apply(plugin = "spring-boot-build-configuration")
         }
     }
 
