@@ -4,7 +4,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin") version System.getProperty("pluginsVersion")
+    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin")
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 

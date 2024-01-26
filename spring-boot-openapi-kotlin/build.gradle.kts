@@ -6,7 +6,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    id("com.github.softwareplace.plugin.spring-boot-source-plugin") version System.getProperty("pluginsVersion")
+    id("com.github.softwareplace.plugin.spring-boot-source-kotlin")
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
@@ -18,7 +18,7 @@ publishing {
     publications {
         create<MavenPublication>("springBootOpenapiPlugin") {
             groupId = sourceGroup
-            artifactId = "spring-boot-openapi-plugin"
+            artifactId = "spring-boot-openapi-kotlin"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
@@ -33,8 +33,8 @@ publishing {
 
 gradlePlugin {
     plugins {
-        register("spring-boot-openapi-plugin") {
-            id = "com.github.softwareplace.plugin.spring-boot-openapi-plugin"
+        register("spring-boot-openapi-kotlin") {
+            id = "com.github.softwareplace.plugin.spring-boot-openapi-kotlin"
             implementationClass = "$sourceGroup.kotlinopenapi.OpenApiPlugin"
         }
     }

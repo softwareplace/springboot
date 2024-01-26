@@ -8,7 +8,7 @@ plugins {
     `kotlin-dsl`
     `maven-publish`
     `java-gradle-plugin`
-    id("com.github.softwareplace.plugin.spring-boot-build-configuration") version System.getProperty("pluginsVersion")
+    id("com.github.softwareplace.plugin.spring-boot-build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
 //    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")

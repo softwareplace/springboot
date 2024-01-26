@@ -7,7 +7,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     `kotlin-dsl`
     `maven-publish`
-    id("com.github.softwareplace.plugin.spring-boot-build-configuration") version System.getProperty("pluginsVersion")
+    id("com.github.softwareplace.plugin.spring-boot-build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
 //    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
@@ -29,8 +29,8 @@ tasks.named<BootRun>("bootRun").configure {
 
 gradlePlugin {
     plugins {
-        register("spring-boot-submodule-source-plugin") {
-            id = "com.github.softwareplace.plugin.spring-boot-submodule-source-plugin"
+        register("spring-boot-submodule-source-kotlin") {
+            id = "com.github.softwareplace.plugin.spring-boot-submodule-source-kotlin"
             implementationClass = "$sourceGroup.kotlinbuildsource.BuildSubmoduleSourcePlugin"
         }
     }
@@ -40,7 +40,7 @@ publishing {
     publications {
         create<MavenPublication>("springBootSubmoduleSourcePlugin") {
             groupId = sourceGroup
-            artifactId = "spring-boot-submodule-source-plugin"
+            artifactId = "spring-boot-submodule-source-kotlin"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
