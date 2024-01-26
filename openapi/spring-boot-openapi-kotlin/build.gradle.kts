@@ -1,4 +1,5 @@
 import com.github.softwareplace.plugin.buildconfiguration.Dependencies
+import com.github.softwareplace.plugin.buildconfiguration.implementation
 
 
 plugins {
