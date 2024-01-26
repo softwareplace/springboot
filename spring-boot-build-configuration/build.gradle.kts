@@ -1,4 +1,5 @@
 import org.gradle.api.JavaVersion.toVersion
+import org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask
 
 plugins {
     `maven-publish`
@@ -54,6 +55,10 @@ tasks.withType<Jar> {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+tasks.withType<KaptWithoutKotlincTask>().configureEach {
+    kaptProcessJvmArgs.add("-Xmx1024m")
+}
+
 beforeEvaluate {
     java {
         withJavadocJar()
@@ -69,6 +74,10 @@ beforeEvaluate {
 
 afterEvaluate {
     allprojects {
+        tasks.withType<KaptWithoutKotlincTask>().configureEach {
+            kaptProcessJvmArgs.add("-Xmx1024m")
+        }
+
         java {
             withJavadocJar()
             withSourcesJar()
