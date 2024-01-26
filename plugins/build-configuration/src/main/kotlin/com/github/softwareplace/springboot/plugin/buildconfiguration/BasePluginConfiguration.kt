@@ -25,7 +25,7 @@ abstract class BasePluginConfiguration : Plugin<Project> {
         allprojects {
             afterEvaluate {
                 dependencies {
-                    implementation("org.springframework.boot:spring-boot-gradle-plugin")
+                    implementation("org.springframework.boot")
                     fasterXmlJackson()
                     kotlinDeps()
                 }

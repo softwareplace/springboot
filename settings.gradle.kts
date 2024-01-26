@@ -4,7 +4,7 @@ rootProject.name = "spring-boot"
 
 includeBuild("plugins/build-configuration")
 
-//includeBuild("plugins/java")
+includeBuild("plugins/java")
 //includeBuild("plugins/java-openapi")
 //includeBuild("plugins/java-submodule")
 

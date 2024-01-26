@@ -7,6 +7,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     `kotlin-dsl`
     `maven-publish`
+    `java-gradle-plugin`
     id("com.github.softwareplace.springboot.plugin.build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
@@ -65,7 +66,7 @@ publishing {
 
 dependencies {
     kotlinDeps()
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
     implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:gradle-plugin:${Dependencies.Version.springBootVersion}")
 }
 

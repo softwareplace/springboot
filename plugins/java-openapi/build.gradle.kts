@@ -1,5 +1,4 @@
 import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
-import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     `maven-publish`
@@ -36,14 +35,6 @@ gradlePlugin {
             implementationClass = "$sourceGroup.javaopenapi.OpenApiPlugin"
         }
     }
-}
-
-tasks.named<Jar>("bootJar").configure {
-    enabled = false
-}
-
-tasks.named<BootRun>("bootRun").configure {
-    enabled = false
 }
 
 dependencies {

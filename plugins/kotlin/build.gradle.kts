@@ -50,7 +50,7 @@ publishing {
 
 dependencies {
     kotlinDeps()
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:gradle-plugin:${Dependencies.Version.springBootVersion}")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
     implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
 }
 
