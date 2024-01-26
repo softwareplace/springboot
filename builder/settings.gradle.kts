@@ -1,12 +1,5 @@
 import java.util.*
 
-include(":security")
-include(":java-example")
-include(":kotlin-example")
-include(":webflux-example")
-
-project(":security").projectDir = file("shared-modules/security")
-
 includeBuild("../spring-boot-build-configuration")
 includeBuild("../spring-boot-source-java")
 includeBuild("../spring-boot-source-kotlin")

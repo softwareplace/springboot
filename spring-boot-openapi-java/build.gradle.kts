@@ -1,9 +1,10 @@
 import com.github.softwareplace.plugin.buildconfiguration.Dependencies
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin") version System.getProperty("pluginsVersion")
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
@@ -39,6 +40,14 @@ gradlePlugin {
             version = currentVersion
         }
     }
+}
+
+tasks.named<Jar>("bootJar").configure {
+    enabled = false
+}
+
+tasks.named<BootRun>("bootRun").configure {
+    enabled = false
 }
 
 dependencies {
