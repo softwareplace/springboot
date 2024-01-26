@@ -1,14 +1,14 @@
-import com.github.softwareplace.plugin.kotlinbuildsource.jsonLogger
-import com.github.softwareplace.plugin.kotlinbuildsource.mappstruct
-import com.github.softwareplace.plugin.kotlinbuildsource.springWebFlux
-import com.github.softwareplace.plugin.kotlinbuildsource.test
-import com.github.softwareplace.plugin.kotlinopenapi.OpenApiSettings
-import com.github.softwareplace.plugin.kotlinopenapi.openApiSettings
+import com.github.softwareplace.springboot.plugin.kotlinbuildsource.jsonLogger
+import com.github.softwareplace.springboot.plugin.kotlinbuildsource.mappstruct
+import com.github.softwareplace.springboot.plugin.kotlinbuildsource.springWebFlux
+import com.github.softwareplace.springboot.plugin.kotlinbuildsource.test
+import com.github.softwareplace.springboot.plugin.kotlinopenapi.OpenApiSettings
+import com.github.softwareplace.springboot.plugin.kotlinopenapi.openApiSettings
 
 
 plugins {
-    id("com.github.softwareplace.plugin.spring-boot-source-kotlin")
-    id("com.github.softwareplace.plugin.spring-boot-openapi-kotlin")
+    id("com.github.softwareplace.springboot.plugin.kotlin")
+    id("com.github.softwareplace.springboot.plugin.kotlin-openapi")
 }
 
 group = "com.webflux.example"

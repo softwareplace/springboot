@@ -1,4 +1,4 @@
-# spring-boot-builder-plugin
+# builder-plugin
 
 ---
 
@@ -13,7 +13,7 @@
 > To add the plugin, having git already installed, run the command below inside the root directory of the project.
 
 ```shell
-git submodule add --force https://github.com/softwareplace/spring-boot-builder-plugin.git 
+git submodule add --force https://github.com/softwareplace/builder-plugin.git 
 ```
 
 > Still inside the root directory and create a file named `settings.gradle.kts`, in that file, add the settings below
@@ -28,25 +28,25 @@ git submodule add --force https://github.com/softwareplace/spring-boot-builder-p
 rootProject.name = "your-app-name"
 
 // Lib settings
-apply("spring-boot-builder-plugin/libs.settings.gradle.kts")
+apply("builder-plugin/libs.settings.gradle.kts")
 ````
 
 - `Kotlin` only
 
 ````kotlin
-apply("spring-boot-builder-plugin/kotlin-included.build.settings.gradle.kts")
+apply("builder-plugin/kotlin-included.build.settings.gradle.kts")
 ````
 
 - `Java` only
 
 ````kotlin
-apply("spring-boot-builder-plugin/java-included.build.settings.gradle.kts")
+apply("builder-plugin/java-included.build.settings.gradle.kts")
 ````
 
 - `Kotlin` and `Java`
 
 ````kotlin
-apply("spring-boot-builder-plugin/included.build.settings.gradle.kts")
+apply("builder-plugin/included.build.settings.gradle.kts")
 ````
 
 > After performing the above settings, it is necessary to add the plugin mapping to the project. To carry out this
@@ -100,9 +100,9 @@ dependencies {
 > Run the commands bellow and have fun
 
 ```shell
-cp -r  spring-boot-builder-plugin/example/gradle . 
-cp -r  spring-boot-builder-plugin/example/gradlew .
-cp -r  spring-boot-builder-plugin/example/gradlew.bat .
+cp -r  builder-plugin/example/gradle . 
+cp -r  builder-plugin/example/gradlew .
+cp -r  builder-plugin/example/gradlew.bat .
 ./gradlew build
 ```
 
@@ -121,5 +121,5 @@ Let's make something amazing together!
 
 ----
 
-The spring-boot-builder-plugin is Open Source software released under
+The builder-plugin is Open Source software released under
 the [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.html) file in the project root.

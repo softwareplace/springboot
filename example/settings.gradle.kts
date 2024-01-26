@@ -7,16 +7,16 @@ include(":webflux-example")
 
 project(":security").projectDir = file("shared-modules/security")
 
-includeBuild("../spring-boot-build-configuration")
-includeBuild("../spring-boot-source-java")
-includeBuild("../spring-boot-source-kotlin")
-includeBuild("../spring-boot-openapi-java")
-includeBuild("../spring-boot-openapi-kotlin")
-includeBuild("../spring-boot-submodule-source-java")
-includeBuild("../spring-boot-submodule-source-kotlin")
+includeBuild("../build-configuration")
+includeBuild("../java")
+includeBuild("../kotlin")
+includeBuild("../java-openapi")
+includeBuild("../kotlin-openapi")
+includeBuild("../java-submodule")
+includeBuild("../kotlin-submodule")
 
 val properties = Properties()
-val inputStream = rootDir.resolve("../spring-boot-build-configuration/src/main/resources/version.properties").inputStream()
+val inputStream = rootDir.resolve("../build-configuration/src/main/resources/version.properties").inputStream()
 properties.load(inputStream)
 
 properties.forEach { (key, value) ->

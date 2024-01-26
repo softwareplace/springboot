@@ -1,14 +1,14 @@
-import com.github.softwareplace.plugin.javabuildsource.jsonLogger
-import com.github.softwareplace.plugin.javabuildsource.lombok
-import com.github.softwareplace.plugin.javabuildsource.springWebFlux
-import com.github.softwareplace.plugin.javabuildsource.test
-import com.github.softwareplace.plugin.javaopenapi.OpenApiSettings
-import com.github.softwareplace.plugin.javaopenapi.openApiSettings
+import com.github.softwareplace.springboot.plugin.javabuildsource.jsonLogger
+import com.github.softwareplace.springboot.plugin.javabuildsource.lombok
+import com.github.softwareplace.springboot.plugin.javabuildsource.springWebFlux
+import com.github.softwareplace.springboot.plugin.javabuildsource.test
+import com.github.softwareplace.springboot.plugin.javaopenapi.OpenApiSettings
+import com.github.softwareplace.springboot.plugin.javaopenapi.openApiSettings
 
 
 plugins {
-    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin")
-    id("com.github.softwareplace.plugin.spring-boot-java-openapi-plugin")
+    id("com.github.softwareplace.springboot.plugin.java")
+    id("com.github.softwareplace.springboot.plugin.java-openapi")
 }
 
 group = "com.java.example"

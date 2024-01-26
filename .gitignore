@@ -1,4 +1,4 @@
-spring-boot-security-util/
+security-util/
 HELP.md
 .gradle
 build/
@@ -36,4 +36,4 @@ out/
 .logs/
 ### VS Code ###
 .vscode/
-/spring-boot-security-util/
+/security-util/

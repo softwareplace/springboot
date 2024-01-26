@@ -1,8 +1,8 @@
-import com.github.softwareplace.plugin.kotlinbuildsource.*
+import com.github.softwareplace.springboot.plugin.kotlinbuildsource.*
 
 plugins {
-    id("com.github.softwareplace.plugin.spring-boot-source-kotlin")
-    id("com.github.softwareplace.plugin.spring-boot-openapi-kotlin")
+    id("com.github.softwareplace.springboot.plugin.kotlin")
+    id("com.github.softwareplace.springboot.plugin.kotlin-openapi")
 }
 
 group = "com.kotlin.example.openapi"

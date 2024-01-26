@@ -2,19 +2,19 @@ import java.util.*
 
 rootProject.name = "spring-boot"
 
-includeBuild("spring-boot-build-configuration")
+includeBuild("plugins/build-configuration")
 
-includeBuild("spring-boot-source-java")
-includeBuild("spring-boot-openapi-java")
-includeBuild("spring-boot-submodule-source-java")
+includeBuild("plugins/java")
+//includeBuild("plugins/java-openapi")
+//includeBuild("plugins/java-submodule")
 
-includeBuild("spring-boot-source-kotlin")
-includeBuild("spring-boot-openapi-kotlin")
-includeBuild("spring-boot-submodule-source-kotlin")
+//includeBuild("plugins/kotlin")
+//includeBuild("plugins/kotlin-openapi")
+//includeBuild("plugins/kotlin-submodule")
 
 val properties = Properties()
 val inputStream =
-    rootDir.resolve("spring-boot-build-configuration/src/main/resources/version.properties").inputStream()
+    rootDir.resolve("plugins/build-configuration/src/main/resources/version.properties").inputStream()
 properties.load(inputStream)
 
 properties.forEach { (key, value) ->
