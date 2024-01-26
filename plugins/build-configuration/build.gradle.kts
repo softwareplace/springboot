@@ -19,6 +19,10 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
+project.findProperty("version")?.toString()?.let {
+    System.setProperty("pluginsVersion", it)
+}
+
 publishing {
     publications {
         create<MavenPublication>("buildConfiguration") {

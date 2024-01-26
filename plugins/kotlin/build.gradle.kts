@@ -9,7 +9,6 @@ plugins {
     `maven-publish`
     id("com.github.softwareplace.springboot.plugin.build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
-//    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
@@ -31,7 +30,7 @@ gradlePlugin {
     plugins {
         register("kotlin") {
             id = "com.github.softwareplace.springboot.plugin.kotlin"
-            implementationClass = "$sourceGroup.kotlinbuildsource.BuildSourcePlugin"
+            implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
         }
     }
 }
@@ -53,6 +52,5 @@ dependencies {
     kotlinDeps()
     implementation("$ORG_SPRINGFRAMEWORK_BOOT:gradle-plugin:${Dependencies.Version.springBootVersion}")
     implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
-//    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
 }
 

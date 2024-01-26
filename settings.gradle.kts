@@ -4,11 +4,11 @@ rootProject.name = "spring-boot"
 
 includeBuild("plugins/build-configuration")
 
-includeBuild("plugins/java")
+//includeBuild("plugins/java")
 //includeBuild("plugins/java-openapi")
 //includeBuild("plugins/java-submodule")
 
-//includeBuild("plugins/kotlin")
+includeBuild("plugins/kotlin")
 //includeBuild("plugins/kotlin-openapi")
 //includeBuild("plugins/kotlin-submodule")
 

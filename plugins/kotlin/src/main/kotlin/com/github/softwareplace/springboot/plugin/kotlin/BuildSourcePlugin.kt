@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.kotlinbuildsource
+package com.github.softwareplace.springboot.plugin.kotlin
 
 import com.github.softwareplace.springboot.plugin.buildconfiguration.BasePluginConfiguration
 import org.gradle.api.Project
