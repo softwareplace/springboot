@@ -4,7 +4,7 @@ import com.github.softwareplace.plugin.buildconfiguration.Dependencies
 plugins {
     `maven-publish`
     `kotlin-dsl`
-    id("spring-boot-source-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-source-plugin")
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
@@ -35,7 +35,7 @@ publishing {
 gradlePlugin {
     plugins {
         register("spring-boot-openapi-plugin") {
-            id = "spring-boot-openapi-plugin"
+            id = "com.github.softwareplace.plugin.spring-boot-openapi-plugin"
             implementationClass = "$sourceGroup.kotlinopenapi.OpenApiPlugin"
             version = currentVersion
         }

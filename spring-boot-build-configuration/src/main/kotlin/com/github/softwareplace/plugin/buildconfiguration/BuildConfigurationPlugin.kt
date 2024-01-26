@@ -40,7 +40,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.jetbrains.kotlin.jvm")
-            apply(plugin = "spring-boot-build-configuration")
+            apply(plugin = "com.github.softwareplace.plugin.spring-boot-build-configuration")
         }
     }
 

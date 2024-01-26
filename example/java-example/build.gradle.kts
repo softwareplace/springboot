@@ -7,8 +7,8 @@ import com.github.softwareplace.plugin.javaopenapi.openApiSettings
 
 
 plugins {
-    id("spring-boot-java-source-plugin")
-    id("spring-boot-java-openapi-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-java-source-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-java-openapi-plugin")
 }
 
 group = "com.java.example"

@@ -1,0 +1,14 @@
+jdk:
+  - openjdk21
+before_install:
+  - sdk install 21.ea.35-open
+  - sdk use java 21.ea.35-open
+  - sdk install gradle 8.5
+  - sdk use gradle 8.5
+install:
+  gradle clean -Pgroup=spring-boot-openapi-kotlin -xtest assemble \
+  spring-boot-build-configuration:publishToMavenLocal \
+  spring-boot-openapi-kotlin:publishToMavenLocal \
+  spring-boot-openapi-java:publishToMavenLocal \
+  spring-boot-source-java:publishToMavenLocal \
+  spring-boot-source-kotlin:publishToMavenLocal --refresh-dependencies

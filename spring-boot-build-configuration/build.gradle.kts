@@ -85,7 +85,7 @@ afterEvaluate {
 gradlePlugin {
     plugins {
         register("spring-boot-build-configuration") {
-            id = "spring-boot-build-configuration"
+            id = "com.github.softwareplace.plugin.spring-boot-build-configuration"
             implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
             version = currentVersion
         }

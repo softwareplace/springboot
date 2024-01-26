@@ -7,8 +7,8 @@ import com.github.softwareplace.plugin.kotlinopenapi.openApiSettings
 
 
 plugins {
-    id("spring-boot-source-plugin")
-    id("spring-boot-openapi-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-source-plugin")
+    id("com.github.softwareplace.plugin.spring-boot-openapi-plugin")
 }
 
 group = "com.webflux.example"

@@ -7,7 +7,7 @@ plugins {
     `kotlin-dsl`
     `maven-publish`
     `java-gradle-plugin`
-    id("spring-boot-build-configuration")
+    id("com.github.softwareplace.plugin.spring-boot-build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
 //    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
@@ -39,7 +39,7 @@ version = currentVersion
 gradlePlugin {
     plugins {
         register("spring-boot-java-source-plugin") {
-            id = "spring-boot-java-source-plugin"
+            id = "com.github.softwareplace.plugin.spring-boot-java-source-plugin"
             implementationClass = "$sourceGroup.javabuildsource.BuildSourcePlugin"
             version = currentVersion
 
@@ -59,7 +59,7 @@ gradlePlugin {
         }
 
         register("spring-boot-java-submodule-source-plugin") {
-            id = "spring-boot-java-submodule-source-plugin"
+            id = "com.github.softwareplace.plugin.spring-boot-java-submodule-source-plugin"
             implementationClass = "$sourceGroup.javabuildsource.BuildSubmoduleSourcePlugin"
             version = currentVersion
 
