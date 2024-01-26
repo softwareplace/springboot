@@ -20,7 +20,7 @@ jobs:
           gradle-version: 8.5
       - name: Build
         run: |
-          cd example && gradle kotlin-example:build
+          gradle kotlin-example:build
 
   webflux-build:
     name: "Webflux Build validate"
@@ -38,7 +38,7 @@ jobs:
           gradle-version: 8.5
       - name: Build
         run: |
-          cd example && gradle kotlin-example:build
+          gradle kotlin-example:build
   java-build:
     name: "Java build validate"
     runs-on: ubuntu-latest
@@ -55,4 +55,4 @@ jobs:
           gradle-version: 8.5
       - name: Java build validation
         run: |
-          cd example && gradle java-example:build
+          gradle java-example:build
