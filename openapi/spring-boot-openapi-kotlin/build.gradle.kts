@@ -44,7 +44,6 @@ gradlePlugin {
 
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
-    implementation("com.github.softwareplace.plugin:spring-boot-source-plugin:${System.getProperty("pluginsVersion")}")
     implementation("com.github.softwareplace.plugin:spring-boot-build-configuration:${System.getProperty("pluginsVersion")}")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
