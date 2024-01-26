@@ -7,7 +7,9 @@ val sourceGroup = "com.github.softwareplace.springboot"
 group = sourceGroup
 
 project.findProperty("version")?.toString()?.let {
-    System.setProperty("pluginsVersion", it)
+    if (it.isNotEmpty()) {
+        System.setProperty("pluginsVersion", it)
+    }
 }
 
 

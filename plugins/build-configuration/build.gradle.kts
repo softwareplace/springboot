@@ -20,7 +20,9 @@ repositories {
 }
 
 project.findProperty("version")?.toString()?.let {
-    System.setProperty("pluginsVersion", it)
+    if (it.isNotEmpty()) {
+        System.setProperty("pluginsVersion", it)
+    }
 }
 
 publishing {
