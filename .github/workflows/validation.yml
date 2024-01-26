@@ -18,9 +18,8 @@ jobs:
         id: setup-gradle
         with:
           gradle-version: 8.5
-      - name: Build
-        run: |
-          sh ./installer
+      - name: Local Publish
+        run: cd builder && chmod +x installer && ./installer
 
   kotlin-build:
     name: "Kotlin Build validate"
