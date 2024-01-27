@@ -1,3 +1,18 @@
 #!/bin/sh
 
-cd ./builder && sh ./installer
+buildTag=$(git describe --tags --abbrev=0)
+echo "Publishing $buildTag"
+
+if ! gradle \
+    build-configuration:assemble build-configuration:publishToMavenLocal \
+    java:assemble java:publishToMavenLocal \
+    java-submodule:assemble java-submodule:publishToMavenLocal \
+    java-openapi:assemble java-openapi:publishToMavenLocal \
+    kotlin:assemble kotlin:publishToMavenLocal \
+    kotlin-submodule:assemble kotlin-submodule:publishToMavenLocal \
+    kotlin-openapi:assemble kotlin-openapi:publishToMavenLocal \
+    assemble publishToMavenLocal --refresh-dependencies -Pversion="$buildTag"
+ then
+    echo "Publish failed $1:$buildTag"
+    exit 1
+  fi
