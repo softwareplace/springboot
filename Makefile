@@ -9,7 +9,7 @@ gradle-wrapper:
 	./gradle wrapper --gradle-version=$(target)
 
 preinstall:
-	cd ./builder && ./installer $(tag)
+	cd ./builder && ./installer
 
 publish:
 	make preinstall
