@@ -5,9 +5,9 @@ on:
     branches:
       - develop
       - main
-      - 'feature/*'
-      - 'release/*'
-      - 'hotfix/*'
+      - 'feature/**'
+      - 'release/**'
+      - 'hotfix/**'
 
 jobs:
   local_publishValidation:
