@@ -8,7 +8,6 @@ includeBuild("plugins/java")
 includeBuild("plugins/java-openapi")
 
 includeBuild("plugins/kotlin")
-includeBuild("plugins/kotlin-openapi")
 
 val properties = Properties()
 val inputStream =

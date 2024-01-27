@@ -12,5 +12,4 @@ publish:
 	java:assemble java:publishToMavenLocal \
 	java-openapi:assemble java-openapi:publishToMavenLocal \
 	kotlin:assemble kotlin:publishToMavenLocal \
-	kotlin-openapi:assemble kotlin-openapi:publishToMavenLocal \
 	assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
