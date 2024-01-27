@@ -61,7 +61,7 @@ repositories {
 
 publishing {
     publications {
-        create<MavenPublication>("springBootPlugins") {
+        create<MavenPublication>("maven") {
             groupId = sourceGroup
             artifactId = "springboot"
             version = getTag()

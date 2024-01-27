@@ -5,4 +5,5 @@ before_install:
   - sdk use java 21.ea.35-open
   - sdk install gradle 8.5
   - sdk use gradle 8.5
-  - make preinstall
+install:
+  make publish

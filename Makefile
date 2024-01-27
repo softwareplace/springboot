@@ -9,11 +9,18 @@ gradle-wrapper:
 	./gradle wrapper --gradle-version=$(target)
 
 preinstall:
-	cd ./builder && ./installer
+	./installer
 
 publish:
 	make preinstall
+	gradle assemble publishToMavenLocal --refresh-dependencies
+
+
+publish-version:
+	make preinstall
 	gradle assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
+	pwd
+	ls -lah runner/build
 
 libs-build:
 	make preinstall
