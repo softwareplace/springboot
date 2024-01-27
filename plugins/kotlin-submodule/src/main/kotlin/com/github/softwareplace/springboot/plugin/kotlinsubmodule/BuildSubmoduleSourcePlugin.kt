@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.kotlinbuildsource
+package com.github.softwareplace.springboot.plugin.kotlinsubmodule
 
 import com.github.softwareplace.springboot.plugin.buildconfiguration.BasePluginConfiguration
 import org.gradle.api.Project
@@ -12,11 +12,10 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 class BuildSubmoduleSourcePlugin : BasePluginConfiguration() {
+
     override fun customApply(target: Project) {
         with(target) {
-            allprojects {
-                apply(plugin = "org.jetbrains.kotlin.kapt")
-            }
+            apply(plugin = "org.jetbrains.kotlin.kapt")
 
             tasks.named<Jar>("bootJar").configure {
                 enabled = false

@@ -1,9 +1,9 @@
-import com.github.softwareplace.springboot.plugin.kotlinbuildsource.jsonLogger
-import com.github.softwareplace.springboot.plugin.kotlinbuildsource.mappstruct
-import com.github.softwareplace.springboot.plugin.kotlinbuildsource.springWebFlux
-import com.github.softwareplace.springboot.plugin.kotlinbuildsource.test
 import com.github.softwareplace.springboot.plugin.kotlinopenapi.OpenApiSettings
 import com.github.softwareplace.springboot.plugin.kotlinopenapi.openApiSettings
+import com.github.softwareplace.springboot.plugin.kotlinsubmodule.jsonLogger
+import com.github.softwareplace.springboot.plugin.kotlinsubmodule.mappstruct
+import com.github.softwareplace.springboot.plugin.kotlinsubmodule.springWebFlux
+import com.github.softwareplace.springboot.plugin.kotlinsubmodule.test
 
 
 plugins {
