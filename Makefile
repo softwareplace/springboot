@@ -10,5 +10,6 @@ publish:
 	gradle \
 	build-configuration:assemble build-configuration:publishToMavenLocal \
 	java:assemble java:publishToMavenLocal \
+	java-submodule:assemble java-submodule:publishToMavenLocal \
 	kotlin:assemble kotlin:publishToMavenLocal \
 	assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)

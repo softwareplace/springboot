@@ -46,14 +46,14 @@ gradlePlugin {
     plugins {
         register("java-submodule") {
             id = "com.github.softwareplace.springboot.plugin.java-submodule"
-            implementationClass = "$sourceGroup.javabuildsource.BuildSubmoduleSourcePlugin"
+            implementationClass = "$sourceGroup.javasubmodule.SubmoduleSourcePlugin"
         }
     }
 }
 
 publishing {
     publications {
-        create<MavenPublication>("springBootJavaSubmoduleSourcePlugin") {
+        create<MavenPublication>("release") {
             groupId = sourceGroup
             artifactId = "java-submodule"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
@@ -66,7 +66,7 @@ publishing {
 
 dependencies {
     kotlinDeps()
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:gradle-plugin:${Dependencies.Version.springBootVersion}")
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
     implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
 }
 

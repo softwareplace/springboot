@@ -37,7 +37,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("springBootSourcePlugin") {
+        create<MavenPublication>("release") {
             groupId = sourceGroup
             artifactId = "kotlin"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))

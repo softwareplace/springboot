@@ -27,7 +27,7 @@ project.findProperty("version")?.toString()?.let {
 
 publishing {
     publications {
-        create<MavenPublication>("buildConfiguration") {
+        create<MavenPublication>("release") {
             groupId = sourceGroup
             artifactId = "build-configuration"
             java.sourceCompatibility = toVersion(System.getProperty("jdkVersion"))

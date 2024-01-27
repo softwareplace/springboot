@@ -1,5 +1,6 @@
 package com.github.softwareplace.springboot.plugin.javasubmodule
 
+import com.github.softwareplace.springboot.plugin.buildconfiguration.BasePluginConfiguration
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.bundling.Jar
@@ -9,7 +10,7 @@ import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.springframework.boot.gradle.tasks.run.BootRun
 
-class BuildSubmoduleSourcePlugin : BuildSourcePlugin() {
+class SubmoduleSourcePlugin : BasePluginConfiguration() {
 
     override fun customApply(target: Project) {
         super.customApply(target)

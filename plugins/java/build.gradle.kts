@@ -53,7 +53,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("springBootJavaSourcePlugin") {
+        create<MavenPublication>("release") {
             groupId = sourceGroup
             artifactId = "java"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
