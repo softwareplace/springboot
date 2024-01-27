@@ -1,6 +1,11 @@
 #!/bin/sh
 
 buildTag=$(git describe --tags --abbrev=0)
+
+if [ -z "$buildTag" ]; then
+  buildTag="1.0.0-SNAPSHOT"
+fi
+
 echo "Publishing $buildTag"
 
 if ! gradle \
