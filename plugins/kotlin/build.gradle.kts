@@ -1,4 +1,5 @@
 import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
+import com.github.softwareplace.springboot.plugin.buildconfiguration.getTag
 import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
 import org.springframework.boot.gradle.tasks.run.BootRun
 
@@ -30,6 +31,7 @@ gradlePlugin {
         register("kotlin") {
             id = "com.github.softwareplace.springboot.plugin.kotlin"
             implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -39,6 +41,7 @@ gradlePlugin {
                     artifactId = "kotlin"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    version = project.getTag()
 
                     from(components["java"])
                 }
@@ -50,6 +53,7 @@ gradlePlugin {
         register("kotlin-submodule") {
             id = "com.github.softwareplace.springboot.plugin.kotlin-submodule"
             implementationClass = "$sourceGroup.kotlin.BuildSubmoduleSourcePlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -59,7 +63,7 @@ gradlePlugin {
                     artifactId = "kotlin"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-
+                    version = project.getTag()
                     from(components["java"])
                 }
             }
@@ -70,6 +74,7 @@ gradlePlugin {
         register("kotlin-openapi") {
             id = "com.github.softwareplace.springboot.plugin.kotlin-openapi"
             implementationClass = "$sourceGroup.kotlin.openapi.OpenApiPlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -79,7 +84,7 @@ gradlePlugin {
                     artifactId = "kotlin-openapi"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-
+                    version = project.getTag()
                     from(components["java"])
                 }
             }

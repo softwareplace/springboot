@@ -1,5 +1,7 @@
 import org.gradle.api.JavaVersion.toVersion
 import org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 plugins {
     `maven-publish`
@@ -9,7 +11,35 @@ plugins {
 
 val sourceGroup = "com.github.softwareplace.springboot.plugin"
 
+fun getTag(): String {
+    try {
+        val versionRequest: String? = project.findProperty("version")?.toString()
+        if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
+            println("Current request tag $versionRequest")
+            return versionRequest
+        }
+
+        val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
+            .redirectErrorStream(true)
+            .start()
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        val tag = reader.readLine()
+
+        if (tag.isNotBlank()) {
+            println("Current app tag $tag")
+            return tag
+        }
+    } catch (err: Throwable) {
+        println("Failed to get current tag")
+    }
+
+    val tag = System.getProperty("pluginsVersion")
+    println("Current default tag $tag")
+    return tag
+}
+
 group = sourceGroup
+version = getTag()
 
 repositories {
     mavenCentral()
@@ -19,12 +49,6 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
-project.findProperty("version")?.toString()?.let {
-    if (it.isNotEmpty()) {
-        System.setProperty("pluginsVersion", it)
-    }
-}
-
 publishing {
     publications {
         create<MavenPublication>("release") {
@@ -32,6 +56,7 @@ publishing {
             artifactId = "build-configuration"
             java.sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = toVersion(System.getProperty("jdkVersion"))
+            version = getTag()
 
             from(components["java"])
         }
@@ -98,6 +123,7 @@ gradlePlugin {
     plugins {
         register("build-configuration") {
             id = "com.github.softwareplace.springboot.plugin.build-configuration"
+            version = getTag()
             implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
         }
     }

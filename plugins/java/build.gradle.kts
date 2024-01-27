@@ -1,5 +1,6 @@
 import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
 import com.github.softwareplace.springboot.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
+import com.github.softwareplace.springboot.plugin.buildconfiguration.getTag
 import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
 import org.springframework.boot.gradle.tasks.run.BootRun
 
@@ -47,6 +48,7 @@ gradlePlugin {
         register("java") {
             id = "com.github.softwareplace.springboot.plugin.java"
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -56,6 +58,7 @@ gradlePlugin {
                     artifactId = "java"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    version = project.getTag()
 
                     from(components["java"])
                 }
@@ -68,6 +71,7 @@ gradlePlugin {
         register("java-submodule") {
             id = "com.github.softwareplace.springboot.plugin.java-submodule"
             implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -77,6 +81,7 @@ gradlePlugin {
                     artifactId = "java-submodule"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    version = project.getTag()
 
                     from(components["java"])
                 }
@@ -88,6 +93,7 @@ gradlePlugin {
         register("java-openapi") {
             id = "com.github.softwareplace.springboot.plugin.java-openapi"
             implementationClass = "$sourceGroup.openapi.OpenApiPlugin"
+            version = project.getTag()
         }
 
         publishing {
@@ -97,6 +103,7 @@ gradlePlugin {
                     artifactId = "java-openapi"
                     java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
                     java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    version = project.getTag()
 
                     from(components["java"])
                 }
