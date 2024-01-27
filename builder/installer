@@ -1,23 +1,23 @@
 #!/bin/sh
 
+buildTag=$1
 
-gradlePublishLocal() {
+if [ -z "$buildTag" ]; then
   buildTag=$(git describe --tags --abbrev=0)
-  rm -rf "$1/build"
-  echo "Publishing $1:$buildTag"
-  if ! gradle -Pgroup=com.github.softwareplace.springboot.plugin "$1":assemble "$1":publishToMavenLocal -Pversion="$buildTag";
-  then
-    echo "Publish failed $1:$buildTag"
-    exit 1
-  fi
-}
+fi
 
-gradlePublishLocal "build-configuration"
-gradlePublishLocal "kotlin"
-gradlePublishLocal "java"
-gradlePublishLocal "kotlin-openapi"
-gradlePublishLocal "java-openapi"
-gradlePublishLocal "java-submodule"
-gradlePublishLocal "kotlin-submodule"
+if [ -z "$buildTag" ]; then
+  buildTag="1.0.0-SNAPSHOT"
+fi
 
-echo "All modules built and published successfully."
+echo "Publishing $buildTag"
+
+if ! gradle \
+      build-configuration:assemble build-configuration:publishToMavenLocal \
+      java:assemble java:publishToMavenLocal \
+      kotlin:assemble kotlin:publishToMavenLocal \
+      --refresh-dependencies -Pversion="$buildTag";
+then
+  echo "Publish failed $1:$buildTag"
+  exit 1
+fi

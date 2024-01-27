@@ -1,21 +1,20 @@
 target ?= 8.5
 tag ?= 1.0.0-SNAPSHOT
+
 test:
+	make preinstall
 	./gradlew clean test
 
 gradle-wrapper:
 	./gradle wrapper --gradle-version=$(target)
 
+preinstall:
+	cd ./builder && ./installer $(tag)
+
 publish:
-	gradle \
-	build-configuration:assemble build-configuration:publishToMavenLocal \
-	java:assemble java:publishToMavenLocal \
-	kotlin:assemble kotlin:publishToMavenLocal \
-	assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
+	make preinstall
+	gradle assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
 
 libs-build:
-	gradle \
-	build-configuration:assemble build-configuration:build \
-	java:assemble java:build \
-	kotlin:assemble kotlin:build \
-	assemble build --refresh-dependencies -Pversion=$(tag)
+	make preinstall
+	gradle assemble build --refresh-dependencies -Pversion=$(tag)
