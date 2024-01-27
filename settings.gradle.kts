@@ -1,6 +1,6 @@
 import java.util.*
 
-rootProject.name = "spring-boot"
+rootProject.name = "spring-boot-builder-plugin"
 
 includeBuild("plugins/build-configuration")
 
