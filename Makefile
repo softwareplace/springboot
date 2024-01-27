@@ -8,18 +8,13 @@ test:
 gradle-wrapper:
 	./gradle wrapper --gradle-version=$(target)
 
-preinstall:
-	./installer
-
 publish:
-	make preinstall
-	gradle assemble publishToMavenLocal -Pgroup=com.github.softwareplace --refresh-dependencies
+	./installer
 	./postinstaller
 
 publish-version:
 	make preinstall
-	gradle assemble publishToMavenLocal -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion=$(tag)
-	pwd
+	./installer $(tag)
 	ls -lah runner/build
 
 libs-build:

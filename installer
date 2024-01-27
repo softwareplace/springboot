@@ -1,11 +1,24 @@
 #!/bin/sh
 
-ls -lah ~/.m2/repository/
+buildTag=$1
 
-currentDir="$(pwd)"
+if [ -z "$buildTag" ]; then
+  buildTag=$(git describe --tags --abbrev=0)
+fi
 
-echo "Working on $currentDir"
-ls -lah
-cd ./builder && ./installer
+if [ -z "$buildTag" ]; then
+  buildTag="1.0.0-SNAPSHOT"
+fi
 
-cd "$currentDir" && echo "Execution completed on $currentDir"
+echo "Publishing $buildTag"
+
+if ! gradle \
+      build-configuration:assemble build-configuration:publishToMavenLocal \
+      java:assemble java:publishToMavenLocal \
+      kotlin:assemble kotlin:publishToMavenLocal \
+      assemble publishToMavenLocal \
+      -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
+then
+  echo "Publish failed $1:$buildTag"
+  exit 1
+fi
