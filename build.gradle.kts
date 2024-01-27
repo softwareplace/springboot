@@ -7,7 +7,7 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val sourceGroup = "com.github.softwareplace.springboot"
+val sourceGroup = "com.github.softwareplace"
 group = sourceGroup
 version = getTag()
 
@@ -48,7 +48,7 @@ publishing {
     publications {
         create<MavenPublication>("springBootPlugins") {
             groupId = sourceGroup
-            artifactId = "plugin"
+            artifactId = "springboot"
             version = getTag()
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
