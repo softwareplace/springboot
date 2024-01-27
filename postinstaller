@@ -1,0 +1,9 @@
+#!/bin/sh
+
+buildTag=$(git describe --tags --abbrev=0)
+
+ls -lah runner/build/libs
+
+ls -lah ~/.m2/repository/com/github/softwareplace/springboot/"$buildTag"/
+
+ls -lah ~/.m2/repository/com/github/softwareplace/springboot/plugin/

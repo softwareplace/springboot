@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ls -lah ~/.m2/repository/
+
 currentDir="$(pwd)"
 
 echo "Working on $currentDir"
@@ -7,5 +9,3 @@ ls -lah
 cd ./builder && ./installer
 
 cd "$currentDir" && echo "Execution completed on $currentDir"
-
-ls -lah runner/build

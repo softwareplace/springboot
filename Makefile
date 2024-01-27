@@ -14,7 +14,7 @@ preinstall:
 publish:
 	make preinstall
 	gradle assemble publishToMavenLocal --refresh-dependencies
-
+	./postinstaller
 
 publish-version:
 	make preinstall
