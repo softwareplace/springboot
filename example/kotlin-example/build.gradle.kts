@@ -1,4 +1,6 @@
-import com.github.softwareplace.springboot.plugin.kotlinbuildsource.*
+import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
+import com.github.softwareplace.springboot.plugin.kotlin.*
+
 
 plugins {
     id("com.github.softwareplace.springboot.plugin.kotlin")

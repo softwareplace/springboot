@@ -41,28 +41,6 @@ tasks.named<BootRun>("bootRun").configure {
     enabled = false
 }
 
-gradlePlugin {
-    plugins {
-        register("java-submodule") {
-            id = "com.github.softwareplace.springboot.plugin.java-submodule"
-            implementationClass = "$sourceGroup.javasubmodule.SubmoduleSourcePlugin"
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = sourceGroup
-            artifactId = "java-submodule"
-            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-
-            from(components["java"])
-        }
-    }
-}
-
 dependencies {
     kotlinDeps()
     implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")

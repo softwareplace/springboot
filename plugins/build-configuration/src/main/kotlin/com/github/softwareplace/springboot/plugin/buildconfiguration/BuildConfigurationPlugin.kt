@@ -18,8 +18,9 @@ class BuildConfigurationPlugin : Plugin<Project> {
             applyTasks()
             applyRepositories()
             dependencies {
+                kotlinDeps()
                 implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
-                implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
+                implementation("org.springframework.boot:spring-boot-gradle-plugin:${System.getProperty("springBootVersion")}")
             }
         }
     }
@@ -27,6 +28,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
     private fun Project.applyPlugins() {
         allprojects {
             apply(plugin = "org.springframework.boot")
+            apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
             apply(plugin = "io.spring.dependency-management")
             apply(plugin = "org.jetbrains.kotlin.plugin.spring")
             apply(plugin = "org.gradle.maven-publish")

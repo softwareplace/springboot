@@ -8,6 +8,7 @@ plugins {
     `maven-publish`
     `kotlin-dsl`
     id("com.github.softwareplace.springboot.plugin.build-configuration")
+    id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")

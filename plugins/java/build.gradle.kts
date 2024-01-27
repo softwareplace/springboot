@@ -1,7 +1,4 @@
-import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
 import com.github.softwareplace.springboot.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
-import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
-import com.github.softwareplace.springboot.plugin.buildconfiguration.kotlinDeps
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
@@ -9,6 +6,7 @@ plugins {
     `maven-publish`
     `java-gradle-plugin`
     id("com.github.softwareplace.springboot.plugin.build-configuration")
+    id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
@@ -47,25 +45,41 @@ gradlePlugin {
             id = "com.github.softwareplace.springboot.plugin.java"
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
         }
+
+        publishing {
+            publications {
+                create<MavenPublication>("release") {
+                    groupId = sourceGroup
+                    artifactId = "java"
+                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+                    from(components["java"])
+                }
+            }
+        }
     }
-}
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = sourceGroup
-            artifactId = "java"
-            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
 
-            from(components["java"])
+    plugins {
+        register("java-submodule") {
+            id = "com.github.softwareplace.springboot.plugin.java-submodule"
+            implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
+        }
+
+        publishing {
+            publications {
+                create<MavenPublication>("javaSubmoduleRelease") {
+                    groupId = sourceGroup
+                    artifactId = "java-submodule"
+                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+                    from(components["java"])
+                }
+            }
         }
     }
 }
 
-dependencies {
-    kotlinDeps()
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
-    implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
-}
 
