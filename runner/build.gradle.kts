@@ -3,7 +3,7 @@ import java.io.InputStreamReader
 
 
 plugins {
-    `maven-publish`
+    id("maven-publish")
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
@@ -17,11 +17,21 @@ project.findProperty("version")?.toString()?.let {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
+    }
+}
+
 fun getTag(): String {
     try {
         val versionRequest: String? = project.findProperty("version")?.toString()
         if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
-            println("Current request tag $versionRequest")
             return versionRequest
         }
 
@@ -32,16 +42,21 @@ fun getTag(): String {
         val tag = reader.readLine()
 
         if (tag.isNotBlank()) {
-            println("Current app tag $tag")
             return tag
         }
     } catch (err: Throwable) {
-        println("Failed to get current tag")
+        println("Failed to get ${project.name} version")
     }
 
-    val tag = System.getProperty("pluginsVersion")
-    println("Current default tag $tag")
-    return tag
+    return System.getProperty("pluginsVersion")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    gradlePluginPortal()
+    maven("https://jitpack.io")
+    maven("https://repo.spring.io/milestone")
 }
 
 publishing {
@@ -55,18 +70,6 @@ publishing {
             from(components["java"])
         }
     }
-
-    repositories {
-        mavenLocal()
-    }
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    gradlePluginPortal()
-    maven("https://jitpack.io")
-    maven("https://repo.spring.io/milestone")
 }
 
 dependencies {

@@ -1,7 +1,8 @@
 import java.util.*
 
-
 rootProject.name = "springboot"
+
+include(":runner")
 
 includeBuild("plugins/build-configuration")
 

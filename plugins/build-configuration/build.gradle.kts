@@ -15,7 +15,6 @@ fun getTag(): String {
     try {
         val versionRequest: String? = project.findProperty("version")?.toString()
         if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
-            println("Current request tag $versionRequest")
             return versionRequest
         }
 
@@ -26,16 +25,13 @@ fun getTag(): String {
         val tag = reader.readLine()
 
         if (tag.isNotBlank()) {
-            println("Current app tag $tag")
             return tag
         }
     } catch (err: Throwable) {
-        println("Failed to get current tag")
+        println("Failed to get ${project.name} version")
     }
 
-    val tag = System.getProperty("pluginsVersion")
-    println("Current default tag $tag")
-    return tag
+    return System.getProperty("pluginsVersion")
 }
 
 group = sourceGroup
