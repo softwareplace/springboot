@@ -48,7 +48,7 @@ publishing {
     publications {
         create<MavenPublication>("springBootPlugins") {
             groupId = sourceGroup
-            artifactId = "springboot"
+            artifactId = "spring-boot-builder-plugin"
             version = getTag()
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
