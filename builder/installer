@@ -16,7 +16,7 @@ if ! gradle \
       build-configuration:assemble build-configuration:publishToMavenLocal \
       java:assemble java:publishToMavenLocal \
       kotlin:assemble kotlin:publishToMavenLocal \
-      --refresh-dependencies -Pversion="$buildTag";
+      -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
 then
   echo "Publish failed $1:$buildTag"
   exit 1

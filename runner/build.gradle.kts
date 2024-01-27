@@ -11,6 +11,10 @@ val sourceGroup = "com.github.softwareplace"
 group = sourceGroup
 version = getTag()
 
+tasks.getByName<Jar>("jar") {
+    archiveClassifier.set("")
+}
+
 project.findProperty("version")?.toString()?.let {
     if (it.isNotEmpty()) {
         System.setProperty("pluginsVersion", it)

@@ -13,15 +13,15 @@ preinstall:
 
 publish:
 	make preinstall
-	gradle assemble publishToMavenLocal --refresh-dependencies
+	gradle assemble publishToMavenLocal -Pgroup=com.github.softwareplace --refresh-dependencies
 	./postinstaller
 
 publish-version:
 	make preinstall
-	gradle assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
+	gradle assemble publishToMavenLocal -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion=$(tag)
 	pwd
 	ls -lah runner/build
 
 libs-build:
 	make preinstall
-	gradle assemble build --refresh-dependencies -Pversion=$(tag)
+	gradle assemble build -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion=$(tag)
