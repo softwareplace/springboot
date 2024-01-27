@@ -1,3 +1,5 @@
+import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
+import com.github.softwareplace.springboot.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
 import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
 import com.github.softwareplace.springboot.plugin.buildconfiguration.kotlinDeps
 import org.springframework.boot.gradle.tasks.run.BootRun
@@ -6,7 +8,6 @@ plugins {
     `kotlin-dsl`
     `maven-publish`
     id("com.github.softwareplace.springboot.plugin.build-configuration")
-    id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
@@ -35,7 +36,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("springBootSubmoduleSourcePlugin") {
+        create<MavenPublication>("release") {
             groupId = sourceGroup
             artifactId = "kotlin-submodule"
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
@@ -48,6 +49,7 @@ publishing {
 
 dependencies {
     kotlinDeps()
+    implementation("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
     implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
 }
 
