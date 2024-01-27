@@ -46,5 +46,6 @@ dependencies {
     implementation("com.github.softwareplace.springboot.plugin:java:${System.getProperty("pluginsVersion")}")
     implementation("com.github.softwareplace.springboot.plugin:java-openapi:${System.getProperty("pluginsVersion")}")
     implementation("com.github.softwareplace.springboot.plugin:kotlin:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot.plugin:kotlin-openapi:${System.getProperty("pluginsVersion")}")
 }
 

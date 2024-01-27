@@ -1,4 +1,6 @@
+import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
 import com.github.softwareplace.springboot.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
+import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
@@ -10,6 +12,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
+    id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
 java {
@@ -79,6 +82,32 @@ gradlePlugin {
                 }
             }
         }
+    }
+
+    plugins {
+        register("java-openapi") {
+            id = "com.github.softwareplace.springboot.plugin.java-openapi"
+            implementationClass = "$sourceGroup.openapi.OpenApiPlugin"
+        }
+
+        publishing {
+            publications {
+                create<MavenPublication>("javaOpenapiRelease") {
+                    groupId = sourceGroup
+                    artifactId = "java-openapi"
+                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+                    from(components["java"])
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
+        exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
 }
 

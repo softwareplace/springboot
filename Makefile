@@ -10,6 +10,5 @@ publish:
 	gradle \
 	build-configuration:assemble build-configuration:publishToMavenLocal \
 	java:assemble java:publishToMavenLocal \
-	java-openapi:assemble java-openapi:publishToMavenLocal \
 	kotlin:assemble kotlin:publishToMavenLocal \
 	assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)

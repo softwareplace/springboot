@@ -5,8 +5,6 @@ rootProject.name = "spring-boot-builder-plugin"
 includeBuild("plugins/build-configuration")
 
 includeBuild("plugins/java")
-includeBuild("plugins/java-openapi")
-
 includeBuild("plugins/kotlin")
 
 val properties = Properties()

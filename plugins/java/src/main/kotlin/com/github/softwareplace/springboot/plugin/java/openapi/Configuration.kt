@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.javaopenapi
+package com.github.softwareplace.springboot.plugin.java.openapi
 
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
