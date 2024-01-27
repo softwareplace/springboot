@@ -12,3 +12,10 @@ publish:
 	java:assemble java:publishToMavenLocal \
 	kotlin:assemble kotlin:publishToMavenLocal \
 	assemble publishToMavenLocal --refresh-dependencies -Pversion=$(tag)
+
+libs-build:
+	gradle \
+	build-configuration:assemble build-configuration:build \
+	java:assemble java:build \
+	kotlin:assemble kotlin:build \
+	assemble build --refresh-dependencies -Pversion=$(tag)
