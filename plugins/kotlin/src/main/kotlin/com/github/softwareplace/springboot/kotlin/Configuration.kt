@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.kotlin.openapi
+package com.github.softwareplace.springboot.kotlin
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
