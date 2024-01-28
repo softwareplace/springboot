@@ -12,7 +12,7 @@ fi
 
 echo "Publishing $buildTag"
 
-if ! gradle \
+if ! ./gradlew \
       build-configuration:assemble build-configuration:publishToMavenLocal \
       java:assemble java:publishToMavenLocal \
       kotlin:assemble kotlin:publishToMavenLocal \
