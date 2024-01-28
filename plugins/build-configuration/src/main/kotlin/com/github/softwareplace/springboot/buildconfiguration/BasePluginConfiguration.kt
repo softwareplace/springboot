@@ -16,7 +16,6 @@ abstract class BasePluginConfiguration : Plugin<Project> {
 
     private fun Project.applyPlugins() {
         allprojects {
-            apply(plugin = "com.github.softwareplace.springboot.build-configuration")
             apply(plugin = "org.springframework.boot")
             apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
             apply(plugin = "io.spring.dependency-management")
