@@ -30,7 +30,6 @@ tasks.named<BootRun>("bootRun").configure {
 }
 
 gradlePlugin {
-
     plugins {
         create("kotlin") {
             id = "$sourceGroup.springboot.kotlin"
@@ -53,14 +52,20 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             artifactId = "kotlin"
+            groupId = sourceGroup
+            from(components["java"])
         }
 
         create<MavenPublication>("kotlinSubmoduleRelease") {
             artifactId = "kotlin-submodule"
+            groupId = sourceGroup
+            from(components["java"])
         }
 
         create<MavenPublication>("kotlinOpenaiRelease") {
             artifactId = "kotlin-openapi"
+            groupId = sourceGroup
+            from(components["java"])
         }
     }
 }

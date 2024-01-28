@@ -1,5 +1,4 @@
 import com.github.softwareplace.springboot.buildconfiguration.Dependencies
-import com.github.softwareplace.springboot.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
 import com.github.softwareplace.springboot.buildconfiguration.getTag
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import org.springframework.boot.gradle.tasks.run.BootRun
@@ -19,16 +18,6 @@ plugins {
 java {
     withJavadocJar()
     withSourcesJar()
-}
-
-allprojects {
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == ORG_SPRINGFRAMEWORK_BOOT) {
-                useVersion(System.getProperty("springBootVersion"))
-            }
-        }
-    }
 }
 
 val tagVersion = getTag()
@@ -68,14 +57,20 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             artifactId = "java"
+            groupId = sourceGroup
+            from(components["java"])
         }
 
         create<MavenPublication>("javaSubmoduleRelease") {
             artifactId = "java-submodule"
+            groupId = sourceGroup
+            from(components["java"])
         }
 
         create<MavenPublication>("javaOpenapiRelease") {
             artifactId = "java-openapi"
+            groupId = sourceGroup
+            from(components["java"])
         }
     }
 }

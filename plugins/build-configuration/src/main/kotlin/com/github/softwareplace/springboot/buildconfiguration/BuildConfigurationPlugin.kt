@@ -19,7 +19,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             applyRepositories()
             dependencies {
                 kotlinDeps()
-                implementation("com.github.softwareplace.springboot:build-configuration:${System.getProperty("pluginsVersion")}")
+                implementation("com.github.softwareplace.springboot:build-configuration:${project.getTag()}")
                 implementation("org.springframework.boot:spring-boot-gradle-plugin:${System.getProperty("springBootVersion")}")
             }
         }
@@ -84,8 +84,17 @@ class BuildConfigurationPlugin : Plugin<Project> {
                     if (requested.group == "org.springframework.boot") {
                         useVersion(System.getProperty("springBootVersion"))
                     }
+
+                    if (requested.group == "com.github.softwareplace.springboot") {
+                        useVersion(project.getTag())
+                    }
+
                     if (requested.group == "org.yaml") {
                         useVersion(System.getProperty("snakeYamlVersion"))
+                    }
+
+                    if (requested.group == "org.jetbrains.kotlin") {
+                        useVersion(System.getProperty("kotlinVersion"))
                     }
                 }
             }

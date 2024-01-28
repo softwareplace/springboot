@@ -11,7 +11,7 @@ includeBuild("plugins/kotlin")
 
 val properties = Properties()
 val inputStream =
-    rootDir.resolve("plugins/build-configuration/src/main/resources/version.properties").inputStream()
+    rootDir.resolve("gradle.properties").inputStream()
 properties.load(inputStream)
 
 properties.forEach { (key, value) ->

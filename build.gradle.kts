@@ -30,7 +30,7 @@ fun getTag(): String {
     return System.getProperty("pluginsVersion")
 }
 
-val sourceGroup = "com.github.softwareplace"
+val sourceGroup = "com.github.softwareplace.springboot"
 val tagVersion = getTag()
 
 group = sourceGroup
@@ -63,6 +63,8 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "plugins"
+            groupId = sourceGroup
+            from(components["java"])
         }
     }
 }
