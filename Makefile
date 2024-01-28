@@ -9,7 +9,7 @@ gradle-wrapper:
 	./gradle wrapper --gradle-version=$(target)
 
 publish:
-	./installer
+	./localPublish
 	./postinstaller
 
 publish-version:

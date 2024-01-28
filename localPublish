@@ -1,0 +1,4 @@
+#!/bin/sh
+
+buildTag=$(git describe --tags --abbrev=0)
+./installer "$buildTag"
