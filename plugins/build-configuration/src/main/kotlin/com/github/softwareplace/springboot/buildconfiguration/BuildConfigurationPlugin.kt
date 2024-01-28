@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.buildconfiguration
+package com.github.softwareplace.springboot.buildconfiguration
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -19,7 +19,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             applyRepositories()
             dependencies {
                 kotlinDeps()
-                implementation("com.github.softwareplace.springboot.plugin:build-configuration:${System.getProperty("pluginsVersion")}")
+                implementation("com.github.softwareplace.springboot:build-configuration:${System.getProperty("pluginsVersion")}")
                 implementation("org.springframework.boot:spring-boot-gradle-plugin:${System.getProperty("springBootVersion")}")
             }
         }
@@ -33,7 +33,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.spring")
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.jetbrains.kotlin.jvm")
-            apply(plugin = "com.github.softwareplace.springboot.plugin.build-configuration")
+            apply(plugin = "com.github.softwareplace.springboot.build-configuration")
         }
     }
 

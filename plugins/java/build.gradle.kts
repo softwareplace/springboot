@@ -1,14 +1,14 @@
-import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
-import com.github.softwareplace.springboot.plugin.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
-import com.github.softwareplace.springboot.plugin.buildconfiguration.getTag
-import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
+import com.github.softwareplace.springboot.buildconfiguration.Dependencies
+import com.github.softwareplace.springboot.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
+import com.github.softwareplace.springboot.buildconfiguration.getTag
+import com.github.softwareplace.springboot.buildconfiguration.implementation
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     `kotlin-dsl`
     `maven-publish`
     `java-gradle-plugin`
-    id("com.github.softwareplace.springboot.plugin.build-configuration")
+    id("com.github.softwareplace.springboot.build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
@@ -31,7 +31,7 @@ allprojects {
     }
 }
 
-val sourceGroup = "com.github.softwareplace.springboot.plugin"
+val sourceGroup = "com.github.softwareplace.springboot"
 
 group = sourceGroup
 
@@ -46,7 +46,7 @@ tasks.named<BootRun>("bootRun").configure {
 gradlePlugin {
     plugins {
         register("java") {
-            id = "com.github.softwareplace.springboot.plugin.java"
+            id = "com.github.softwareplace.springboot.java"
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
             version = project.getTag()
         }
@@ -69,7 +69,7 @@ gradlePlugin {
 
     plugins {
         register("java-submodule") {
-            id = "com.github.softwareplace.springboot.plugin.java-submodule"
+            id = "com.github.softwareplace.springboot.java-submodule"
             implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
             version = project.getTag()
         }
@@ -91,8 +91,8 @@ gradlePlugin {
 
     plugins {
         register("java-openapi") {
-            id = "com.github.softwareplace.springboot.plugin.java-openapi"
-            implementationClass = "$sourceGroup.openapi.OpenApiPlugin"
+            id = "com.github.softwareplace.springboot.java-openapi"
+            implementationClass = "$sourceGroup.openapi.OpenapiPlugin"
             version = project.getTag()
         }
 

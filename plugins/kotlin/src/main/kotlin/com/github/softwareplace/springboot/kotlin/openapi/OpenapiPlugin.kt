@@ -1,14 +1,13 @@
-package com.github.softwareplace.springboot.plugin.kotlin.openapi
+package com.github.softwareplace.springboot.kotlin.openapi
 
-import com.github.softwareplace.springboot.plugin.buildconfiguration.Dependencies
-import com.github.softwareplace.springboot.plugin.buildconfiguration.implementation
-import com.github.softwareplace.springboot.plugin.buildconfiguration.testImplementation
-import com.github.softwareplace.springboot.plugin.kotlin.BuildSourcePlugin
+import com.github.softwareplace.springboot.buildconfiguration.Dependencies
+import com.github.softwareplace.springboot.buildconfiguration.implementation
+import com.github.softwareplace.springboot.buildconfiguration.testImplementation
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
-class OpenApiPlugin : BuildSourcePlugin() {
+class OpenapiPlugin : BuildSourcePlugin() {
 
 
     override fun customApply(target: Project) {

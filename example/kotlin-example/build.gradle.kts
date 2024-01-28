@@ -1,6 +1,6 @@
 plugins {
-    id("com.github.softwareplace.springboot.plugin.kotlin")
-//    id("com.github.softwareplace.springboot.plugin.kotlin-openapi")
+    id("com.github.softwareplace.springboot.kotlin")
+//    id("com.github.softwareplace.springboot.kotlin-openapi")
 }
 
 group = "com.kotlin.example.openapi"

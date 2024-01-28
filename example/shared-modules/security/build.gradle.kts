@@ -1,8 +1,8 @@
-import com.github.softwareplace.springboot.plugin.kotlin.jsonLogger
-import com.github.softwareplace.springboot.plugin.kotlin.loggBack
+import com.github.softwareplace.springboot.kotlin.jsonLogger
+import com.github.softwareplace.springboot.kotlin.loggBack
 
 plugins {
-    id("com.github.softwareplace.springboot.plugin.kotlin-submodule")
+    id("com.github.softwareplace.springboot.kotlin-submodule")
 }
 
 dependencies {

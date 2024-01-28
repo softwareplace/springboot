@@ -1,8 +1,8 @@
 
 
 plugins {
-    id("com.github.softwareplace.springboot.plugin.java")
-    id("com.github.softwareplace.springboot.plugin.java-openapi")
+    id("com.github.softwareplace.springboot.java")
+    id("com.github.softwareplace.springboot.java-openapi")
 }
 
 group = "com.java.example"

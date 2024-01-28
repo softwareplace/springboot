@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.buildconfiguration
+package com.github.softwareplace.springboot.buildconfiguration
 
 fun getProperty(name: String): String {
     val value = System.getProperty(name)

@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.plugin.buildconfiguration
+package com.github.softwareplace.springboot.buildconfiguration
 
 import org.gradle.api.Action
 import org.gradle.api.artifacts.ConfigurationContainer

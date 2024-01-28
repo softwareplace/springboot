@@ -1,6 +1,6 @@
-package com.github.softwareplace.springboot.plugin.kotlin
+package com.github.softwareplace.springboot.kotlin.openapi
 
-import com.github.softwareplace.springboot.plugin.buildconfiguration.*
+import com.github.softwareplace.springboot.buildconfiguration.*
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope

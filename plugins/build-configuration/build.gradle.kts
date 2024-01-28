@@ -9,7 +9,7 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val sourceGroup = "com.github.softwareplace.springboot.plugin"
+val sourceGroup = "com.github.softwareplace.springboot"
 
 fun getTag(): String {
     try {
@@ -118,7 +118,7 @@ afterEvaluate {
 gradlePlugin {
     plugins {
         register("build-configuration") {
-            id = "com.github.softwareplace.springboot.plugin.build-configuration"
+            id = "com.github.softwareplace.springboot.build-configuration"
             version = getTag()
             implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
         }

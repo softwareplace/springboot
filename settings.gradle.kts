@@ -1,6 +1,6 @@
 import java.util.*
 
-rootProject.name = "springboot"
+rootProject.name = "plugins"
 
 include(":runner")
 

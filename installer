@@ -16,9 +16,16 @@ if ! ./gradlew \
       build-configuration:assemble build-configuration:publishToMavenLocal \
       java:assemble java:publishToMavenLocal \
       kotlin:assemble kotlin:publishToMavenLocal \
+      -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
+then
+  echo "Publish submodules failed $1:$buildTag"
+  exit 1
+fi
+
+if ! ./gradlew \
       assemble publishToMavenLocal \
       -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
 then
-  echo "Publish failed $1:$buildTag"
+  echo "Publish springboot failed $1:$buildTag"
   exit 1
 fi

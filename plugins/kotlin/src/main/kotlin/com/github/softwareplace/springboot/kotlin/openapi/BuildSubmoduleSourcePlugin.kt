@@ -1,21 +1,23 @@
-package com.github.softwareplace.springboot.plugin.java
+package com.github.softwareplace.springboot.kotlin.openapi
 
-import com.github.softwareplace.springboot.plugin.buildconfiguration.BasePluginConfiguration
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.springframework.boot.gradle.tasks.run.BootRun
 
-class SubmoduleSourcePlugin : BasePluginConfiguration() {
+class BuildSubmoduleSourcePlugin : BuildSourcePlugin() {
 
     override fun customApply(target: Project) {
         super.customApply(target)
 
         with(target) {
+            apply(plugin = "org.jetbrains.kotlin.kapt")
+
             tasks.named<Jar>("bootJar").configure {
                 enabled = false
             }
@@ -28,7 +30,7 @@ class SubmoduleSourcePlugin : BasePluginConfiguration() {
                 getByName("main").apply {
                     java {
                         exclude(
-                            "**/SpringDocConfiguration.java",
+                            "**/SpringDocConfiguration.kt",
                         )
                     }
                 }
@@ -36,7 +38,7 @@ class SubmoduleSourcePlugin : BasePluginConfiguration() {
 
             kotlinExtension.sourceSets["main"].kotlin {
                 exclude(
-                    "**/SpringDocConfiguration.java",
+                    "**/SpringDocConfiguration.kt",
                 )
             }
         }

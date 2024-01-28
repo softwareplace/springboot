@@ -67,7 +67,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = sourceGroup
-            artifactId = "springboot"
+            artifactId = "plugins"
             version = getTag()
             java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
             java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
@@ -80,5 +80,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
+
+    implementation("com.github.softwareplace.springboot:build-configuration:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot:java:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot:java-openapi:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot:kotlin:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot:kotlin-openapi:${System.getProperty("pluginsVersion")}")
 }
 
