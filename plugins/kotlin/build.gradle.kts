@@ -32,7 +32,7 @@ tasks.named<BootRun>("bootRun").configure {
 gradlePlugin {
     plugins {
         create("kotlin") {
-            id = "$sourceGroup.springboot.kotlin"
+            id = "$sourceGroup.kotlin"
             implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
         }
 

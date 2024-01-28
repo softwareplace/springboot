@@ -10,7 +10,6 @@ project(":security").projectDir = file("shared-modules/security")
 includeBuild("../plugins/build-configuration")
 includeBuild("../plugins/java")
 includeBuild("../plugins/kotlin")
-includeBuild("../plugins/java-openapi")
 
 val properties = Properties()
 val inputStream = rootDir.resolve("../gradle.properties").inputStream()
