@@ -12,9 +12,9 @@ private const val TOMCAT_EMBED_WEBSOCKET = "tomcat-embed-websocket"
 private const val TOMCAT_EMBED_CORE = "tomcat-embed-core"
 
 private const val TOMCAT_EMBED_EL = "tomcat-embed-el"
-private const val SPRING_BOOT_STARTER_WEB = "starter-web"
-private const val SPRING_BOOT_STARTER_JETTY = "starter-jetty"
-private const val SPRING_BOOT_STARTER_SECURITY = "starter-security"
+private const val SPRING_BOOT_STARTER_WEB = "spring-boot-starter-web"
+private const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
+private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 
 fun DependencyHandlerScope.loggBack() {
@@ -52,20 +52,20 @@ fun DependencyHandlerScope.springBootStartWeb() {
 
     addSpringBootStarterValidation()
 
-    addSpringframeworkBoot("starter") { excludeSpringLogging() }
+    addSpringframeworkBoot("spring-boot-starter") { excludeSpringLogging() }
 
-    addSpringframeworkBootTest("starter-test") { excludeSpringLogging() }
+    addSpringframeworkBootTest("spring-boot-starter-test") { excludeSpringLogging() }
 }
 
 fun DependencyHandlerScope.addSpringBootStarterValidation() {
 
-    addSpringframeworkBoot("starter-validation") {
+    addSpringframeworkBoot("spring-boot-starter-validation") {
         excludeSpringLogging()
     }
 }
 
 fun DependencyHandlerScope.addCaching() {
-    addSpringframeworkBoot("starter-cache")
+    addSpringframeworkBoot("spring-boot-starter-cache")
     implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeine}")
 }
 
@@ -75,11 +75,11 @@ fun DependencyHandlerScope.logstashLogbackEncoderVersion() {
 
 fun Project.springJettyApi() {
     configurations.all {
-        exclude(group = "org.springframework.boot", module = "starter-tomcat")
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
     dependencies {
         springBootStartWeb()
-        runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
+        implementation("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
         implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
         springConfigurationProcessor()
     }
@@ -87,12 +87,12 @@ fun Project.springJettyApi() {
 
 fun Project.springWebFlux() {
     configurations.all {
-        exclude(group = "org.springframework.boot", module = "starter-tomcat")
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
     dependencies {
         kotlinReactive()
         springConfigurationProcessor()
-        addSpringframeworkBoot("starter-webflux")
+        addSpringframeworkBoot("spring-boot-starter-webflux")
         runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
         implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
     }
@@ -104,7 +104,7 @@ fun DependencyHandlerScope.baseSpringApi() {
 }
 
 fun DependencyHandlerScope.springConfigurationProcessor() {
-    kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:configuration-processor")
+    kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
 }
 
 fun DependencyHandlerScope.springBootSecurity() {
@@ -123,7 +123,7 @@ fun DependencyHandlerScope.jsonLogger() {
 }
 
 fun ExternalModuleDependency.excludeSpringLogging() {
-    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "starter-logging")
+    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
 }
 
 fun Project.removeTomcatServer() {
@@ -175,7 +175,7 @@ fun DependencyHandlerScope.retrofit2() {
 
 
 fun DependencyHandlerScope.springDataJpa() {
-    addSpringframeworkBoot("starter-data-jpa") {
+    addSpringframeworkBoot("spring-boot-starter-data-jpa") {
         excludeSpringLogging()
     }
 }

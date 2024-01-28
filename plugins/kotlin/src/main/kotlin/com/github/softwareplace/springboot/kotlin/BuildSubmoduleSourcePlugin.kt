@@ -3,7 +3,6 @@ package com.github.softwareplace.springboot.kotlin
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.named
@@ -16,8 +15,6 @@ class BuildSubmoduleSourcePlugin : BuildSourcePlugin() {
         super.customApply(target)
 
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.kapt")
-
             tasks.named<Jar>("bootJar").configure {
                 enabled = false
             }

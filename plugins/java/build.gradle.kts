@@ -48,7 +48,7 @@ gradlePlugin {
 
         create("java-openapi") {
             id = "$sourceGroup.java-openapi"
-            implementationClass = "$sourceGroup.openapi.OpenapiPlugin"
+            implementationClass = "$sourceGroup.java.openapi.OpenapiPlugin"
         }
     }
 }
