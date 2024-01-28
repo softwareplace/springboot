@@ -10,6 +10,14 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.springboot"
+val tagVersion = getTag()
+
+group = sourceGroup
+version = tagVersion
+
+tasks.getByName<Jar>("jar") {
+    archiveClassifier.set("")
+}
 
 fun getTag(): String {
     try {
@@ -34,9 +42,6 @@ fun getTag(): String {
     return System.getProperty("pluginsVersion")
 }
 
-group = sourceGroup
-version = getTag()
-
 repositories {
     mavenCentral()
     mavenLocal()
@@ -45,21 +50,21 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
+gradlePlugin {
+    plugins {
+        register("build-configuration") {
+            id = "$sourceGroup.build-configuration"
+            version = tagVersion
+            implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
+        }
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("release") {
-            groupId = sourceGroup
             artifactId = "build-configuration"
-            java.sourceCompatibility = toVersion(System.getProperty("jdkVersion"))
-            java.targetCompatibility = toVersion(System.getProperty("jdkVersion"))
-            version = getTag()
-
-            from(components["java"])
         }
-    }
-
-    repositories {
-        mavenLocal()
     }
 }
 
@@ -111,16 +116,6 @@ afterEvaluate {
             toolchain {
                 languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
             }
-        }
-    }
-}
-
-gradlePlugin {
-    plugins {
-        register("build-configuration") {
-            id = "com.github.softwareplace.springboot.build-configuration"
-            version = getTag()
-            implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
         }
     }
 }

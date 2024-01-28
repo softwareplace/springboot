@@ -39,6 +39,10 @@ class BuildConfigurationPlugin : Plugin<Project> {
 
     private fun Project.applyTasks() {
         allprojects {
+            tasks.getByName<Jar>("jar") {
+                archiveClassifier.set("")
+            }
+
             tasks.withType<Test> {
                 description = "Runs unit tests"
                 useJUnitPlatform()

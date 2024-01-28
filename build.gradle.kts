@@ -7,31 +7,6 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val sourceGroup = "com.github.softwareplace"
-group = sourceGroup
-version = getTag()
-
-tasks.getByName<Jar>("jar") {
-    archiveClassifier.set("")
-}
-
-project.findProperty("version")?.toString()?.let {
-    if (it.isNotEmpty()) {
-        System.setProperty("pluginsVersion", it)
-    }
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
-    }
-}
-
 fun getTag(): String {
     try {
         val versionRequest: String? = project.findProperty("version")?.toString()
@@ -55,6 +30,27 @@ fun getTag(): String {
     return System.getProperty("pluginsVersion")
 }
 
+val sourceGroup = "com.github.softwareplace"
+val tagVersion = getTag()
+
+group = sourceGroup
+version = tagVersion
+
+tasks.getByName<Jar>("jar") {
+    archiveClassifier.set("")
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+    targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
+
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(System.getProperty("jdkVersion")))
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -66,12 +62,7 @@ repositories {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = sourceGroup
             artifactId = "plugins"
-            version = getTag()
-            java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-            java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-            from(components["java"])
         }
     }
 }
@@ -81,10 +72,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
 
-    implementation("com.github.softwareplace.springboot:build-configuration:${System.getProperty("pluginsVersion")}")
-    implementation("com.github.softwareplace.springboot:java:${System.getProperty("pluginsVersion")}")
-    implementation("com.github.softwareplace.springboot:java-openapi:${System.getProperty("pluginsVersion")}")
-    implementation("com.github.softwareplace.springboot:kotlin:${System.getProperty("pluginsVersion")}")
-    implementation("com.github.softwareplace.springboot:kotlin-openapi:${System.getProperty("pluginsVersion")}")
+    implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
+    implementation("com.github.softwareplace.springboot:java:$tagVersion")
+    implementation("com.github.softwareplace.springboot:java-openapi:$tagVersion")
+    implementation("com.github.softwareplace.springboot:kotlin:$tagVersion")
+    implementation("com.github.softwareplace.springboot:kotlin-openapi:$tagVersion")
 }
 

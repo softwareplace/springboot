@@ -15,8 +15,10 @@ plugins {
 }
 
 val sourceGroup = "com.github.softwareplace.springboot"
+val tagVersion = project.getTag()
 
 group = sourceGroup
+version = tagVersion
 
 tasks.named<Jar>("bootJar").configure {
     enabled = false
@@ -27,67 +29,37 @@ tasks.named<BootRun>("bootRun").configure {
 }
 
 gradlePlugin {
+
     plugins {
         register("kotlin") {
-            id = "com.github.softwareplace.springboot.kotlin"
+            id = "$sourceGroup.springboot.kotlin"
             implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
-            version = project.getTag()
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("release") {
-                    groupId = sourceGroup
-                    artifactId = "kotlin"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
-
-                    from(components["java"])
-                }
-            }
-        }
-    }
-
-    plugins {
         register("kotlin-submodule") {
-            id = "com.github.softwareplace.springboot.kotlin-submodule"
+            id = "$sourceGroup.kotlin-submodule"
             implementationClass = "$sourceGroup.kotlin.BuildSubmoduleSourcePlugin"
-            version = project.getTag()
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("kotlinSubmoduleRelease") {
-                    groupId = sourceGroup
-                    artifactId = "kotlin"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
-                    from(components["java"])
-                }
-            }
+        register("kotlin-openapi") {
+            id = "$sourceGroup.kotlin-openapi"
+            implementationClass = "$sourceGroup.kotlin.openapi.OpenapiPlugin"
         }
     }
+}
 
-    plugins {
-        register("kotlin-openapi") {
-            id = "com.github.softwareplace.springboot.kotlin-openapi"
-            implementationClass = "$sourceGroup.kotlin.openapi.OpenapiPlugin"
-            version = project.getTag()
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            artifactId = "kotlin"
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("kotlinOpenAiRelease") {
-                    groupId = sourceGroup
-                    artifactId = "kotlin-openapi"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
-                    from(components["java"])
-                }
-            }
+        create<MavenPublication>("kotlinSubmoduleRelease") {
+            artifactId = "kotlin-submodule"
+        }
+
+        create<MavenPublication>("kotlinOpenaiRelease") {
+            artifactId = "kotlin-openapi"
         }
     }
 }

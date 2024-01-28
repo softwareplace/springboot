@@ -31,8 +31,10 @@ allprojects {
     }
 }
 
+val tagVersion = getTag()
 val sourceGroup = "com.github.softwareplace.springboot"
 
+version = tagVersion
 group = sourceGroup
 
 tasks.named<Jar>("bootJar").configure {
@@ -46,68 +48,34 @@ tasks.named<BootRun>("bootRun").configure {
 gradlePlugin {
     plugins {
         register("java") {
-            id = "com.github.softwareplace.springboot.java"
+            id = "$sourceGroup.java"
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
-            version = project.getTag()
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("release") {
-                    groupId = sourceGroup
-                    artifactId = "java"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
-
-                    from(components["java"])
-                }
-            }
-        }
-    }
-
-
-    plugins {
         register("java-submodule") {
-            id = "com.github.softwareplace.springboot.java-submodule"
+            id = "$sourceGroup.java-submodule"
             implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
-            version = project.getTag()
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("javaSubmoduleRelease") {
-                    groupId = sourceGroup
-                    artifactId = "java-submodule"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
-
-                    from(components["java"])
-                }
-            }
+        register("java-openapi") {
+            id = "$sourceGroup.java-openapi"
+            implementationClass = "$sourceGroup.openapi.OpenapiPlugin"
         }
     }
+}
 
-    plugins {
-        register("java-openapi") {
-            id = "com.github.softwareplace.springboot.java-openapi"
-            implementationClass = "$sourceGroup.openapi.OpenapiPlugin"
-            version = project.getTag()
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            artifactId = "java"
         }
 
-        publishing {
-            publications {
-                create<MavenPublication>("javaOpenapiRelease") {
-                    groupId = sourceGroup
-                    artifactId = "java-openapi"
-                    java.sourceCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    java.targetCompatibility = JavaVersion.toVersion(System.getProperty("jdkVersion"))
-                    version = project.getTag()
+        create<MavenPublication>("javaSubmoduleRelease") {
+            artifactId = "java-submodule"
+        }
 
-                    from(components["java"])
-                }
-            }
+        create<MavenPublication>("javaOpenapiRelease") {
+            artifactId = "java-openapi"
         }
     }
 }
