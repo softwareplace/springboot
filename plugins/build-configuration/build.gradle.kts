@@ -4,8 +4,9 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 plugins {
-    `maven-publish`
     `kotlin-dsl`
+    `maven-publish`
+    `java-gradle-plugin`
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
@@ -52,7 +53,7 @@ repositories {
 
 gradlePlugin {
     plugins {
-        register("build-configuration") {
+        create("build-configuration") {
             id = "$sourceGroup.build-configuration"
             version = tagVersion
             implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"

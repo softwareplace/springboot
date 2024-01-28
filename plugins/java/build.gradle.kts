@@ -47,17 +47,17 @@ tasks.named<BootRun>("bootRun").configure {
 
 gradlePlugin {
     plugins {
-        register("java") {
+        create("java") {
             id = "$sourceGroup.java"
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
         }
 
-        register("java-submodule") {
+        create("java-submodule") {
             id = "$sourceGroup.java-submodule"
             implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
         }
 
-        register("java-openapi") {
+        create("java-openapi") {
             id = "$sourceGroup.java-openapi"
             implementationClass = "$sourceGroup.openapi.OpenapiPlugin"
         }

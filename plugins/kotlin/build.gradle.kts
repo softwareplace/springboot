@@ -6,6 +6,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     `kotlin-dsl`
     `maven-publish`
+    `java-gradle-plugin`
     id("com.github.softwareplace.springboot.build-configuration")
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
@@ -31,17 +32,17 @@ tasks.named<BootRun>("bootRun").configure {
 gradlePlugin {
 
     plugins {
-        register("kotlin") {
+        create("kotlin") {
             id = "$sourceGroup.springboot.kotlin"
             implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
         }
 
-        register("kotlin-submodule") {
+        create("kotlin-submodule") {
             id = "$sourceGroup.kotlin-submodule"
             implementationClass = "$sourceGroup.kotlin.BuildSubmoduleSourcePlugin"
         }
 
-        register("kotlin-openapi") {
+        create("kotlin-openapi") {
             id = "$sourceGroup.kotlin-openapi"
             implementationClass = "$sourceGroup.kotlin.openapi.OpenapiPlugin"
         }
