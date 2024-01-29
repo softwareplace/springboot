@@ -23,5 +23,5 @@ jobs:
       - name: Local Publish
         run: make publish-version tag=v1.0.0-SNAPSHOT
       - name: Example Test
-        run: make test
+        run: cd example && make test
 
