@@ -124,6 +124,7 @@ fun DependencyHandlerScope.jsonLogger() {
 
 fun ExternalModuleDependency.excludeSpringLogging() {
     exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
+    exclude(group = "org.springframework.boot", module = "spring-boot-starter-validation")
 }
 
 fun Project.removeTomcatServer() {

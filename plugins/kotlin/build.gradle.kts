@@ -15,6 +15,8 @@ plugins {
     id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
+private val basePluginPath = "com.github.softwareplace.springboot"
+
 val sourceGroup = "com.github.softwareplace.springboot"
 val tagVersion = project.getTag()
 
@@ -27,6 +29,31 @@ tasks.named<Jar>("bootJar").configure {
 
 tasks.named<BootRun>("bootRun").configure {
     enabled = false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven("https://repo.spring.io/milestone")
+        gradlePluginPortal()
+
+        mavenLocal {
+            content {
+                includeModule(basePluginPath, "java")
+                includeModule(basePluginPath, "kotlin")
+                includeModule(basePluginPath, "java-submodule")
+                includeModule(basePluginPath, "kotlin-submodule")
+            }
+        }
+        maven("https://jitpack.io") {
+            content {
+                includeModule(basePluginPath, "java")
+                includeModule(basePluginPath, "kotlin")
+                includeModule(basePluginPath, "java-submodule")
+                includeModule(basePluginPath, "kotlin-submodule")
+            }
+        }
+    }
 }
 
 gradlePlugin {
