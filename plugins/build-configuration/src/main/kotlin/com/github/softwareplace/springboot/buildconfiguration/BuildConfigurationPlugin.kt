@@ -19,7 +19,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             dependencies {
                 kotlinDeps()
                 implementation("com.github.softwareplace.springboot:build-configuration:${project.getTag()}")
-                implementation("org.springframework.boot:spring-boot-gradle-plugin:${System.getProperty("springBootVersion")}")
+                implementation("org.springframework.boot:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
             }
         }
     }
@@ -52,8 +52,8 @@ class BuildConfigurationPlugin : Plugin<Project> {
             }
 
             tasks.withType<JavaCompile> {
-                sourceCompatibility = System.getProperty("jdkVersion")
-                targetCompatibility = System.getProperty("jdkVersion")
+                sourceCompatibility = Dependencies.Version.jdkVersion
+                targetCompatibility = Dependencies.Version.jdkVersion
                 inputs.files(tasks.named("processResources"))
             }
 
@@ -69,7 +69,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             configurations.all {
                 resolutionStrategy.eachDependency {
                     if (requested.group == "org.springframework.boot") {
-                        useVersion(System.getProperty("springBootVersion"))
+                        useVersion(Dependencies.Version.springBootVersion)
                     }
 
                     if (requested.group == "com.github.softwareplace.springboot") {
@@ -77,11 +77,11 @@ class BuildConfigurationPlugin : Plugin<Project> {
                     }
 
                     if (requested.group == "org.yaml") {
-                        useVersion(System.getProperty("snakeYamlVersion"))
+                        useVersion(Dependencies.Version.snakeYamlVersion)
                     }
 
                     if (requested.group == "org.jetbrains.kotlin") {
-                        useVersion(System.getProperty("kotlinVersion"))
+                        useVersion(Dependencies.Version.kotlinVersion)
                     }
                 }
             }

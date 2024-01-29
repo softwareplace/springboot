@@ -66,7 +66,7 @@ fun DependencyHandlerScope.addSpringBootStarterValidation() {
 
 fun DependencyHandlerScope.addCaching() {
     addSpringframeworkBoot("spring-boot-starter-cache")
-    implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeine}")
+    implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeineVersion}")
 }
 
 fun DependencyHandlerScope.logstashLogbackEncoderVersion() {
@@ -75,12 +75,12 @@ fun DependencyHandlerScope.logstashLogbackEncoderVersion() {
 
 fun Project.springJettyApi() {
     configurations.all {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+        exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-tomcat")
     }
     dependencies {
         springBootStartWeb()
         implementation("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
-        implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
+        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.jettyHttp2Server}")
         springConfigurationProcessor()
     }
 }
@@ -94,7 +94,7 @@ fun Project.springWebFlux() {
         springConfigurationProcessor()
         addSpringframeworkBoot("spring-boot-starter-webflux")
         runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
-        implementation("org.eclipse.jetty.http2:http2-server:${System.getProperty("jettyHttp2Server")}")
+        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.jettyHttp2Server}")
     }
 }
 
@@ -143,12 +143,12 @@ fun DependencyHandlerScope.passay() {
 }
 
 fun DependencyHandlerScope.jsonWebToken() {
-    implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwt}")
+    implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwtVersion}")
 }
 
 fun DependencyHandlerScope.mappstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
-    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStructVersion}")
+    kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStructVersion}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {

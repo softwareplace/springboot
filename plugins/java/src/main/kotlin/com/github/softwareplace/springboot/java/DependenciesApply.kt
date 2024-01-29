@@ -18,8 +18,8 @@ private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 
 fun DependencyHandlerScope.loggBack() {
-    implementation("ch.qos.logback:logback-classic:${Dependencies.Version.loggBack}")
-    implementation("ch.qos.logback:logback-core:${Dependencies.Version.loggBack}")
+    implementation("ch.qos.logback:logback-classic:${Dependencies.Version.loggBackVersion}")
+    implementation("ch.qos.logback:logback-core:${Dependencies.Version.loggBackVersion}")
 }
 
 fun DependencyHandlerScope.test() {
@@ -64,7 +64,7 @@ fun DependencyHandlerScope.addSpringBootStarterValidation() {
 
 fun DependencyHandlerScope.addCaching() {
     addSpringframeworkBoot("spring-boot-starter-cache")
-    implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeine}")
+    implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeineVersion}")
 }
 
 fun Project.springJettyApi() {
@@ -124,17 +124,12 @@ fun DependencyHandlerScope.passay() {
 }
 
 fun DependencyHandlerScope.jsonWebToken() {
-    implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwt}")
-}
-
-fun DependencyHandlerScope.mapStructJava() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
+    implementation("com.auth0:java-jwt:${Dependencies.Version.mapStructVersion}")
 }
 
 fun DependencyHandlerScope.mapstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStruct}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStruct}")
+    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStructVersion}")
+    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStructVersion}")
 }
 
 fun DependencyHandlerScope.flayWayMigration() {
@@ -153,7 +148,7 @@ fun DependencyHandlerScope.lombok() {
     implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
     implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    mapStructJava()
+    mapstruct()
 }
 
 fun DependencyHandlerScope.retrofit2() {

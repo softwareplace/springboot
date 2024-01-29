@@ -9,11 +9,6 @@ include(":webflux-example")
 
 project(":security").projectDir = file("shared-modules/security")
 
-
-includeBuild("../plugins/build-configuration")
-includeBuild("../plugins/java")
-includeBuild("../plugins/kotlin")
-
 val properties = Properties()
 val inputStream = rootDir.resolve("../plugins/build-configuration/src/main/resources/gradle.properties").inputStream()
 properties.load(inputStream)

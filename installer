@@ -18,7 +18,7 @@ if ! ./gradlew \
       kotlin:assemble kotlin:publishToMavenLocal \
       -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
 then
-  echo "Publish submodules failed $1:$buildTag"
+  echo "Publish submodules failed $buildTag"
   exit 1
 fi
 

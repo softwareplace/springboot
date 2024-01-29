@@ -7,17 +7,16 @@ import com.github.softwareplace.springboot.java.test
 
 
 plugins {
-    id("com.github.softwareplace.springboot.java") version "0.0.014-SNAPSHOT"
-    id("com.github.softwareplace.springboot.java-openapi") version "0.0.014-SNAPSHOT"
+    id("com.github.softwareplace.springboot.java") version "v1.0.0-SNAPSHOT"
+    id("com.github.softwareplace.springboot.java-openapi") version "v1.0.0-SNAPSHOT"
 }
 
 group = "com.java.example"
-version = "1.0.0"
+version = "v1.0.0-SNAPSHOT"
 
 openApiSettings(OpenApiSettings(additionalModelTypeAnnotations = listOf("@lombok.Data", "@lombok.Builder")))
 
 dependencies {
-    implementation("com.github.softwareplace.springboot:java:0.0.014-SNAPSHOT")
     implementation(project(":security"))
     springWebFlux()
     jsonLogger()
