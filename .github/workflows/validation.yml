@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
       - name: Local Publish
-        run: make publish-version tag=v1.0.0-SNAPSHOT
+        run: make publish-version tag=1.0.0-SNAPSHOT
       - name: Example Test
         run: cd example && make test
 
