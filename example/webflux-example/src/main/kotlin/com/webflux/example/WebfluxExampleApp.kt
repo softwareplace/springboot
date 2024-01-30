@@ -6,12 +6,12 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class MainApp {
+class WebfluxExampleApp {
     init {
         SharedModuleExample.test("webflux-example", kLogger)
     }
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(MainApp::class.java, *args)
+    SpringApplication.run(WebfluxExampleApp::class.java, *args)
 }

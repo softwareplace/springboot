@@ -1,5 +1,5 @@
 target ?= 8.5
-tag ?= 1.0.0-SNAPSHOT
+tag ?= 1.0.0
 
 test:
 	./gradlew clean test

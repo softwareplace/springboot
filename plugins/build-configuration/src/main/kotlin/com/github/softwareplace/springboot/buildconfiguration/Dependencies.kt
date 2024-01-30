@@ -4,6 +4,7 @@ package com.github.softwareplace.springboot.buildconfiguration
 object Dependencies {
 
     object Version {
+        val pluginsGroup: String by lazy { System.getProperty("pluginsGroup", "com.github.softwareplace.springboot") }
         val pluginsVersion: String by lazy { System.getProperty("pluginsVersion", "1.0.0") }
         val jdkVersion: String by lazy { System.getProperty("jdkVersion", "21") }
         val kotlinVersion: String by lazy { System.getProperty("kotlinVersion", "1.9.22") }

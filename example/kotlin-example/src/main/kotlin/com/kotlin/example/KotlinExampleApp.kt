@@ -6,12 +6,12 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class MainApp {
+class KotlinExampleApp {
     init {
         SharedModuleExample.test("kotlin-example", kLogger)
     }
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(MainApp::class.java, *args)
+    SpringApplication.run(KotlinExampleApp::class.java, *args)
 }

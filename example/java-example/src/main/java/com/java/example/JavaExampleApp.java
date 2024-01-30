@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
-public class MainApp {
+public class JavaExampleApp {
 
     @PostConstruct
     public void postConstructor() {
@@ -16,6 +16,6 @@ public class MainApp {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApp.class, args);
+        SpringApplication.run(JavaExampleApp.class, args);
     }
 }

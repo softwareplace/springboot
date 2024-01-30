@@ -1,5 +1,6 @@
 package com.github.softwareplace.springboot.java.openapi
 
+import com.github.softwareplace.springboot.buildconfiguration.Dependencies
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.configure
@@ -143,7 +144,7 @@ fun Project.applyTasks() {
         dependsOn(tasks.findByName("openApiGenerate"))
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = System.getProperty("jdkVersion")
+            jvmTarget = Dependencies.Version.jdkVersion
         }
     }
 }

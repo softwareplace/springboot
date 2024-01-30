@@ -36,7 +36,7 @@ val docsDir = File(projectDir, "docs")
 
 description = "@Software Place Spring Plugins"
 val moduleSourceDir = file("src/module/java")
-val sourceGroup = System.getProperty("pluginsGroup").toString()
+val sourceGroup = Dependencies.Version.pluginsGroup
 val moduleName = "${sourceGroup}.kotlin"
 
 val tagVersion: String by lazy { project.getTag() }
@@ -97,7 +97,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
-                "Kotlin-Version" to System.getProperty("kotlinVersion"),
+                "Kotlin-Version" to Dependencies.Version.kotlinVersion,
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -124,7 +124,7 @@ tasks {
             isAuthor = true
             header = "@Software Place Spring Plugins"
             addStringOption("Xdoclint:html,syntax,reference", "-quiet")
-            links("https://docs.oracle.com/en/java/javase/${System.getProperty("jdkVersion")}/docs/api/")
+            links("https://docs.oracle.com/en/java/javase/${Dependencies.Version.jdkVersion}/docs/api/")
         }
     }
 
