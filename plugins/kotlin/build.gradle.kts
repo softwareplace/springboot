@@ -147,7 +147,7 @@ gradlePlugin {
                     create<MavenPublication>("maven") {
                         artifactId = "kotlin"
                         from(components["java"])
-                        publishConfig(this, "${project.group}:kotlin")
+                        publishConfig(this, "kotlin")
                     }
                 }
             }
@@ -162,7 +162,7 @@ gradlePlugin {
                     create<MavenPublication>("kotlinSubmoduleMaven") {
                         artifactId = "kotlin-submodule"
                         from(components["java"])
-                        publishConfig(this, "${project.group}:kotlin-submodule")
+                        publishConfig(this, "kotlin-submodule")
                     }
                 }
             }
@@ -177,7 +177,7 @@ gradlePlugin {
                     create<MavenPublication>("kotlinOpenapiMaven") {
                         artifactId = "kotlin-openapi"
                         from(components["java"])
-                        publishConfig(this, "${project.group}:kotlin-openapi")
+                        publishConfig(this, "kotlin-openapi")
                     }
                 }
             }
@@ -227,9 +227,9 @@ dependencies {
     }
 }
 
-fun publishConfig(mavenPublication: MavenPublication, pluginName: String) {
+fun publishConfig(mavenPublication: MavenPublication, pluginId: String) {
     mavenPublication.pom {
-        name.set(pluginName)
+        name.set("$sourceGroup:$pluginId")
         description.set("@Software Place Spring Plugins")
         url.set("https://github.com/softwareplace/springboot")
         scm {
@@ -245,7 +245,7 @@ fun publishConfig(mavenPublication: MavenPublication, pluginName: String) {
         }
         developers {
             developer {
-                id.set("build-configuration")
+                id.set(pluginId)
                 name.set("@Software Place Spring Plugins")
                 email.set("eliasmflilico@gmail.com")
             }

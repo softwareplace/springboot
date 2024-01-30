@@ -7,7 +7,6 @@ import java.io.InputStreamReader
 fun Project.getTag(): String {
     fun loadVersion(): String {
         try {
-            println("[build-configuration.utils] Loading ${project.name} version")
             val versionRequest: String? = findProperty("version")?.toString()
             if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
                 return versionRequest
@@ -25,7 +24,6 @@ fun Project.getTag(): String {
         } catch (err: Throwable) {
             println("Failed to get ${project.name} version")
         }
-
         return System.getProperty("pluginsVersion")
     }
 
