@@ -25,10 +25,8 @@ pluginManagement {
 //        maven(url = "https://jitpack.io")  {
 //            content {
 //                includeModule("com.github.softwareplace.springboot", "java")
-//                includeModule("com.github.softwareplace.springboot", "kotlin")
-//                includeModule("com.github.softwareplace.springboot", "java-submodule")
-//                includeModule("com.github.softwareplace.springboot", "kotlin-submodule")
 //                includeModule("com.github.softwareplace.springboot", "build-configuration")
+////                includeModuleByRegex("com.github.softwareplace.springboot", "\\.*")
 //            }
 //        }
     }

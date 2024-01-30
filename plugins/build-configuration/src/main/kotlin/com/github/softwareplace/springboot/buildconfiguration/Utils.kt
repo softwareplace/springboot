@@ -6,6 +6,7 @@ import java.io.InputStreamReader
 
 fun Project.getTag(): String {
     try {
+        println("[build-configuration.utils] Loading ${project.name} version")
         val versionRequest: String? = findProperty("version")?.toString()
         if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
             return versionRequest

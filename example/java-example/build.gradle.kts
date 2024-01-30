@@ -7,12 +7,11 @@ import com.github.softwareplace.springboot.java.test
 
 
 plugins {
-    id("com.github.softwareplace.springboot.java") version "v1.0.0-SNAPSHOT"
-    id("com.github.softwareplace.springboot.java-openapi") version "v1.0.0-SNAPSHOT"
+    id("com.github.softwareplace.springboot.java") version "1.0.0-SNAPSHOT"
+    id("com.github.softwareplace.springboot.java-openapi") version "1.0.0-SNAPSHOT"
 }
 
 group = "com.java.example"
-version = "v1.0.0-SNAPSHOT"
 
 openApiSettings(OpenApiSettings(additionalModelTypeAnnotations = listOf("@lombok.Data", "@lombok.Builder")))
 
