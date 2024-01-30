@@ -222,6 +222,7 @@ java {
 
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
+    implementation("com.github.softwareplace.springboot:build-configuration:${project.getTag()}")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }

@@ -18,7 +18,6 @@ class BuildConfigurationPlugin : Plugin<Project> {
             applyRepositories()
             dependencies {
                 kotlinDeps()
-                implementation("com.github.softwareplace.springboot:build-configuration:${project.getTag()}")
                 implementation("org.springframework.boot:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
             }
         }
