@@ -2,6 +2,8 @@
 
 buildTag=$1
 
+rm -rf ~/.m2/
+
 if [ -z "$buildTag" ]; then
   buildTag=$(git describe --tags --abbrev=0)
 fi
