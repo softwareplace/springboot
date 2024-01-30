@@ -8,10 +8,7 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.maven
-import org.gradle.kotlin.dsl.repositories
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class BuildConfigurationPlugin : Plugin<Project> {
@@ -29,6 +26,10 @@ class BuildConfigurationPlugin : Plugin<Project> {
 
     private fun Project.applyTasks() {
         allprojects {
+            tasks.getByName<Jar>("jar") {
+                archiveClassifier.set("")
+            }
+
             tasks.withType<Test> {
                 description = "Runs unit tests"
                 useJUnitPlatform()
@@ -72,7 +73,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
                     }
 
                     if (requested.group == "com.github.softwareplace.springboot") {
-                        useVersion(project.getTag())
+                        useVersion(Dependencies.Version.pluginsVersion)
                     }
 
                     if (requested.group == "org.yaml") {

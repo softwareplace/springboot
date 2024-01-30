@@ -17,12 +17,11 @@ plugins {
     kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
-val tagVersion: String by lazy {
+fun loadVersion(): String {
     try {
-        println("[build-configuration] Loading ${project.name} version")
         val versionRequest: String? = findProperty("version")?.toString()
         if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
-            return@lazy versionRequest
+            return versionRequest
         }
 
         val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
@@ -32,13 +31,19 @@ val tagVersion: String by lazy {
         val tag = reader.readLine()
 
         if (tag.isNotBlank()) {
-            return@lazy tag
+            return tag
         }
     } catch (err: Throwable) {
         println("Failed to get ${project.name} version")
     }
 
-    System.getProperty("pluginsVersion")
+    return System.getProperty("pluginsVersion")
+}
+
+val tagVersion: String by lazy {
+    val loadedVersion = loadVersion()
+    println("Compiling ${project.name}:${loadedVersion}")
+    loadedVersion
 }
 
 val buildTimeAndDate: OffsetDateTime = OffsetDateTime.now()
@@ -49,7 +54,7 @@ val builtByValue: String =
 
 val isSnapshot = project.version.toString().contains("SNAPSHOT")
 val docsVersion = if (isSnapshot) "snapshot" else project.version
-val docsDir = File(projectDir, "ghpages-docs")
+val docsDir = File(projectDir, "docs")
 
 description = "@Software Place Spring Plugins"
 val moduleSourceDir = file("src/module/java")
@@ -68,6 +73,9 @@ repositories {
 }
 
 tasks {
+    allprojects {
+
+    }
     compileKotlin {
         kotlinOptions {
             freeCompilerArgs = listOf(
@@ -84,6 +92,7 @@ tasks {
 
     withType<Jar> {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
     }
 
     jar {
@@ -104,6 +113,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
+                "Kotlin-Version" to System.getProperty("kotlinVersion"),
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -184,11 +194,11 @@ publishing {
     }
 }
 
-if (!isSnapshot) {
-    signing {
-        sign(publishing.publications)
-    }
-}
+//if (!isSnapshot) {
+//    signing {
+//        useGpgCmd()
+//    }
+//}
 
 nexusPublishing {
     packageGroup.set(group.toString())

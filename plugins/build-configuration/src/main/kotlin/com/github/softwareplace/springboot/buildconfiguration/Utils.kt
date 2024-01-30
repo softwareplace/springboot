@@ -5,25 +5,31 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 fun Project.getTag(): String {
-    try {
-        println("[build-configuration.utils] Loading ${project.name} version")
-        val versionRequest: String? = findProperty("version")?.toString()
-        if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
-            return versionRequest
+    fun loadVersion(): String {
+        try {
+            println("[build-configuration.utils] Loading ${project.name} version")
+            val versionRequest: String? = findProperty("version")?.toString()
+            if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
+                return versionRequest
+            }
+
+            val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
+                .redirectErrorStream(true)
+                .start()
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            val tag = reader.readLine()
+
+            if (tag.isNotBlank()) {
+                return tag
+            }
+        } catch (err: Throwable) {
+            println("Failed to get ${project.name} version")
         }
 
-        val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
-            .redirectErrorStream(true)
-            .start()
-        val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val tag = reader.readLine()
-
-        if (tag.isNotBlank()) {
-            return tag
-        }
-    } catch (err: Throwable) {
-        println("Failed to get ${project.name} version")
+        return System.getProperty("pluginsVersion")
     }
 
-    return System.getProperty("pluginsVersion")
+    val loadedVersion = loadVersion()
+    println("Compiling ${project.name}:${loadedVersion}")
+    return loadedVersion
 }

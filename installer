@@ -26,6 +26,6 @@ if ! ./gradlew \
       assemble publishToMavenLocal \
       -Pgroup=com.github.softwareplace --refresh-dependencies -Pversion="$buildTag";
 then
-  echo "Publish springboot failed $1:$buildTag"
+  echo "Publish springboot failed for tag $buildTag"
   exit 1
 fi
