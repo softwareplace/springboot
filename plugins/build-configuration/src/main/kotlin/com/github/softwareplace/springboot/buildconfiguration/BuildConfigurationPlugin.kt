@@ -26,8 +26,13 @@ class BuildConfigurationPlugin : Plugin<Project> {
 
     private fun Project.applyTasks() {
         allprojects {
-            tasks.getByName<Jar>("jar") {
-                archiveClassifier.set("")
+
+            try {
+                tasks.getByName<Jar>("jar") {
+                    archiveClassifier.set("")
+                }
+            } catch (err: Throwable) {
+                println(err)
             }
 
             tasks.withType<Test> {
