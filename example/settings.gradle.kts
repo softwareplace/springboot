@@ -1,5 +1,12 @@
 rootProject.name = "example"
 
+include(":security")
+include(":java-example")
+include(":kotlin-example")
+include(":webflux-example")
+
+project(":security").projectDir = file("shared-modules/security")
+
 pluginManagement {
     repositories {
         mavenCentral()
@@ -10,17 +17,8 @@ pluginManagement {
     }
 }
 
-buildscript {
-    dependencies {
-        classpath("com.github.softwareplace.springboot:plugins:1.0.0")
-    }
-}
-
-include(":security")
-include(":java-example")
-include(":kotlin-example")
-include(":webflux-example")
-
-project(":security").projectDir = file("shared-modules/security")
-
-
+//buildscript {
+//    dependencies {
+//        classpath("com.github.softwareplace.springboot:plugins:1.0.0")
+//    }
+//}
