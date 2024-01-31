@@ -7,8 +7,8 @@ import com.github.softwareplace.springboot.java.test
 
 
 plugins {
-    id("com.github.softwareplace.springboot.java") version "1.0.0"
-    id("com.github.softwareplace.springboot.java-openapi") version "1.0.0"
+    id("com.github.softwareplace.springboot.java")
+    id("com.github.softwareplace.springboot.java-openapi")
 }
 
 group = "com.java.example"
