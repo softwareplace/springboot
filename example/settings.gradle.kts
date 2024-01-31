@@ -12,7 +12,7 @@ pluginManagement {
 
 buildscript {
     dependencies {
-        classpath("com.github.softwareplace.springboot:plugins:0.0.017-SNAPSHOT")
+        classpath("com.github.softwareplace.springboot:plugins:1.0.0")
     }
 }
 
