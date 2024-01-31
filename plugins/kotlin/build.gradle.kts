@@ -112,7 +112,7 @@ tasks {
                 "Bundle-Description" to project.description,
                 "Bundle-DocURL" to "https://github.com/softwareplace/springboot",
                 "Bundle-Vendor" to sourceGroup,
-                "-exportcontents" to "${sourceGroup}.buildconfiguration",
+                "-exportcontents" to "${sourceGroup}.kotlin",
                 "Bundle-SymbolicName" to moduleName
             )
         }
