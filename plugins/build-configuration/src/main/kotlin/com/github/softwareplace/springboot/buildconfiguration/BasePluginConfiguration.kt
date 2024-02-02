@@ -1,11 +1,9 @@
 package com.github.softwareplace.springboot.buildconfiguration
 
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.dependencies
-
-private const val BASE_PLUGIN_PATH = "com.github.softwareplace.springboot"
 
 abstract class BasePluginConfiguration : Plugin<Project> {
     override fun apply(target: Project) {
@@ -24,18 +22,15 @@ abstract class BasePluginConfiguration : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.plugin.spring")
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.jetbrains.kotlin.jvm")
-            apply(plugin = "$BASE_PLUGIN_PATH.build-configuration")
+            apply(plugin = "${Dependencies.Group.pluginsGroup}.build-configuration")
+            apply(plugin = "${Dependencies.Group.pluginsGroup}.versions")
         }
     }
 
     private fun Project.applyApplicationDependencies() {
         allprojects {
-            afterEvaluate {
-                dependencies {
-                    fasterXmlJackson()
-                    kotlinDeps()
-                }
-            }
+            fasterXmlJackson()
+            kotlinDeps()
         }
     }
 
