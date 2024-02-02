@@ -1,10 +1,8 @@
-package com.github.softwareplace.springboot.buildconfiguration
-
+package com.github.softwareplace.springboot.versions
 
 object Dependencies {
 
     object Version {
-        val pluginsGroup: String by lazy { System.getProperty("pluginsGroup", "com.github.softwareplace.springboot") }
         val pluginsVersion: String by lazy { System.getProperty("pluginsVersion", "1.0.0") }
         val jdkVersion: String by lazy { System.getProperty("jdkVersion", "21") }
         val kotlinVersion: String by lazy { System.getProperty("kotlinVersion", "1.9.22") }
@@ -55,6 +53,7 @@ object Dependencies {
         val rxJavaVersion: String by lazy { System.getProperty("rxJavaVersion", "3.1.8") }
         val modelMapperVersion: String by lazy { System.getProperty("modelMapperVersion", "3.2.0") }
         val lombokVersion: String by lazy { System.getProperty("lombokVersion", "1.18.30") }
+        val lombokMapstructBinding: String by lazy { System.getProperty("lombokMapstructBinding", "0.2.0") }
         val retrofit2Version: String by lazy { System.getProperty("retrofit2Version", "2.9.0") }
         val postgresqlVersion: String by lazy { System.getProperty("postgresqlVersion", "42.7.1") }
         val testContainersVersion: String by lazy { System.getProperty("testContainersVersion", "1.19.3") }
@@ -69,9 +68,10 @@ object Dependencies {
     }
 
     object Group {
-        const val orgJetbrainsKotlin = "org.jetbrains.kotlin"
-        const val orgJetbrainsKotlinSpring = "org.jetbrains.kotlin.plugin.spring"
-        const val orgJetbrainsKotlinJpa = "org.jetbrains.kotlin.plugin.jpa"
+        val pluginsGroup: String = "com.github.softwareplace.springboot"
+        val orgJetbrainsKotlin = "org.jetbrains.kotlin"
+        val orgJetbrainsKotlinSpring = "org.jetbrains.kotlin.plugin.spring"
+        val orgJetbrainsKotlinJpa = "org.jetbrains.kotlin.plugin.jpa"
     }
 
     object Module {

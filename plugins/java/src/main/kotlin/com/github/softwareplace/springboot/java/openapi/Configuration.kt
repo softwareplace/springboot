@@ -1,6 +1,6 @@
 package com.github.softwareplace.springboot.java.openapi
 
-import com.github.softwareplace.springboot.buildconfiguration.Dependencies
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.configure

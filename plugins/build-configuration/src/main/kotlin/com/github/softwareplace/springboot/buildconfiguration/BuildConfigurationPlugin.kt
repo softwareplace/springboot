@@ -1,5 +1,6 @@
 package com.github.softwareplace.springboot.buildconfiguration
 
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
@@ -16,8 +17,8 @@ class BuildConfigurationPlugin : Plugin<Project> {
         with(target) {
             applyTasks()
             applyRepositories()
+            kotlinDeps()
             dependencies {
-                kotlinDeps()
                 implementation("org.springframework.boot:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
             }
         }

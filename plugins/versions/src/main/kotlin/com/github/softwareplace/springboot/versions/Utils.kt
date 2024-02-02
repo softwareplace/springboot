@@ -1,4 +1,4 @@
-package com.github.softwareplace.springboot.buildconfiguration
+package com.github.softwareplace.springboot.versions
 
 import org.gradle.api.Project
 import java.io.BufferedReader

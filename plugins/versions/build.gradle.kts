@@ -1,14 +1,16 @@
-import com.github.softwareplace.springboot.versions.Dependencies
-import com.github.softwareplace.springboot.versions.getTag
+import java.io.BufferedReader
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.InputStreamReader
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 plugins {
     `kotlin-dsl`
     id("java")
-    id("signing")
     id("maven-publish")
-    id("com.github.softwareplace.springboot.versions")
+    id("signing")
     id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion", "5.3.0")
     id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion", "2.14.0")
     id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion", "3.0.0")
@@ -16,9 +18,45 @@ plugins {
         "ioGithubGradleNexusPublishPluginVersion",
         "1.1.0"
     )
+    kotlin("jvm") version System.getProperty("kotlinVersion", "1.9.22")
 }
 
-val tagVersion: String by lazy { getTag() }
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
+fun loadVersion(): String {
+    try {
+        val versionRequest: String? = findProperty("version")?.toString()
+        if (!versionRequest.isNullOrBlank() && !versionRequest.equals("unspecified", ignoreCase = true)) {
+            return versionRequest
+        }
+
+        val process = ProcessBuilder("git", "describe", "--tags", "--abbrev=0")
+            .redirectErrorStream(true)
+            .start()
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        val tag = reader.readLine()
+
+        if (tag.isNotBlank()) {
+            return tag
+        }
+    } catch (err: Throwable) {
+        println("Failed to get ${project.name} version")
+    }
+
+    return System.getProperty("pluginsVersion")
+}
+
+val tagVersion: String by lazy {
+    val loadedVersion = loadVersion()
+    println("Compiling ${project.name}:${loadedVersion}")
+    loadedVersion
+}
 
 val buildTimeAndDate: OffsetDateTime = OffsetDateTime.now()
 val buildDate: String = DateTimeFormatter.ISO_LOCAL_DATE.format(buildTimeAndDate)
@@ -32,8 +70,8 @@ val docsDir = File(projectDir, "docs")
 
 description = "@Software Place Spring Plugins"
 val moduleSourceDir = file("src/module/java")
-val sourceGroup = Dependencies.Group.pluginsGroup
-val moduleName = "${sourceGroup}.build-configuration"
+val sourceGroup = System.getProperty("pluginsGroup").toString()
+val moduleName = "${sourceGroup}.versions"
 
 group = sourceGroup
 version = tagVersion
@@ -46,16 +84,51 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDirs("src/main/resources")
+fun updatedPluginVersion() {
+
+    val gradlePropertiesPath = projectDir.path.replace("plugins/versions", "")
+
+    val gradlePropertiesFile = File("${gradlePropertiesPath}gradle.properties")
+    if (gradlePropertiesFile.exists()) {
+        val properties = Properties().apply {
+            FileInputStream(gradlePropertiesFile).use { input ->
+                load(input)
+            }
         }
+
+        properties.replace("pluginsVersion", tagVersion)
+
+        val buildResourcesDir = File("$projectDir/src/main/resources/")
+        buildResourcesDir.mkdirs()
+        val updatedPropertiesFile = File("${projectDir}/src/main/resources", "gradle.properties")
+
+        FileOutputStream(updatedPropertiesFile).use { output ->
+            properties.store(
+                output, """ 
+                  ========================================
+                  Generated for tag version $tagVersion
+                  ========================================
+                  Do not edit manually. If you need to override a version specified in the `gradle.properties` file, declare the desired version in the root project's `gradle.properties` file. 
+                  For example, if you want to use a different version of `springBootVersion`, add the following line to your root project's `gradle.properties`.
+                  ========================================
+                 
+            """.trimIndent()
+            )
+        }
+
+        println("gradle.properties updated successfully. Updated file stored in build/resources/gradle.properties")
+    } else {
+        println("gradle.properties not found.")
     }
 }
 
 tasks {
+    register("updatedPluginVersion") { updatedPluginVersion() }
+    named("assemble") {
+        dependsOn("updatedPluginVersion")
+    }
     compileKotlin {
+        dependsOn("updatedPluginVersion")
         kotlinOptions {
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
@@ -66,16 +139,17 @@ tasks {
     }
 
     withType<ProcessResources> {
+        dependsOn("updatedPluginVersion")
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 
     withType<Jar> {
+        dependsOn("updatedPluginVersion")
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
     }
 
     jar {
-
+        dependsOn("updatedPluginVersion")
         fun normalizeVersion(versionLiteral: String): String {
             val regex = Regex("(\\d+\\.\\d+\\.\\d+).*")
             val match = regex.matchEntire(versionLiteral)
@@ -92,7 +166,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
-                "Kotlin-Version" to Dependencies.Version.kotlinVersion,
+                "Kotlin-Version" to System.getProperty("kotlinVersion"),
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -107,7 +181,7 @@ tasks {
                 "Bundle-Description" to project.description,
                 "Bundle-DocURL" to "https://github.com/softwareplace/springboot",
                 "Bundle-Vendor" to sourceGroup,
-                "-exportcontents" to "${sourceGroup}.buildconfiguration",
+                "-exportcontents" to "${sourceGroup}.versions",
                 "Bundle-SymbolicName" to moduleName
             )
         }
@@ -133,10 +207,10 @@ tasks {
 
 gradlePlugin {
     plugins {
-        create("build-configuration") {
-            id = "$sourceGroup.build-configuration"
+        create("versions") {
+            id = "$sourceGroup.versions"
             version = tagVersion
-            implementationClass = "$sourceGroup.buildconfiguration.BuildConfigurationPlugin"
+            implementationClass = "$sourceGroup.versions.LoadProperties"
         }
     }
 }
@@ -144,7 +218,7 @@ gradlePlugin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "build-configuration"
+            artifactId = "versions"
             from(components["java"])
             pom {
                 name.set("${project.group}:${project.name}")
@@ -208,8 +282,7 @@ java {
 }
 
 dependencies {
-    implementation("com.github.softwareplace.springboot:versions:$tagVersion")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.Version.kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Dependencies.Version.kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.Version.kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${System.getProperty("kotlinVersion")}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
 }

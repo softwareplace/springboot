@@ -27,6 +27,8 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+plugins/versions/src/main/resources/gradle.properties
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

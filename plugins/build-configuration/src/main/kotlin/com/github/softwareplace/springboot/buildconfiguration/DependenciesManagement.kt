@@ -1,6 +1,8 @@
 package com.github.softwareplace.springboot.buildconfiguration
 
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Action
+import org.gradle.api.Project
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.ModuleDependency
@@ -8,6 +10,7 @@ import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.exclude
 
 
@@ -17,51 +20,56 @@ const val ORG_SPRINGFRAMEWORK_BOOT = "org.springframework.boot"
 fun <T> uncheckedCast(obj: Any?): T =
     obj as T
 
-fun DependencyHandlerScope.fasterXmlJackson() {
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.core:jackson-databind:${Dependencies.Version.jacksonVersion}")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${Dependencies.Version.jacksonVersion}")
+fun Project.fasterXmlJackson() {
+    val jacksonVersion = Dependencies.Version.jacksonVersion
+    dependencies {
+        implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
+        implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
+        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+        implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    }
 }
 
-fun DependencyHandlerScope.kotlinDeps() {
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.Group.orgJetbrainsKotlinSpring,
-            Dependencies.Module.orgJetbrainsKotlinPluginSpring,
-            Dependencies.Version.kotlinVersion,
+fun Project.kotlinDeps() {
+    dependencies {
+        implementation(
+            Dependencies.buildDependency(
+                Dependencies.Group.orgJetbrainsKotlinSpring,
+                Dependencies.Module.orgJetbrainsKotlinPluginSpring,
+                Dependencies.Version.kotlinVersion,
+            )
         )
-    )
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.Group.orgJetbrainsKotlinJpa,
-            Dependencies.Module.orgJetbrainsKotlinPluginJpa,
-            Dependencies.Version.kotlinVersion,
+        implementation(
+            Dependencies.buildDependency(
+                Dependencies.Group.orgJetbrainsKotlinJpa,
+                Dependencies.Module.orgJetbrainsKotlinPluginJpa,
+                Dependencies.Version.kotlinVersion,
+            )
         )
-    )
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.Group.orgJetbrainsKotlin,
-            Dependencies.Module.kotlinReflect,
-            Dependencies.Version.kotlinVersion,
+        implementation(
+            Dependencies.buildDependency(
+                Dependencies.Group.orgJetbrainsKotlin,
+                Dependencies.Module.kotlinReflect,
+                Dependencies.Version.kotlinVersion,
+            )
         )
-    )
 
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.Group.orgJetbrainsKotlin,
-            Dependencies.Module.kotlinStdlibJdk8,
+        implementation(
+            Dependencies.buildDependency(
+                Dependencies.Group.orgJetbrainsKotlin,
+                Dependencies.Module.kotlinStdlibJdk8,
+            )
         )
-    )
 
-    implementation(
-        Dependencies.buildDependency(
-            Dependencies.Group.orgJetbrainsKotlin,
-            Dependencies.Module.kotlinGradlePlugin,
-            Dependencies.Version.kotlinVersion
+        implementation(
+            Dependencies.buildDependency(
+                Dependencies.Group.orgJetbrainsKotlin,
+                Dependencies.Module.kotlinGradlePlugin,
+                Dependencies.Version.kotlinVersion
+            )
         )
-    )
+    }
 }
 
 fun mapOfNonNullValuesOf(vararg entries: Pair<String, String?>): Map<String, String> =

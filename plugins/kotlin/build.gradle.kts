@@ -1,6 +1,7 @@
-import com.github.softwareplace.springboot.buildconfiguration.Dependencies
-import com.github.softwareplace.springboot.buildconfiguration.getTag
+import com.github.softwareplace.springboot.buildconfiguration.Shared
 import com.github.softwareplace.springboot.buildconfiguration.implementation
+import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.getTag
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -12,11 +13,14 @@ plugins {
     id("eclipse")
     id("signing")
     id("maven-publish")
-    id("biz.aQute.bnd.builder") version "5.3.0"
-    id("net.nemerosa.versioning") version "2.14.0"
-    id("org.ajoberstar.git-publish") version "3.0.0"
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("com.github.softwareplace.springboot.build-configuration")
+    id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion", "5.3.0")
+    id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion", "2.14.0")
+    id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion", "3.0.0")
+    id("io.github.gradle-nexus.publish-plugin") version System.getProperty(
+        "ioGithubGradleNexusPublishPluginVersion",
+        "1.1.0"
+    )
     id("org.jetbrains.kotlin.plugin.jpa") version System.getProperty("kotlinVersion")
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
@@ -28,7 +32,7 @@ val buildTimeAndDate: OffsetDateTime = OffsetDateTime.now()
 val buildDate: String = DateTimeFormatter.ISO_LOCAL_DATE.format(buildTimeAndDate)
 val buildTime: String = DateTimeFormatter.ofPattern("HH:mm:ss.SSSZ").format(buildTimeAndDate)
 val builtByValue: String =
-    project.findProperty("builtBy")?.toString() ?: System.getProperty("default.built.by").toString()
+    project.findProperty("builtBy")?.toString() ?: System.getProperty("defaultBuiltBy").toString()
 
 val isSnapshot = project.version.toString().contains("SNAPSHOT")
 val docsVersion = if (isSnapshot) "snapshot" else project.version
@@ -36,7 +40,7 @@ val docsDir = File(projectDir, "docs")
 
 description = "@Software Place Spring Plugins"
 val moduleSourceDir = file("src/module/java")
-val sourceGroup = Dependencies.Version.pluginsGroup
+val sourceGroup = Dependencies.Group.pluginsGroup
 val moduleName = "${sourceGroup}.kotlin"
 
 val tagVersion: String by lazy { project.getTag() }
@@ -147,7 +151,7 @@ gradlePlugin {
                     create<MavenPublication>("maven") {
                         artifactId = "kotlin"
                         from(components["java"])
-                        publishConfig(this, "kotlin")
+                        Shared.publishConfig(this, sourceGroup, "kotlin")
                     }
                 }
             }
@@ -162,7 +166,7 @@ gradlePlugin {
                     create<MavenPublication>("kotlinSubmoduleMaven") {
                         artifactId = "kotlin-submodule"
                         from(components["java"])
-                        publishConfig(this, "kotlin-submodule")
+                        Shared.publishConfig(this, sourceGroup, "kotlin-submodule")
                     }
                 }
             }
@@ -177,7 +181,7 @@ gradlePlugin {
                     create<MavenPublication>("kotlinOpenapiMaven") {
                         artifactId = "kotlin-openapi"
                         from(components["java"])
-                        publishConfig(this, "kotlin-openapi")
+                        Shared.publishConfig(this, sourceGroup, "kotlin-openapi")
                     }
                 }
             }
@@ -222,34 +226,9 @@ java {
 
 dependencies {
     System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
-    implementation("com.github.softwareplace.springboot:build-configuration:${project.getTag()}")
+    implementation("com.github.softwareplace.springboot:versions:$tagVersion")
+    implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
-    }
-}
-
-fun publishConfig(mavenPublication: MavenPublication, pluginId: String) {
-    mavenPublication.pom {
-        name.set("$sourceGroup:$pluginId")
-        description.set("@Software Place Spring Plugins")
-        url.set("https://github.com/softwareplace/springboot")
-        scm {
-            connection.set("scm:git:git://github.com/softwareplace/springboot.git")
-            developerConnection.set("scm:git:git://github.com/softwareplace/springboot.git")
-            url.set("https://github.com/softwareplace/springboot")
-        }
-        licenses {
-            license {
-                name.set("The Apache License, Version 2.0")
-                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-            }
-        }
-        developers {
-            developer {
-                id.set(pluginId)
-                name.set("@Software Place Spring Plugins")
-                email.set("eliasmflilico@gmail.com")
-            }
-        }
     }
 }
