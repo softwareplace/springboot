@@ -1,12 +1,12 @@
 package com.github.softwareplace.springboot.kotlin.openapi
 
-import com.github.softwareplace.springboot.buildconfiguration.Dependencies
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.buildconfiguration.testImplementation
 import com.github.softwareplace.springboot.kotlin.BuildSourcePlugin
 import com.github.softwareplace.springboot.kotlin.applyKotlinSourceSets
 import com.github.softwareplace.springboot.kotlin.applyTasks
 import com.github.softwareplace.springboot.kotlin.openApiGenerateConfig
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies

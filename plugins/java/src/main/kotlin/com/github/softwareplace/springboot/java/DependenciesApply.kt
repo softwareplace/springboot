@@ -1,9 +1,9 @@
 package com.github.softwareplace.springboot.java
 
 import com.github.softwareplace.springboot.buildconfiguration.*
+import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependency
-import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.exclude
 
@@ -17,54 +17,67 @@ private const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
 private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 
-fun DependencyHandlerScope.loggBack() {
-    implementation("ch.qos.logback:logback-classic:${Dependencies.Version.loggBackVersion}")
-    implementation("ch.qos.logback:logback-core:${Dependencies.Version.loggBackVersion}")
-}
-
-fun DependencyHandlerScope.test() {
-    testImplementation("org.mockito:mockito-core:${Dependencies.Version.mockitoVersion}")
-    testImplementation("org.mockito:mockito-junit-jupiter:${Dependencies.Version.mockitoVersion}")
-    testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiterVersion}")
-}
-
-fun DependencyHandlerScope.springSecurity() {
-    springBootStartWeb()
-
-    addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
-        excludeSpringLogging()
-    }
-
-    testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTestVersion}") {
-        excludeSpringLogging()
+fun Project.loggBack() {
+    dependencies {
+        implementation("ch.qos.logback:logback-classic:${Dependencies.Version.loggBackVersion}")
+        implementation("ch.qos.logback:logback-core:${Dependencies.Version.loggBackVersion}")
     }
 }
 
-fun DependencyHandlerScope.jakarta() {
-    implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotationVersion}")
+fun Project.test() {
+    dependencies {
+        testImplementation("org.mockito:mockito-core:${Dependencies.Version.mockitoVersion}")
+        testImplementation("org.mockito:mockito-junit-jupiter:${Dependencies.Version.mockitoVersion}")
+        testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiterVersion}")
+    }
 }
 
-fun DependencyHandlerScope.springBootStartWeb() {
-    jakarta()
-    addSpringframeworkBoot(SPRING_BOOT_STARTER_WEB) { excludeSpringLogging() }
+fun Project.springSecurity() {
+    dependencies {
+        springBootStartWeb()
+
+        addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
+            excludeSpringLogging()
+        }
+
+        testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTestVersion}") {
+            excludeSpringLogging()
+        }
+    }
+}
+
+fun Project.jakarta() {
+    dependencies {
+        implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotationVersion}")
+    }
+}
+
+fun Project.springBootStartWeb() {
+    dependencies {
+        jakarta()
+        addSpringframeworkBoot(SPRING_BOOT_STARTER_WEB) { excludeSpringLogging() }
 
 //    addSpringBootStarterValidation()
 
-    addSpringframeworkBoot("spring-boot-starter") { excludeSpringLogging() }
+        addSpringframeworkBoot("spring-boot-starter") { excludeSpringLogging() }
 
-    addSpringframeworkBootTest("spring-boot-starter-test") { excludeSpringLogging() }
-}
-
-fun DependencyHandlerScope.addSpringBootStarterValidation() {
-
-    addSpringframeworkBoot("spring-boot-starter-validation") {
-        excludeSpringLogging()
+        addSpringframeworkBootTest("spring-boot-starter-test") { excludeSpringLogging() }
     }
 }
 
-fun DependencyHandlerScope.addCaching() {
-    addSpringframeworkBoot("spring-boot-starter-cache")
-    implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeineVersion}")
+fun Project.addSpringBootStarterValidation() {
+    dependencies {
+        addSpringframeworkBoot("spring-boot-starter-validation") {
+            excludeSpringLogging()
+        }
+    }
+}
+
+fun Project.addCaching() {
+    dependencies {
+        addSpringframeworkBoot("spring-boot-starter-cache")
+        implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeineVersion}")
+    }
 }
 
 fun Project.springJettyApi() {
@@ -76,31 +89,43 @@ fun Project.springJettyApi() {
     }
 }
 
-fun DependencyHandlerScope.springWebFlux() {
-    addSpringframeworkBoot("spring-boot-starter-webflux")
-}
-
-fun DependencyHandlerScope.baseSpringApi() {
-    springBootStartWeb()
-    springConfigurationProcessor()
-}
-
-fun DependencyHandlerScope.springConfigurationProcessor() {
-    annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
-}
-
-fun DependencyHandlerScope.springBootSecurity() {
-    addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
-        excludeSpringLogging()
+fun Project.springWebFlux() {
+    dependencies {
+        addSpringframeworkBoot("spring-boot-starter-webflux")
     }
 }
 
-fun DependencyHandlerScope.springBootSecurityUtil() {
-    implementation("com.github.softwareplace:security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
+fun Project.baseSpringApi() {
+    dependencies {
+        springBootStartWeb()
+        springConfigurationProcessor()
+    }
 }
 
-fun DependencyHandlerScope.jsonLogger() {
-    implementation("com.github.softwareplace:json-logger:${Dependencies.Version.jsonLoggerVersion}")
+fun Project.springConfigurationProcessor() {
+    dependencies {
+        annotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
+    }
+}
+
+fun Project.springBootSecurity() {
+    dependencies {
+        addSpringframeworkBoot(SPRING_BOOT_STARTER_SECURITY) {
+            excludeSpringLogging()
+        }
+    }
+}
+
+fun Project.springBootSecurityUtil() {
+    dependencies {
+        implementation("com.github.softwareplace:security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
+    }
+}
+
+fun Project.jsonLogger() {
+    dependencies {
+        implementation("com.github.softwareplace:json-logger:${Dependencies.Version.jsonLoggerVersion}")
+    }
 }
 
 fun ExternalModuleDependency.excludeSpringLogging() {
@@ -119,57 +144,80 @@ fun Project.removeTomcatServer() {
     )
 }
 
-fun DependencyHandlerScope.passay() {
-    implementation("org.passay:passay:${Dependencies.Version.passayVersion}")
-}
-
-fun DependencyHandlerScope.jsonWebToken() {
-    implementation("com.auth0:java-jwt:${Dependencies.Version.mapStructVersion}")
-}
-
-fun DependencyHandlerScope.mapstruct() {
-    implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStructVersion}")
-    annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStructVersion}")
-}
-
-fun DependencyHandlerScope.flayWayMigration() {
-    runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydbVersion}")
-}
-
-fun DependencyHandlerScope.rxJava() {
-    implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJavaVersion}")
-}
-
-fun DependencyHandlerScope.modelMapper() {
-    implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapperVersion}")
-}
-
-fun DependencyHandlerScope.lombok() {
-    implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-    annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
-    mapstruct()
-}
-
-fun DependencyHandlerScope.retrofit2() {
-    implementation("com.squareup.retrofit2:retrofit:${Dependencies.Version.retrofit2Version}")
-    implementation("com.squareup.retrofit2:converter-jackson:${Dependencies.Version.retrofit2Version}")
-}
-
-
-fun DependencyHandlerScope.springDataJpa() {
-    addSpringframeworkBoot("starter-data-jpa") {
-        excludeSpringLogging()
+fun Project.passay() {
+    dependencies {
+        implementation("org.passay:passay:${Dependencies.Version.passayVersion}")
     }
 }
 
-fun DependencyHandlerScope.postgresql() {
-    springDataJpa()
-    implementation("org.postgresql:postgresql:${Dependencies.Version.postgresqlVersion}")
+fun Project.jsonWebToken() {
+    dependencies {
+        implementation("com.auth0:java-jwt:${Dependencies.Version.mapStructVersion}")
+    }
 }
 
-fun DependencyHandlerScope.testContainersPostgresql() {
-    testImplementation("org.testcontainers:junit-jupiter:${Dependencies.Version.testContainersVersion}")
-    testImplementation("org.testcontainers:postgresql:${Dependencies.Version.testContainersVersion}")
+fun Project.mapstruct() {
+    dependencies {
+        implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStructVersion}")
+        annotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStructVersion}")
+    }
 }
+
+fun Project.flayWayMigration() {
+    dependencies {
+        runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydbVersion}")
+    }
+}
+
+fun Project.rxJava() {
+    dependencies {
+        implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJavaVersion}")
+    }
+}
+
+fun Project.modelMapper() {
+    dependencies {
+        implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapperVersion}")
+    }
+}
+
+fun Project.lombok() {
+    dependencies {
+        implementation("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+        implementation("org.projectlombok:lombok-mapstruct-binding:${Dependencies.Version.lombokMapstructBinding}")
+        annotationProcessor("org.projectlombok:lombok:${Dependencies.Version.lombokVersion}")
+        mapstruct()
+    }
+}
+
+fun Project.retrofit2() {
+    dependencies {
+        implementation("com.squareup.retrofit2:retrofit:${Dependencies.Version.retrofit2Version}")
+        implementation("com.squareup.retrofit2:converter-jackson:${Dependencies.Version.retrofit2Version}")
+    }
+}
+
+
+fun Project.springDataJpa() {
+    dependencies {
+        addSpringframeworkBoot("starter-data-jpa") {
+            excludeSpringLogging()
+        }
+    }
+}
+
+fun Project.postgresql() {
+    dependencies {
+        springDataJpa()
+        implementation("org.postgresql:postgresql:${Dependencies.Version.postgresqlVersion}")
+    }
+}
+
+fun Project.testContainersPostgresql() {
+    dependencies {
+        testImplementation("org.testcontainers:junit-jupiter:${Dependencies.Version.testContainersVersion}")
+        testImplementation("org.testcontainers:postgresql:${Dependencies.Version.testContainersVersion}")
+    }
+}
+    
 
