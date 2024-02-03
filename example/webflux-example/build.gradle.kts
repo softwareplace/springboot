@@ -1,4 +1,3 @@
-import com.github.softwareplace.springboot.buildconfiguration.getTag
 import com.github.softwareplace.springboot.kotlin.*
 
 plugins {
@@ -13,7 +12,6 @@ version = "1.0.0"
 openApiSettings(OpenApiSettings(reactive = true))
 
 dependencies {
-    getTag()
     implementation(project(":security"))
     springWebFlux()
     mappstruct()

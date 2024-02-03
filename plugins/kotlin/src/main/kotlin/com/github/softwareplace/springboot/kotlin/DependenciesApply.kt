@@ -17,23 +17,27 @@ private const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
 private const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
 
-fun Project.loggBack() {
+fun Project.loggBack(version: String? = null) {
     dependencies {
-        implementation("org.slf4j:slf4j-api:${Dependencies.Version.slf4jApiVersion}")
+        implementation("org.slf4j:slf4j-api:${version ?: Dependencies.Version.slf4jApiVersion}")
     }
 }
 
-fun Project.test() {
+fun Project.test(
+    mockitoKotlinVersion: String? = null,
+    ioMockkMockkVersion: String? = null,
+    jUnitJupiterVersion: String? = null
+) {
     dependencies {
-        testImplementation("org.junit.jupiter:junit-jupiter:${Dependencies.Version.jUnitJupiterVersion}")
-        testImplementation("org.mockito.kotlin:mockito-kotlin:${Dependencies.Version.mockitoKotlinVersion}")
-        testImplementation("io.mockk:mockk:${Dependencies.Version.ioMockkMockkVersion}") {
+        testImplementation("org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion ?: Dependencies.Version.jUnitJupiterVersion}")
+        testImplementation("org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion ?: Dependencies.Version.mockitoKotlinVersion}")
+        testImplementation("io.mockk:mockk:${ioMockkMockkVersion ?: Dependencies.Version.ioMockkMockkVersion}") {
             exclude("org.slf4j", "slf4j-api")
         }
     }
 }
 
-fun Project.springSecurity() {
+fun Project.springSecurity(version: String? = null) {
     dependencies {
         springBootStartWeb()
 
@@ -41,15 +45,15 @@ fun Project.springSecurity() {
             excludeSpringLogging()
         }
 
-        testImplementation("org.springframework.security:spring-security-test:${Dependencies.Version.springBootSecurityTestVersion}") {
+        testImplementation("org.springframework.security:spring-security-test:${version ?: Dependencies.Version.springBootSecurityTestVersion}") {
             excludeSpringLogging()
         }
     }
 }
 
-fun Project.jakarta() {
+fun Project.jakarta(version: String? = null) {
     dependencies {
-        implementation("jakarta.annotation:jakarta.annotation-api:${Dependencies.Version.jakartaAnnotationVersion}")
+        implementation("jakarta.annotation:jakarta.annotation-api:${version ?: Dependencies.Version.jakartaAnnotationVersion}")
     }
 }
 
@@ -83,10 +87,9 @@ fun Project.addCaching() {
     }
 }
 
-fun Project.logstashLogbackEncoderVersion() {
+fun Project.logstashLogbackEncoderVersion(version: String? = null) {
     dependencies {
-        implementation("net.logstash.logback:logstash-logback-encoder:${Dependencies.Version.logstashLogbackEncoderVersion}")
-
+        implementation("net.logstash.logback:logstash-logback-encoder:${version ?: Dependencies.Version.logstashLogbackEncoderVersion}")
     }
 }
 
@@ -134,16 +137,16 @@ fun Project.springBootSecurity() {
     }
 }
 
-fun Project.springBootSecurityUtil() {
+fun Project.springBootSecurityUtil(version: String? = null) {
     dependencies {
-        implementation("com.github.softwareplace:security-util:${Dependencies.Version.springBootSecurityUtilVersion}")
+        implementation("com.github.softwareplace:security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}")
     }
 }
 
-fun Project.jsonLogger() {
+fun Project.jsonLogger(version: String? = null, loggBackVersion: String? = null) {
     dependencies {
-        loggBack()
-        implementation("com.github.softwareplace:json-logger:${Dependencies.Version.jsonLoggerVersion}")
+        loggBack(loggBackVersion)
+        implementation("com.github.softwareplace:json-logger:${version ?: Dependencies.Version.jsonLoggerVersion}")
     }
 }
 
@@ -163,28 +166,28 @@ fun Project.removeTomcatServer() {
     )
 }
 
-fun Project.passay() {
+fun Project.passay(version: String? = null) {
     dependencies {
-        implementation("org.passay:passay:${Dependencies.Version.passayVersion}")
+        implementation("org.passay:passay:${version ?: Dependencies.Version.passayVersion}")
     }
 }
 
-fun Project.jsonWebToken() {
+fun Project.jsonWebToken(version: String? = null) {
     dependencies {
-        implementation("com.auth0:java-jwt:${Dependencies.Version.auth0JavaJwtVersion}")
+        implementation("com.auth0:java-jwt:${version ?: Dependencies.Version.auth0JavaJwtVersion}")
     }
 }
 
-fun Project.mappstruct() {
+fun Project.mappstruct(version: String? = null) {
     dependencies {
-        implementation("org.mapstruct:mapstruct:${Dependencies.Version.mapStructVersion}")
-        kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${Dependencies.Version.mapStructVersion}")
+        implementation("org.mapstruct:mapstruct:${version ?: Dependencies.Version.mapStructVersion}")
+        kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${version ?: Dependencies.Version.mapStructVersion}")
     }
 }
 
-fun Project.flayWayMigration() {
+fun Project.flayWayMigration(version: String? = null) {
     dependencies {
-        runtimeOnly("org.flywaydb:flyway-core:${Dependencies.Version.flywaydbVersion}")
+        runtimeOnly("org.flywaydb:flyway-core:${version ?: Dependencies.Version.flywaydbVersion}")
     }
 }
 
@@ -196,22 +199,22 @@ fun Project.kotlinReactive() {
     }
 }
 
-fun Project.rxJava() {
+fun Project.rxJava(version: String? = null) {
     dependencies {
-        implementation("io.reactivex.rxjava2:rxjava:${Dependencies.Version.rxJavaVersion}")
+        implementation("io.reactivex.rxjava2:rxjava:${version ?: Dependencies.Version.rxJavaVersion}")
     }
 }
 
-fun Project.modelMapper() {
+fun Project.modelMapper(version: String? = null) {
     dependencies {
-        implementation("org.modelmapper:modelmapper:${Dependencies.Version.modelMapperVersion}")
+        implementation("org.modelmapper:modelmapper:${version ?: Dependencies.Version.modelMapperVersion}")
     }
 }
 
-fun Project.retrofit2() {
+fun Project.retrofit2(version: String? = null) {
     dependencies {
-        implementation("com.squareup.retrofit2:retrofit:${Dependencies.Version.retrofit2Version}")
-        implementation("com.squareup.retrofit2:converter-jackson:${Dependencies.Version.retrofit2Version}")
+        implementation("com.squareup.retrofit2:retrofit:${version ?: Dependencies.Version.retrofit2Version}")
+        implementation("com.squareup.retrofit2:converter-jackson:${version ?: Dependencies.Version.retrofit2Version}")
     }
 }
 
@@ -224,16 +227,17 @@ fun Project.springDataJpa() {
     }
 }
 
-fun Project.postgresql() {
+
+fun Project.postgresql(version: String? = null) {
     dependencies {
         springDataJpa()
-        implementation("org.postgresql:postgresql:${Dependencies.Version.postgresqlVersion}")
+        implementation("org.postgresql:postgresql:${version ?: Dependencies.Version.postgresqlVersion}")
     }
 }
 
-fun Project.testContainersPostgresql() {
+fun Project.testContainersPostgresql(version: String? = null) {
     dependencies {
-        testImplementation("org.testcontainers:junit-jupiter:${Dependencies.Version.testContainersVersion}")
-        testImplementation("org.testcontainers:postgresql:${Dependencies.Version.testContainersVersion}")
+        testImplementation("org.testcontainers:junit-jupiter:${version ?: Dependencies.Version.testContainersVersion}")
+        testImplementation("org.testcontainers:postgresql:${version ?: Dependencies.Version.testContainersVersion}")
     }
 }
