@@ -30,7 +30,6 @@ fun Project.loadGradleProperties(inputStream: InputStream?) {
         properties.forEach { (key, value) ->
             extensions.extraProperties[key.toString()] = value
             System.setProperty(key.toString(), value.toString())
-            println("PROPERTY_LOADED: ${key}:${System.getProperty(key.toString())}")
         }
     }
 }
