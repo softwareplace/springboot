@@ -74,11 +74,11 @@ class BuildConfigurationPlugin : Plugin<Project> {
             configurations.all {
                 resolutionStrategy.eachDependency {
                     if (requested.group == "org.springframework.boot") {
-                        useVersion(Dependencies.Version.springBootVersion)
+                        useVersion(System.getProperty("springBootVersion"))
                     }
 
                     if (requested.group == "com.github.softwareplace.springboot") {
-                        useVersion(Dependencies.Version.pluginsVersion)
+                        useVersion(System.getProperty("pluginsVersion"))
                     }
 
                     if (requested.group == "org.yaml") {
