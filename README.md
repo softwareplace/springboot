@@ -1,4 +1,6 @@
-# builder-plugin
+# springboot-plugins 
+
+[![](https://jitpack.io/v/softwareplace/springboot.svg)](https://jitpack.io/#softwareplace/springboot)
 
 ---
 
@@ -11,100 +13,49 @@
 
 ---
 > To add the plugin, having git already installed, run the command below inside the root directory of the project.
+>
+> At top of `settings.gradle.kts` from root project, add the classpath configuration.
 
-```shell
-git submodule add --force https://github.com/softwareplace/builder-plugin.git 
+```kotlin
+buildscript {
+    repositories {
+        maven("https://jitpack.io")
+    }
+
+    dependencies {
+        classpath("com.github.softwareplace.springboot:plugins:{version}")
+    }
+}
 ```
-
-> Still inside the root directory and create a file named `settings.gradle.kts`, in that file, add the settings below
-
-- Loading libs version
-
-> By applying this setting, the current libs version will be loaded
-> from [gradle.properties](build-configuration/gradle.properties)
-
-````kotlin
-// Defines the root project name
-rootProject.name = "your-app-name"
-
-// Lib settings
-apply("builder-plugin/libs.settings.gradle.kts")
-````
-
-- `Kotlin` only
-
-````kotlin
-apply("builder-plugin/kotlin-included.build.settings.gradle.kts")
-````
-
-- `Java` only
-
-````kotlin
-apply("builder-plugin/java-included.build.settings.gradle.kts")
-````
-
-- `Kotlin` and `Java`
-
-````kotlin
-apply("builder-plugin/included.build.settings.gradle.kts")
-````
-
-> After performing the above settings, it is necessary to add the plugin mapping to the project. To carry out this
-> procedure, follow the examples below
-
-1. Inside the root directory create a new directory. In this example we will use the name of `application`
-2. Create project package and main class by running
-
-````shell
-mkdir -p application/src/main/kotlin/com/spring/example
-touch application/src/main/kotlin/com/spring/example/MainApp.kt
-echo "package com.spring.example
-
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-
-@SpringBootApplication
-class MainApp 
-
-fun main(args: Array<String>) {
-    SpringApplication.run(MainApp::class.java, *args)
-}" > "application/src/main/kotlin/com/spring/example/MainApp.kt"
-````
-
-3. In the `settings.gradle.kts` file add `include(":application")`
-4. Inside `application` directory create a new file named `build.gradle.kts`
 
 > After creating the `build.gradle.kts` file, add it to configure the project as shown in the example below
 
+# Configuration example
+
 ```kotlin
-import com.gradle.kts.kotlin.buildsource.*
+import com.github.softwareplace.springboot.kotlin.*
+
 
 plugins {
-    id("source-plugin")
+    id("com.github.softwareplace.springboot.kotlin")
+    id("com.github.softwareplace.springboot.kotlin-openapi")
 }
 
 group = "com.spring.example.openapi"
 version = "1.0.0"
 
+openApiSettings(OpenApiSettings(reactive = true))
+
 dependencies {
     kotlinReactive()
     springJettyApi()
     mappstruct()
-    jsonLogger()
-    springDoc()
-    test()
 }
 ```
 
-> Once this is done, it will only be necessary to add `gradle` in the root directory so that the project is configured.
-> Run the commands bellow and have fun
+- For more example, see some [implementation example](example)
 
-```shell
-cp -r  builder-plugin/example/gradle . 
-cp -r  builder-plugin/example/gradlew .
-cp -r  builder-plugin/example/gradlew.bat .
-./gradlew build
-```
+----
 
 This project is open-source and free for usage.
 
