@@ -28,7 +28,7 @@ out/
 !**/src/test/**/out/
 
 plugins/versions/src/main/resources/gradle.properties
-
+plugins/versions/src/main/kotlin/com/github/softwareplace/springboot/versions/Dependencies.kt
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
