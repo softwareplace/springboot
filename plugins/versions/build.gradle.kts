@@ -319,13 +319,24 @@ fun generateDependenciesVersion(gradlePropertiesFile: File) {
 
     properties.forEach { (key, value) ->
         if (!ignoringValue.contains(key)) {
-            val formattedValue = value.replace("\"", "\\\"")
-            val formattedKey = formatKey(key)
-            updatedTemplate += "val $formattedKey: String = \"$formattedValue\"\n\t\t"
+            if ("pluginsVersion".equals(key, ignoreCase = true)) {
+                updatedTemplate += "val pluginsVersion: String = System.getProperty(\"$key\", \"$tagVersion\")\n\t\t"
+
+            } else {
+                val formattedValue = value.replace("\"", "\\\"")
+                val formattedKey = formatKey(key)
+                updatedTemplate += "val $formattedKey: String = System.getProperty(\"$key\", \"$formattedValue\")\n\t\t"
+            }
         }
     }
     val templateContent = dependenceTemplateFile.readText()
         .replace("{{dependenciesVersion}}", updatedTemplate)
+        .replace("{{comment}}", """
+          ** ========================================
+          ** Generated for tag version $tagVersion
+          ** ========================================
+          ** Do not edit manually.
+        """.trimIndent())
 
     dependenceTargetFile.writeText(templateContent)
 
