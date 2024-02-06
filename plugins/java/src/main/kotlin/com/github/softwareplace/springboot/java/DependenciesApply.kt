@@ -118,7 +118,7 @@ fun Project.springBootSecurity() {
 
 fun Project.springBootSecurityUtil(version: String? = null) {
     dependencies {
-        implementation("com.github.softwareplace:security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}")
+        implementation("com.github.softwareplace:spring-boot-security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}")
     }
 }
 
