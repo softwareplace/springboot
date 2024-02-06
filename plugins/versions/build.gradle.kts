@@ -85,10 +85,10 @@ repositories {
 }
 
 fun updatedPluginVersion() {
-
     val gradlePropertiesPath = projectDir.path.replace("plugins/versions", "")
-
     val gradlePropertiesFile = File("${gradlePropertiesPath}gradle.properties")
+
+
     if (gradlePropertiesFile.exists()) {
         val properties = Properties().apply {
             FileInputStream(gradlePropertiesFile).use { input ->
@@ -117,6 +117,9 @@ fun updatedPluginVersion() {
         }
 
         println("gradle.properties updated successfully. Updated file stored in build/resources/gradle.properties")
+
+        generateDependenciesVersion(updatedPropertiesFile)
+
     } else {
         println("gradle.properties not found.")
     }
@@ -285,4 +288,46 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
+}
+
+fun generateDependenciesVersion(gradlePropertiesFile: File) {
+    val ignoringValue = listOf(
+        "releaseBranch",
+        "defaultBuiltBy",
+        "pluginsGroup"
+    )
+
+    val dependenceTemplateFile = File("${projectDir.path}/template/Dependencies.mustache")
+    val dependenceTargetFile =
+        File("${projectDir.path}/src/main/kotlin/com/github/softwareplace/springboot/versions/Dependencies.kt")
+
+    fun formatKey(key: String): String {
+        val value = key.split(".", "_")
+            .joinToString("") { it -> it.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
+        return value.substring(0, 1).lowercase() + value.substring(1)
+    }
+
+
+    val properties = gradlePropertiesFile.readLines()
+        .filter { it.isNotBlank() && !it.startsWith("#") }
+        .associate {
+            val (key, value) = it.split("=")
+            key.trim() to value.trim()
+        }
+
+    var updatedTemplate = ""
+
+    properties.forEach { (key, value) ->
+        if (!ignoringValue.contains(key)) {
+            val formattedValue = value.replace("\"", "\\\"")
+            val formattedKey = formatKey(key)
+            updatedTemplate += "val $formattedKey: String = \"$formattedValue\"\n\t\t"
+        }
+    }
+    val templateContent = dependenceTemplateFile.readText()
+        .replace("{{dependenciesVersion}}", updatedTemplate)
+
+    dependenceTargetFile.writeText(templateContent)
+
+    println("Template updated successfully.")
 }

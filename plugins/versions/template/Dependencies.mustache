@@ -1,0 +1,31 @@
+package com.github.softwareplace.springboot.versions
+
+object Dependencies {
+
+    object Version {
+        {{dependenciesVersion}}
+    }
+
+    object Group {
+        val pluginsGroup: String = "com.github.softwareplace.springboot"
+        val orgJetbrainsKotlin = "org.jetbrains.kotlin"
+        val orgJetbrainsKotlinSpring = "org.jetbrains.kotlin.plugin.spring"
+        val orgJetbrainsKotlinJpa = "org.jetbrains.kotlin.plugin.jpa"
+    }
+
+    object Module {
+        val orgJetbrainsKotlinPluginSpring = "org.jetbrains.kotlin.plugin.spring.gradle.plugin"
+        val orgJetbrainsKotlinPluginJpa = "org.jetbrains.kotlin.plugin.jpa.gradle.plugin"
+        val kotlinReflect = "kotlin-reflect"
+        val kotlinStdlibJdk8 = "kotlin-stdlib-jdk8"
+        val kotlinGradlePlugin = "kotlin-gradle-plugin"
+    }
+
+    fun buildDependency(domain: String, targetLig: String): String {
+        return "$domain:$targetLig"
+    }
+
+    fun buildDependency(domain: String, targetLig: String, version: String): String {
+        return "$domain:$targetLig:$version"
+    }
+}
