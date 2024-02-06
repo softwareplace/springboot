@@ -3,62 +3,51 @@ package com.github.softwareplace.springboot.versions
 object Dependencies {
 
     object Version {
-        val pluginsVersion: String = System.getProperty("pluginsVersion", "1.0.0")
-        val jdkVersion: String = System.getProperty("jdkVersion", "21")
+        val pluginsVersion: String = System.getProperty("pluginsVersion")
+        val jdkVersion: String = System.getProperty("jdkVersion")
 
-        val kotlinVersion: String = System.getProperty("kotlinVersion", "1.9.22")
-        val springBootVersion: String = System.getProperty("springBootVersion", "3.2.2")
-        val jettyHttp2Server: String = System.getProperty("jettyHttp2Server", "11.0.18")
-        val springBootSecurityTestVersion: String = System.getProperty(
-            "springBootSecurityTestVersion",
-            "6.2.1"
-        )
+        val kotlinVersion: String = System.getProperty("kotlinVersion")
+        val springBootVersion: String = System.getProperty("springBootVersion")
+        val jettyHttp2Server: String = System.getProperty("jettyHttp2Server")
+        val springBootSecurityTestVersion: String = System.getProperty("springBootSecurityTestVersion")
 
-        val springdocStarterWebmvc: String = System.getProperty("springdocStarterWebmvc", "2.3.0")
-        val springRstDocsMockMVCVersion: String = System.getProperty("springRstDocsMockMVCVersion", "3.0.1")
-        val springDependencyManagementVersion: String = System.getProperty(
-            "springDependencyManagementVersion",
-            "1.1.4"
-        )
+        val springdocStarterWebmvc: String = System.getProperty("springdocStarterWebmvc")
+        val springRstDocsMockMVCVersion: String = System.getProperty("springRstDocsMockMVCVersion")
+        val springDependencyManagementVersion: String = System.getProperty("springDependencyManagementVersion")
 
-        val openApiToolsVersion: String = System.getProperty("openApiToolsVersion", "7.2.0")
-        val openApiToolsJacksonDatabindNullableVersion: String = System.getProperty(
-            "openApiToolsJacksonDatabindNullableVersion",
-            "0.2.6"
-        )
+        val openApiToolsVersion: String = System.getProperty("openApiToolsVersion")
+        val openApiToolsJacksonDatabindNullableVersion: String =
+            System.getProperty("openApiToolsJacksonDatabindNullableVersion")
 
-        val graalvmBuildToolsNativeVersion: String = System.getProperty("graalvmBuildToolsNativeVersion", "0.9.28")
+        val graalvmBuildToolsNativeVersion: String = System.getProperty("graalvmBuildToolsNativeVersion")
 
-        val loggBackVersion: String = System.getProperty("loggBackVersion", "1.4.14")
+        val loggBackVersion: String = System.getProperty("loggBackVersion")
 
-        val passayVersion: String = System.getProperty("passayVersion", "1.6.4")
-        val jsonWebTokenVersion: String = System.getProperty("jsonWebTokenVersion", "0.12.3")
-        val auth0JavaJwtVersion: String = System.getProperty("auth0JavaJwtVersion", "4.4.0")
-        val flywaydbVersion: String = System.getProperty("flywaydbVersion", "10.6.0")
-        val jsonLoggerVersion: String = System.getProperty("jsonLoggerVersion", "v0.0.1")
-        val springBootSecurityUtilVersion: String = System.getProperty(
-            "springBootSecurityUtilVersion",
-            "v0.0.4"
-        )
+        val passayVersion: String = System.getProperty("passayVersion")
+        val jsonWebTokenVersion: String = System.getProperty("jsonWebTokenVersion")
+        val auth0JavaJwtVersion: String = System.getProperty("auth0JavaJwtVersion")
+        val flywaydbVersion: String = System.getProperty("flywaydbVersion")
+        val jsonLoggerVersion: String = System.getProperty("jsonLoggerVersion")
+        val springBootSecurityUtilVersion: String = System.getProperty("springBootSecurityUtilVersion")
 
-        val logstashLogbackEncoderVersion: String = System.getProperty("logstashLogbackEncoderVersion", "7.4")
-        val jakartaAnnotationVersion: String = System.getProperty("jakartaAnnotationVersion", "2.1.1")
-        val jacksonVersion: String = System.getProperty("jacksonVersion", "2.16.0")
-        val rxJavaVersion: String = System.getProperty("rxJavaVersion", "3.1.8")
-        val modelMapperVersion: String = System.getProperty("modelMapperVersion", "3.2.0")
-        val lombokVersion: String = System.getProperty("lombokVersion", "1.18.30")
-        val lombokMapstructBinding: String = System.getProperty("lombokMapstructBinding", "0.2.0")
-        val retrofit2Version: String = System.getProperty("retrofit2Version", "2.9.0")
-        val postgresqlVersion: String = System.getProperty("postgresqlVersion", "42.7.1")
-        val testContainersVersion: String = System.getProperty("testContainersVersion", "1.19.3")
-        val snakeYamlVersion: String = System.getProperty("snakeYamlVersion", "2.2")
-        val ioMockkMockkVersion: String = System.getProperty("ioMockkMockkVersion", "1.13.9")
-        val mockitoKotlinVersion: String = System.getProperty("mockitoKotlinVersion", "5.2.1")
-        val mockitoVersion: String = System.getProperty("mockitoVersion", "5.9.0")
-        val jUnitJupiterVersion: String = System.getProperty("jUnitJupiterVersion", "5.10.1")
-        val benManesCaffeineVersion: String = System.getProperty("benManesCaffeineVersion", "3.1.8")
-        val mapStructVersion: String = System.getProperty("mapStructVersion", "1.5.5.Final")
-        val slf4jApiVersion: String = System.getProperty("slf4jApiVersion", "2.0.11")
+        val logstashLogbackEncoderVersion: String = System.getProperty("logstashLogbackEncoderVersion")
+        val jakartaAnnotationVersion: String = System.getProperty("jakartaAnnotationVersion")
+        val jacksonVersion: String = System.getProperty("jacksonVersion")
+        val rxJavaVersion: String = System.getProperty("rxJavaVersion")
+        val modelMapperVersion: String = System.getProperty("modelMapperVersion")
+        val lombokVersion: String = System.getProperty("lombokVersion")
+        val lombokMapstructBinding: String = System.getProperty("lombokMapstructBinding")
+        val retrofit2Version: String = System.getProperty("retrofit2Version")
+        val postgresqlVersion: String = System.getProperty("postgresqlVersion")
+        val testContainersVersion: String = System.getProperty("testContainersVersion")
+        val snakeYamlVersion: String = System.getProperty("snakeYamlVersion")
+        val ioMockkMockkVersion: String = System.getProperty("ioMockkMockkVersion")
+        val mockitoKotlinVersion: String = System.getProperty("mockitoKotlinVersion")
+        val mockitoVersion: String = System.getProperty("mockitoVersion")
+        val jUnitJupiterVersion: String = System.getProperty("jUnitJupiterVersion")
+        val benManesCaffeineVersion: String = System.getProperty("benManesCaffeineVersion")
+        val mapStructVersion: String = System.getProperty("mapStructVersion")
+        val slf4jApiVersion: String = System.getProperty("slf4jApiVersion")
     }
 
     object Group {
