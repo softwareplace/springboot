@@ -46,7 +46,7 @@ group = "com.spring.example.openapi"
 version = "1.0.0"
 
 openApiSettings {
-    reactive = true
+    reactive = false
 }
 
 dependencies {

@@ -18,6 +18,7 @@ enum class DocumentationProvider(val type: String) {
 
 open class OpenApiSettings(
     var generator: String = "kotlin-spring",
+    /** Disable or enable kotlin function with suspend key work */
     var reactive: Boolean = true,
     var sourceFolder: String = ".rest",
     var modelNameSuffix: String = "Rest",
