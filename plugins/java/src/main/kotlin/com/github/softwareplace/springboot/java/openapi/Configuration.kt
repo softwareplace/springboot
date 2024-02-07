@@ -1,12 +1,10 @@
 package com.github.softwareplace.springboot.java.openapi
 
 import com.github.softwareplace.springboot.versions.Dependencies
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.getByName
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 
@@ -23,6 +21,7 @@ open class OpenApiSettings(
     var swaggerFileName: String = "openapi.yaml",
     var importMapping: MutableMap<String, String> = mutableMapOf(),
     var filesExclude: List<String> = listOf("**/ApiUtil.java"),
+    var templateDir: String? = null,
     var additionalModelTypeAnnotations: List<String> = listOf("@lombok.Data", "@lombok.Builder")
 )
 
@@ -30,6 +29,7 @@ private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
 private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
+private val baseOpenApiSettings: MutableMap<String, OpenApiSettings> = mutableMapOf()
 
 fun OpenApiGeneratorGenerateExtension.apply(
     openApiSettings: OpenApiSettings,
@@ -91,33 +91,22 @@ fun OpenApiGeneratorGenerateExtension.apply(
     )
 }
 
-fun Project.getSettings(): OpenApiSettings {
-    return try {
-        extensions.create("openApiSettings", OpenApiSettings::class.java)
-    } catch (ex: Exception) {
-        logger.info("openApiSettings not found")
-        OpenApiSettings()
-    }
-}
+fun Project.getOpenApiSettings(): OpenApiSettings =
+    baseOpenApiSettings.computeIfAbsent(projectDir.name) { OpenApiSettings() }
 
-fun Project.openApiSettings(
-    config: OpenApiSettings
-) {
-    configure<OpenApiSettings> {
-        this.generator = config.generator
-        this.sourceFolder = config.sourceFolder
-        this.modelNameSuffix = config.modelNameSuffix
-        this.swaggerFileName = config.swaggerFileName
-        this.filesExclude = config.filesExclude
-        this.importMapping = config.importMapping
-        this.additionalModelTypeAnnotations = config.additionalModelTypeAnnotations
-    }
-}
-
+fun Project.openApiSettings(config: Action<OpenApiSettings>) = config.invoke(getOpenApiSettings())
 
 fun Project.openApiGenerateConfig() {
-    val openApiSettings = getSettings()
+    val openApiSettings = getOpenApiSettings()
     afterEvaluate {
+        extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
+            val javaTemplateDir = getOpenApiSettings().templateDir
+
+            javaTemplateDir?.let {
+                templateDir.set(it)
+            }
+        }
+
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
             openApiSettings = openApiSettings,
             groupId = "$group",
@@ -127,7 +116,7 @@ fun Project.openApiGenerateConfig() {
 }
 
 fun Project.applyJavaSourceSets() {
-    val openApiSettings = getSettings()
+    val openApiSettings = getOpenApiSettings()
     extra["snippetsDir"] = file("build/generated-snippets")
     extensions.getByName<SourceSetContainer>("sourceSets").apply {
         getByName("main").apply {

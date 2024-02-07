@@ -13,7 +13,9 @@ plugins {
 
 group = "com.java.example"
 
-openApiSettings(OpenApiSettings(additionalModelTypeAnnotations = listOf("@lombok.Data", "@lombok.Builder")))
+openApiSettings{
+    additionalModelTypeAnnotations = listOf("@lombok.Data", "@lombok.Builder")
+}
 
 dependencies {
     implementation(project(":security"))

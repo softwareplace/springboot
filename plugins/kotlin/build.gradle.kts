@@ -56,6 +56,14 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions {
@@ -225,7 +233,6 @@ java {
 }
 
 dependencies {
-    System.setProperty("kotlin-spring", "${projectDir}/src/main/resources/kotlin-spring")
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
     implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {

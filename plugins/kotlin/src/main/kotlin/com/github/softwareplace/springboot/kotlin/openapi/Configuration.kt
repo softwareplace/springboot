@@ -1,10 +1,14 @@
-package com.github.softwareplace.springboot.kotlin
+package com.github.softwareplace.springboot.kotlin.openapi
 
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
+import java.io.File
+
+const val KOTLIN_SPRING = "kotlin-spring"
 
 enum class DocumentationProvider(val type: String) {
     SPRING_DOC("springdoc"),
@@ -14,7 +18,7 @@ enum class DocumentationProvider(val type: String) {
 
 open class OpenApiSettings(
     var generator: String = "kotlin-spring",
-    var reactive: Boolean = false,
+    var reactive: Boolean = true,
     var sourceFolder: String = ".rest",
     var modelNameSuffix: String = "Rest",
     var swaggerFileName: String = "openapi.yaml",
@@ -24,17 +28,11 @@ open class OpenApiSettings(
         "time" to JAVA_LOCAL_TIME
     ),
     var filesExclude: List<String> = listOf("**/ApiUtil.kt"),
-    var additionalModelTypeAnnotations: List<String> = listOf()
+    var additionalModelTypeAnnotations: List<String> = listOf(),
+    var templateDir: String? = null,
 )
 
-fun Project.getSettings(): OpenApiSettings {
-    return try {
-        extensions.create("openApiSettings", OpenApiSettings::class.java)
-    } catch (ex: Exception) {
-        logger.info("Creating a default OpenApiSettings")
-        OpenApiSettings()
-    }
-}
+private val baseOpenApiSettings: MutableMap<String, OpenApiSettings> = mutableMapOf()
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -93,42 +91,34 @@ fun OpenApiGeneratorGenerateExtension.apply(
     configOptions.set(pluginConfigOptions)
 }
 
-fun Project.openApiSettings(
-    config: OpenApiSettings
-) {
-    configure<OpenApiSettings> {
-        this.generator = config.generator
-        this.reactive = config.reactive
-        this.sourceFolder = config.sourceFolder
-        this.modelNameSuffix = config.modelNameSuffix
-        this.swaggerFileName = config.swaggerFileName
-        this.filesExclude = config.filesExclude
-        this.importMapping = config.importMapping
-        this.additionalModelTypeAnnotations = config.additionalModelTypeAnnotations
-    }
-}
+fun Project.getOpenApiSettings(): OpenApiSettings =
+    baseOpenApiSettings.computeIfAbsent(projectDir.name) { OpenApiSettings() }
 
-fun Project.openApiGenerateConfig() {
-    val openApiSettings = getSettings()
-    beforeEvaluate {
+fun Project.openApiSettings(config: Action<OpenApiSettings>) = config.invoke(getOpenApiSettings())
+
+fun Project.openApiGenerateConfig(templateSourceDir: String?) {
+    afterEvaluate {
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
-            System.getProperty("kotlin-spring")?.let {
+            val kotlinTemplateDir = when (templateSourceDir.isNullOrBlank()) {
+                true -> templateSourceDir
+                false -> getOpenApiSettings().templateDir
+            }
+
+            kotlinTemplateDir?.let {
                 templateDir.set(it)
             }
         }
-    }
-    afterEvaluate {
+
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
-            openApiSettings = openApiSettings,
+            openApiSettings = getOpenApiSettings(),
             groupId = "$group",
             projectPath = projectDir.path,
         )
     }
 }
 
-
 fun Project.applyKotlinSourceSets() {
-    val openApiSettings = getSettings()
+    val openApiSettings = getOpenApiSettings()
     extra["snippetsDir"] = file("build/generated-snippets")
     kotlinExtension.sourceSets["main"].kotlin {
         srcDir("$projectDir/build/generate-resources/src/main/kotlin")
@@ -137,7 +127,50 @@ fun Project.applyKotlinSourceSets() {
 }
 
 fun Project.applyTasks() {
-    tasks.withType<KotlinCompile> {
-        dependsOn(tasks.findByName("openApiGenerate"))
+    tasks {
+        register("openapiResourceValidation") {
+            replaceTagInFiles(File("$projectDir/build/generate-resources/src/main/kotlin"))
+        }
+
+        getByName("openApiGenerate") {
+            doLast { tasks.findByName("openapiResourceValidation") }
+        }
+
+        withType<KotlinCompile> {
+            dependsOn(tasks.findByName("openApiGenerate"))
+        }
     }
+}
+
+fun replaceTagInFiles(directory: File) {
+    directory.walkTopDown().forEach { file ->
+        if (file.isFile) {
+            val fileContent = file.readText()
+            if (fileContent.contains("@RequestMapping") && fileContent.contains("@Tag")) {
+                val updatedContent = replaceTagInContent(fileContent)
+                file.writeText(updatedContent)
+            }
+        }
+    }
+}
+
+fun replaceTagInContent(content: String): String {
+    val tagPattern = """\@Tag\([^)]*\)""".toRegex()
+    val matchingTag = tagPattern.find(content)?.value
+
+    if (!matchingTag.isNullOrBlank() && matchingTag.isNotBlank()) {
+        val namePattern = """name\s+=\s+\".*\"""".toRegex()
+        val nameValue = namePattern.find(matchingTag)?.value?.replace("""name\s+=\s+""".toRegex(), "")
+        if (!nameValue.isNullOrBlank() && nameValue.isNotBlank()) {
+            return content.replaceFirst(nameValue, camelCaseToSeparated(nameValue))
+        }
+    }
+
+    return content
+}
+
+fun camelCaseToSeparated(input: String): String {
+    val separated = input.replace(Regex("(\\p{Upper})")) { " ${it.value}" }
+    return separated.trim()
+        .replace("\" ", "\"")
 }

@@ -1,4 +1,5 @@
 import com.github.softwareplace.springboot.kotlin.*
+import com.github.softwareplace.springboot.kotlin.openapi.openApiSettings
 
 plugins {
     id("com.github.softwareplace.springboot.kotlin")
@@ -9,7 +10,10 @@ group = "com.webflux.example"
 
 version = "1.0.0"
 
-openApiSettings(OpenApiSettings(reactive = true))
+openApiSettings {
+    reactive = true
+    templateDir = "$projectDir/src/main/resources/kotlin-spring"
+}
 
 dependencies {
     implementation(project(":security"))

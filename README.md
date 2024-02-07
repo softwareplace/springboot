@@ -34,6 +34,7 @@ buildscript {
 
 ```kotlin
 import com.github.softwareplace.springboot.kotlin.*
+import com.github.softwareplace.springboot.kotlin.openapi.openApiSettings
 
 
 plugins {
@@ -44,7 +45,9 @@ plugins {
 group = "com.spring.example.openapi"
 version = "1.0.0"
 
-openApiSettings(OpenApiSettings(reactive = true))
+openApiSettings {
+    reactive = true
+}
 
 dependencies {
     kotlinReactive()
