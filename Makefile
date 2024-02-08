@@ -2,7 +2,7 @@ target ?= 8.5
 tag ?= 1.0.0-SNAPSHOT
 
 test:
-	./gradlew clean test
+	make publish-version tag=1.0.0
 	cd example && make test
 
 gradle-wrapper:
