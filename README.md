@@ -5,16 +5,15 @@
 ---
 
 > Plugin created with the aim of facilitating and speeding up the process of configuring and initializing modularized
-> projects that use spring boot. By default, all plugin settings are based on the project using `Kotlin`, but also
+> projects that use Spring Boot. By default, all plugin settings are based on the project using `Kotlin`, but also
 > giving
 > the option to also use `Java` or both.
 
 ## Setup
 
 ---
-> To add the plugin, having git already installed, run the command below inside the root directory of the project.
->
-> At top of `settings.gradle.kts` from root project, add the classpath configuration.
+
+> At the top of `settings.gradle.kts` from the root project, add the classpath configuration.
 
 ```kotlin
 buildscript {
@@ -30,11 +29,12 @@ buildscript {
         classpath("com.github.softwareplace.springboot:plugins:{version}")
     }
 }
+
 ```
 
 > After creating the `build.gradle.kts` file, add it to configure the project as shown in the example below
 
-# Configuration example
+## Configuration example
 
 > Kotlin configuration
 
@@ -94,9 +94,10 @@ dependencies {
 
 ## Submodule configuration
 
-> By working with modular project, the example above will work for a submodule project. If the submodule requires a
+> By working with modular projects, the example above will work for a submodule as well. If the submodule requires a
 > `Spring Boot` dependency, on `build.gradle.kts` add `submoduleConfig()`. By running this method, `bootJar`
-> and `bootRun` tasks will be disabled and some no used open api generated files will be ignored.
+> and `bootRun` tasks
+> will be disabled and some unused open API generated files will be ignored.
 
 - For more example, see some [implementation example](example)
 
