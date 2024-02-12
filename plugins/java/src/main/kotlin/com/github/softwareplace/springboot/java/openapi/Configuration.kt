@@ -43,7 +43,8 @@ fun OpenApiGeneratorGenerateExtension.apply(
                 val lombokAnnotation = mutableListOf(
                     "@lombok.Data",
                     "@lombok.Builder",
-                    "@lombok.AllArgsConstructor"
+                    "@lombok.NoArgsConstructor",
+                    "@lombok.AllArgsConstructor",
                 )
 
                 lombokAnnotation.addAll(openApiSettings.additionalModelTypeAnnotations)

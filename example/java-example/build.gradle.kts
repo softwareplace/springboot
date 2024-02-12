@@ -1,9 +1,8 @@
-import com.github.softwareplace.springboot.java.javaMapStruct
 import com.github.softwareplace.springboot.java.lombok
 import com.github.softwareplace.springboot.java.openapi.javaOpenApiSettings
-import com.github.softwareplace.springboot.java.testJavaMockito
 import com.github.softwareplace.springboot.utils.jsonLogger
 import com.github.softwareplace.springboot.utils.springWebFlux
+import com.github.softwareplace.springboot.utils.testMockito
 
 
 plugins {
@@ -12,14 +11,18 @@ plugins {
 
 group = "com.java.example"
 
-javaOpenApiSettings()
+javaOpenApiSettings {
+    overrideAllAdditionalModelTypeAnnotations = true
+    additionalModelTypeAnnotations = lombokDataBuilder
+}
 
 dependencies {
     implementation(project(":security"))
     springWebFlux()
+
     jsonLogger()
     lombok()
-    javaMapStruct()
-    testJavaMockito()
+
+    testMockito()
 }
 

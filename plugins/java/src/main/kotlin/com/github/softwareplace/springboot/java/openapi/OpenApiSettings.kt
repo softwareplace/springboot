@@ -24,4 +24,17 @@ data class OpenApiSettings(
      * Add or override a config option
      * */
     var configOptions: Map<String, String> = emptyMap()
-)
+) {
+    val lombokData = "@lombok.Data"
+    val lombokBuilder = "@lombok.Builder"
+    val lombokNoArgsConstructor = "@lombok.NoArgsConstructor"
+    val lombokAllArgsConstructor = "@lombok.AllArgsConstructor"
+    val lombokRequiredArgsConstructor = "@lombok.RequiredArgsConstructor"
+
+    val lombokDataBuilder = listOf(lombokData, lombokBuilder)
+    val lombokDataBuilderRequiredArgsConstructor = listOf(
+        lombokData,
+        lombokBuilder,
+        lombokRequiredArgsConstructor
+    )
+}

@@ -14,6 +14,14 @@ fun Project.kotlinOpenApiSettings(config: Action<OpenApiSettings>? = null) {
     val openApiSettings = OpenApiSettings()
     config?.invoke(openApiSettings)
     apply(plugin = "org.openapi.generator")
+
+    if (openApiSettings.templateDir.isNullOrBlank()) {
+        val templateSourceDir = javaClass.classLoader?.getResource("kotlin-spring")
+        templateSourceDir?.let {
+            openApiSettings.templateDir = it.path
+        }
+    }
+
     openApiGenerateConfig(openApiSettings)
     dependencies {
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${Dependencies.Version.springdocStarterWebmvc}")

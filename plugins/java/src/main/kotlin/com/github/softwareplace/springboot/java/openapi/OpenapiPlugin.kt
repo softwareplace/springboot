@@ -15,6 +15,13 @@ fun Project.javaOpenApiSettings(config: Action<OpenApiSettings>? = null) {
     val openApiSettings = OpenApiSettings()
     config?.invoke(openApiSettings)
 
+//    if (openApiSettings.templateDir.isNullOrBlank()) {
+//        val templateSourceDir = javaClass.classLoader?.getResource("java-spring")
+//        templateSourceDir?.let {
+//            openApiSettings.templateDir = it.path
+//        }
+//    }
+
     openApiGenerateConfig(openApiSettings)
 
     dependencies {

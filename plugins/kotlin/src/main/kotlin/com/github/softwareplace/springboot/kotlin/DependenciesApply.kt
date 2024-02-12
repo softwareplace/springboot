@@ -4,7 +4,7 @@ import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.buildconfiguration.kaptAnnotationProcessor
 import com.github.softwareplace.springboot.buildconfiguration.testImplementation
 import com.github.softwareplace.springboot.utils.mapStruct
-import com.github.softwareplace.springboot.utils.testJunitJupiter
+import com.github.softwareplace.springboot.utils.testMockito
 import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -28,10 +28,11 @@ fun Project.kotlinMapStruct(version: String? = null) {
 fun Project.testKotlinMockito(
     mockitoKotlinVersion: String? = null,
     ioMockkMockkVersion: String? = null,
+    mockitoVersion: String? = null,
     jUnitJupiterVersion: String? = null
 ) {
     dependencies {
-        testJunitJupiter(jUnitJupiterVersion)
+        testMockito(mockitoVersion = mockitoVersion, jUnitJupiterVersion = jUnitJupiterVersion)
         testImplementation("org.mockito.kotlin:mockito-kotlin:${mockitoKotlinVersion ?: Dependencies.Version.mockitoKotlinVersion}")
         testImplementation("io.mockk:mockk:${ioMockkMockkVersion ?: Dependencies.Version.ioMockkMockkVersion}") {
             exclude("org.slf4j", "slf4j-api")

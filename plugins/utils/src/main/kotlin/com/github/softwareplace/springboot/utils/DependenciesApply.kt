@@ -239,10 +239,13 @@ fun Project.testContainersPostgresql(version: String? = null) {
     }
 }
 
-fun Project.testJunitJupiter(
+fun Project.testMockito(
+    mockitoVersion: String? = null,
     jUnitJupiterVersion: String? = null
 ) {
     dependencies {
+        testImplementation("org.mockito:mockito-core:${mockitoVersion ?: Dependencies.Version.mockitoVersion}")
+        testImplementation("org.mockito:mockito-junit-jupiter:${mockitoVersion ?: Dependencies.Version.mockitoVersion}")
         testImplementation("org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion ?: Dependencies.Version.jUnitJupiterVersion}")
     }
 }

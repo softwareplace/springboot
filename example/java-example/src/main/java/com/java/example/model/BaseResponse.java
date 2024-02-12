@@ -2,21 +2,18 @@ package com.java.example.model;
 
 
 import lombok.Builder;
-import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Data
 @Builder
-public class BaseResponse {
-    private Boolean success;
+public record BaseResponse(
+        Boolean success,
+        Long timestamp,
+        String message,
+        LocalDate date,
+        LocalDateTime dateTime,
+        LocalTime time) {
 
-    private Long timestamp;
-
-    private String message;
-    private LocalDate date;
-    private LocalDateTime dateTime;
-    private LocalTime time;
 }

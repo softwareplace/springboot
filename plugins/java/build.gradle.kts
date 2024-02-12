@@ -54,6 +54,14 @@ repositories {
     maven("https://repo.spring.io/milestone")
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions {

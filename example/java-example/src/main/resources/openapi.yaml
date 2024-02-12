@@ -8,7 +8,7 @@ paths:
   /example:
     get:
       tags:
-        - Example
+        - Java Code Gen Example
       summary: Example swagger
       description: Example swagger
       operationId: exampleBuild
@@ -48,7 +48,13 @@ components:
           type: string
           format: time
           example: 10:55
-
+      required:
+        - time
+        - dateTime
+        - date
+        - message
+        - timestamp
+        - success
 #  securitySchemes:
 #    petstore_auth:
 #      type: oauth2
