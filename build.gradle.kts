@@ -61,7 +61,7 @@ repositories {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("plugins") {
             artifactId = "plugins"
             groupId = sourceGroup
             from(components["java"])

@@ -220,7 +220,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("versions") {
             artifactId = "versions"
             from(components["java"])
             pom {

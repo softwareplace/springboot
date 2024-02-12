@@ -151,21 +151,21 @@ gradlePlugin {
     plugins {
         create("java") {
             id = "$sourceGroup.java"
+            version = tagVersion
             implementationClass = "$sourceGroup.java.BuildSourcePlugin"
-
-            publishing {
-                publications {
-                    create<MavenPublication>("maven") {
-                        artifactId = "java"
-                        from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "java")
-                    }
-                }
-            }
         }
     }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("java") {
+            artifactId = "java"
+            from(components["java"])
+            Shared.publishConfig(this, sourceGroup, "java")
+        }
+    }
+}
 
 //if (!isSnapshot) {
 //    signing {

@@ -150,7 +150,7 @@ tasks {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("utils") {
             artifactId = "utils"
             from(components["java"])
             Shared.publishConfig(this, sourceGroup, "utils")

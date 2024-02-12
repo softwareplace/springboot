@@ -153,20 +153,19 @@ gradlePlugin {
         create("kotlin") {
             id = "$sourceGroup.kotlin"
             implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
-
-            publishing {
-                publications {
-                    create<MavenPublication>("maven") {
-                        artifactId = "kotlin"
-                        from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "kotlin")
-                    }
-                }
-            }
         }
     }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("kotlin") {
+            artifactId = "kotlin"
+            from(components["java"])
+            Shared.publishConfig(this, sourceGroup, "kotlin")
+        }
+    }
+}
 
 //if (!isSnapshot) {
 //    signing {

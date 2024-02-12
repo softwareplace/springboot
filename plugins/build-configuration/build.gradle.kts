@@ -143,7 +143,7 @@ gradlePlugin {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("build-configuration") {
             artifactId = "build-configuration"
             from(components["java"])
             pom {
