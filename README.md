@@ -9,6 +9,24 @@
 > giving
 > the option to also use `Java` or both.
 
+---
+
+# Requires
+
+- Java 21
+- Kotlin 1.9.22
+- Gradle 8.5
+
+# Usage
+
+- [OpenAPI Generator](https://openapi-generator.tech/docs/generators/)
+
+# Current Version
+
+- [gradle.properties](gradle.properties)
+
+---
+
 ## Setup
 
 ---
