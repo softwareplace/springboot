@@ -74,10 +74,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
 
-    implementation("com.github.softwareplace.springboot:versions:$tagVersion")
-    implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
-    implementation("com.github.softwareplace.springboot:java:$tagVersion")
-    implementation("com.github.softwareplace.springboot:java-openapi:$tagVersion")
     implementation("com.github.softwareplace.springboot:kotlin:$tagVersion")
-    implementation("com.github.softwareplace.springboot:kotlin-openapi:$tagVersion")
+    implementation("com.github.softwareplace.springboot:java:$tagVersion")
 }
