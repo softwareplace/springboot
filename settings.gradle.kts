@@ -4,6 +4,7 @@ rootProject.name = "plugins"
 
 includeBuild("plugins/versions")
 includeBuild("plugins/build-configuration")
+includeBuild("plugins/utils")
 includeBuild("plugins/java")
 includeBuild("plugins/kotlin")
 

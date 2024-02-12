@@ -155,36 +155,6 @@ gradlePlugin {
                 }
             }
         }
-
-        create("java-submodule") {
-            id = "$sourceGroup.java-submodule"
-            implementationClass = "$sourceGroup.java.SubmoduleSourcePlugin"
-
-            publishing {
-                publications {
-                    create<MavenPublication>("kotlinSubmoduleMaven") {
-                        artifactId = "java-submodule"
-                        from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "java-submodule")
-                    }
-                }
-            }
-        }
-
-        create("java-openapi") {
-            id = "$sourceGroup.java-openapi"
-            implementationClass = "$sourceGroup.java.openapi.OpenapiPlugin"
-
-            publishing {
-                publications {
-                    create<MavenPublication>("kotlinOpenapiMaven") {
-                        artifactId = "java-openapi"
-                        from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "java-openapi")
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -224,6 +194,7 @@ java {
 }
 
 dependencies {
+    implementation("com.github.softwareplace.springboot:utils:$tagVersion")
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
     implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
     implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {

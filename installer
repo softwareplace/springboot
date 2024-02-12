@@ -14,6 +14,7 @@ echo "Publishing $buildTag"
 
 if ! ./gradlew \
       versions:assemble versions:publishToMavenLocal \
+      utils:assemble utils:publishToMavenLocal \
       build-configuration:assemble build-configuration:publishToMavenLocal \
       java:assemble java:publishToMavenLocal \
       kotlin:assemble kotlin:publishToMavenLocal \

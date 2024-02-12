@@ -1,25 +1,40 @@
-import com.github.softwareplace.springboot.kotlin.*
-import com.github.softwareplace.springboot.kotlin.openapi.openApiSettings
+import com.github.softwareplace.springboot.kotlin.kotlinReactive
+import com.github.softwareplace.springboot.kotlin.mapStructKaptAnnotationProcessor
+import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenapiSettings
+import com.github.softwareplace.springboot.kotlin.springBootKaptAnnotationProcessor
+import com.github.softwareplace.springboot.kotlin.testKotlinMockito
+import com.github.softwareplace.springboot.utils.jsonLogger
+import com.github.softwareplace.springboot.utils.mapStruct
+import com.github.softwareplace.springboot.utils.springJettyApi
+import com.github.softwareplace.springboot.utils.springWebFlux
 
 plugins {
     id("com.github.softwareplace.springboot.kotlin")
-    id("com.github.softwareplace.springboot.kotlin-openapi")
 }
 
 group = "com.webflux.example"
 
 version = "1.0.0"
 
-openApiSettings {
+
+kotlinOpenapiSettings {
     reactive = true
     templateDir = "$projectDir/src/main/resources/kotlin-spring"
 }
 
 dependencies {
     implementation(project(":security"))
-    springWebFlux()
-    mappstruct()
-    jsonLogger()
-    test()
-}
 
+    kotlinReactive()
+
+    springJettyApi()
+    springWebFlux()
+    springBootKaptAnnotationProcessor()
+
+    jsonLogger()
+
+    mapStruct()
+    mapStructKaptAnnotationProcessor()
+
+    testKotlinMockito()
+}

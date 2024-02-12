@@ -1,5 +1,3 @@
-import java.util.*
-
 rootProject.name = "example"
 
 include(":security")
@@ -9,8 +7,10 @@ include(":webflux-example")
 
 project(":security").projectDir = file("shared-modules/security")
 
+//
 //includeBuild("../plugins/versions")
 //includeBuild("../plugins/build-configuration")
+//includeBuild("../plugins/utils")
 //includeBuild("../plugins/java")
 //includeBuild("../plugins/kotlin")
 //

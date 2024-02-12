@@ -48,13 +48,6 @@ components:
           type: string
           format: time
           example: 10:55
-      required:
-        - success
-        - message
-        - timestamp
-        - date
-        - dateTime
-        - time
 
 #  securitySchemes:
 #    petstore_auth:

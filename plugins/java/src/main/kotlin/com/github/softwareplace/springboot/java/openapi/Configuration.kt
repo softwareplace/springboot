@@ -1,10 +1,11 @@
 package com.github.softwareplace.springboot.java.openapi
 
 import com.github.softwareplace.springboot.versions.Dependencies
-import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
-import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.extra
+import org.gradle.kotlin.dsl.getByName
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 
@@ -14,46 +15,63 @@ enum class DocumentationProvider(val type: String) {
     SOURCE("source")
 }
 
-open class OpenApiSettings(
-    var generator: String = "spring",
-    var sourceFolder: String = "rest",
-    var modelNameSuffix: String = "Rest",
-    var swaggerFileName: String = "openapi.yaml",
-    var importMapping: MutableMap<String, String> = mutableMapOf(),
-    var filesExclude: List<String> = listOf("**/ApiUtil.java"),
-    var templateDir: String? = null,
-    var additionalModelTypeAnnotations: List<String> = listOf("@lombok.Data", "@lombok.Builder")
-)
-
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
 private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
-private val baseOpenApiSettings: MutableMap<String, OpenApiSettings> = mutableMapOf()
+open class OpenapiSettings(
+    var groupId: String = "app",
+    var generator: String = "spring",
+    var sourceFolder: String = "rest",
+    var modelNameSuffix: String = "Rest",
+    var swaggerFileName: String = "openapi.yaml",
+    var overrideImportMapping: Boolean = false,
+    var importMapping: Map<String, String> = emptyMap(),
+    var filesExclude: List<String> = listOf("**/ApiUtil.java"),
+    var templateDir: String? = null,
+    var overrideAllAdditionalModelTypeAnnotations: Boolean = false,
+    var additionalModelTypeAnnotations: List<String> = emptyList(),
+)
 
 fun OpenApiGeneratorGenerateExtension.apply(
-    openApiSettings: OpenApiSettings,
-    groupId: String = "app",
+    openApiSettings: OpenapiSettings,
+    groupId: String,
     projectPath: String,
     openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openApiSettings.swaggerFileName}"
 ) {
-    schemaMappings.putAll(
-        mapOf(
-            "date-time" to JAVA_LOCAL_DATE_TIME
-        )
-    )
-    importMappings.set(
-        mapOf(
-            "java.time.OffsetDateTime" to "java.time.LocalDateTime"
-        )
-    )
-    typeMappings.set(
-        mapOf(
-            "date" to JAVA_LOCAL_DATE,
-            "local-date-time" to JAVA_LOCAL_DATE_TIME,
-            "time" to JAVA_LOCAL_TIME
-        )
-    )
+
+    val customImportingMapping: Map<String, String> = when (openApiSettings.overrideImportMapping) {
+        true -> openApiSettings.importMapping
+        else -> {
+            val customImporting = mutableMapOf(
+                "date" to JAVA_LOCAL_DATE,
+                "local-date-time" to JAVA_LOCAL_DATE_TIME,
+                "time" to JAVA_LOCAL_TIME
+            )
+            customImporting.putAll(openApiSettings.importMapping)
+            customImporting
+        }
+    }
+
+    schemaMappings.putAll(customImportingMapping)
+    importMappings.putAll(customImportingMapping)
+    typeMappings.putAll(customImportingMapping)
+
+    val lombokAdditionalModelTypeANotations: List<String> =
+        when (openApiSettings.overrideAllAdditionalModelTypeAnnotations) {
+            true -> openApiSettings.additionalModelTypeAnnotations
+            false -> {
+                val lombokAnnotation = mutableListOf(
+                    "@lombok.Data",
+                    "@lombok.Builder",
+                    "@lombok.AllArgsConstructor"
+                )
+
+                lombokAnnotation.addAll(openApiSettings.additionalModelTypeAnnotations)
+                lombokAnnotation
+            }
+        }
+
 
     schemaMappings.putAll(openApiSettings.importMapping)
     generatorName.set(openApiSettings.generator)
@@ -72,7 +90,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
         mapOf(
             "apiSuffix" to "Controller",
             "apiNameSuffix" to "Controller",
-            "additionalModelTypeAnnotations" to openApiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
+            "additionalModelTypeAnnotations" to lombokAdditionalModelTypeANotations.joinToString(separator = "\n"),
             "interfaceOnly" to "true",
             "skipDefaultInterface" to "true",
             "defaultInterfaces" to "false",
@@ -91,38 +109,29 @@ fun OpenApiGeneratorGenerateExtension.apply(
     )
 }
 
-fun Project.getOpenApiSettings(): OpenApiSettings =
-    baseOpenApiSettings.computeIfAbsent(projectDir.name) { OpenApiSettings() }
-
-fun Project.openApiSettings(config: Action<OpenApiSettings>) = config.invoke(getOpenApiSettings())
-
-fun Project.openApiGenerateConfig() {
-    val openApiSettings = getOpenApiSettings()
+fun Project.openapiGenerateConfig(openApiSettings: OpenapiSettings) {
     afterEvaluate {
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
-            val javaTemplateDir = getOpenApiSettings().templateDir
-
-            javaTemplateDir?.let {
+            openApiSettings.templateDir?.let {
                 templateDir.set(it)
             }
         }
 
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
             openApiSettings = openApiSettings,
-            groupId = "$group",
             projectPath = projectDir.path,
+            groupId = group.toString()
         )
     }
 }
 
-fun Project.applyJavaSourceSets() {
-    val openApiSettings = getOpenApiSettings()
+fun Project.applyJavaSourceSets(openapiSettings: OpenapiSettings) {
     extra["snippetsDir"] = file("build/generated-snippets")
     extensions.getByName<SourceSetContainer>("sourceSets").apply {
         getByName("main").apply {
             java {
                 srcDir("$projectDir/build/generated/src/main/java")
-                exclude(openApiSettings.filesExclude)
+                exclude(openapiSettings.filesExclude)
             }
         }
     }
