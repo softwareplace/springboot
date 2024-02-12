@@ -25,7 +25,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version System.getProperty("kotlinVersion")
     id("org.springframework.boot") version System.getProperty("springBootVersion")
     id("io.spring.dependency-management") version System.getProperty("springDependencyManagementVersion")
-    id("org.openapi.generator") version System.getProperty("openApiToolsVersion")
 }
 
 val buildTimeAndDate: OffsetDateTime = OffsetDateTime.now()
@@ -41,7 +40,7 @@ val docsDir = File(projectDir, "docs")
 description = "@Software Place Spring Plugins"
 val moduleSourceDir = file("src/module/java")
 val sourceGroup = Dependencies.Group.pluginsGroup
-val moduleName = "${sourceGroup}.kotlin"
+val moduleName = "${sourceGroup}.utils"
 
 val tagVersion: String by lazy { project.getTag() }
 
@@ -124,7 +123,7 @@ tasks {
                 "Bundle-Description" to project.description,
                 "Bundle-DocURL" to "https://github.com/softwareplace/springboot",
                 "Bundle-Vendor" to sourceGroup,
-                "-exportcontents" to "${sourceGroup}.kotlin",
+                "-exportcontents" to moduleName,
                 "Bundle-SymbolicName" to moduleName
             )
         }
@@ -150,16 +149,16 @@ tasks {
 
 gradlePlugin {
     plugins {
-        create("kotlin") {
-            id = "$sourceGroup.kotlin"
-            implementationClass = "$sourceGroup.kotlin.BuildSourcePlugin"
+        create("utils") {
+            id = "$sourceGroup.utils"
+            implementationClass = "$sourceGroup.utils.ProjectUtils"
 
             publishing {
                 publications {
                     create<MavenPublication>("maven") {
-                        artifactId = "kotlin"
+                        artifactId = "utils"
                         from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "kotlin")
+                        Shared.publishConfig(this, sourceGroup, "utils")
                     }
                 }
             }
@@ -203,10 +202,6 @@ java {
 }
 
 dependencies {
-    implementation("com.github.softwareplace.springboot:utils:$tagVersion")
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
     implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
-        exclude("com.fasterxml.jackson.core", "jackson-databind")
-    }
 }

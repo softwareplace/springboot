@@ -1,6 +1,5 @@
 package com.github.softwareplace.springboot.kotlin.openapi
 
-import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
@@ -8,32 +7,25 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 import java.io.File
 
-const val KOTLIN_SPRING = "kotlin-spring"
-
 enum class DocumentationProvider(val type: String) {
     SPRING_DOC("springdoc"),
     NONE("none"),
     SOURCE("source")
 }
 
-open class OpenApiSettings(
+open class OpenapiSettings(
     var generator: String = "kotlin-spring",
     /** Disable or enable kotlin function with suspend key work */
     var reactive: Boolean = true,
     var sourceFolder: String = ".rest",
     var modelNameSuffix: String = "Rest",
     var swaggerFileName: String = "openapi.yaml",
-    var importMapping: Map<String, String> = mapOf(
-        "date" to JAVA_LOCAL_DATE,
-        "local-date-time" to JAVA_LOCAL_DATE_TIME,
-        "time" to JAVA_LOCAL_TIME
-    ),
+    var overrideImportMapping: Boolean = false,
+    var importMapping: Map<String, String> = emptyMap(),
     var filesExclude: List<String> = listOf("**/ApiUtil.kt"),
     var additionalModelTypeAnnotations: List<String> = listOf(),
     var templateDir: String? = null,
 )
-
-private val baseOpenApiSettings: MutableMap<String, OpenApiSettings> = mutableMapOf()
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -41,28 +33,41 @@ private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
 
 fun OpenApiGeneratorGenerateExtension.apply(
-    openApiSettings: OpenApiSettings,
+    openapiSettings: OpenapiSettings,
     groupId: String = "app",
     projectPath: String,
-    openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openApiSettings.swaggerFileName}"
+    openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openapiSettings.swaggerFileName}"
 ) {
 
-    schemaMappings.putAll(openApiSettings.importMapping)
-    importMappings.putAll(openApiSettings.importMapping)
-    typeMappings.putAll(openApiSettings.importMapping)
+    val customImportingMapping: Map<String, String> = when (openapiSettings.overrideImportMapping) {
+        true -> openapiSettings.importMapping
+        else -> {
+            val customImporting = mutableMapOf(
+                "date" to JAVA_LOCAL_DATE,
+                "local-date-time" to JAVA_LOCAL_DATE_TIME,
+                "time" to JAVA_LOCAL_TIME
+            )
+            customImporting.putAll(openapiSettings.importMapping)
+            customImporting
+        }
+    }
 
-    generatorName.set(openApiSettings.generator)
-    this.groupId.set("${groupId}${openApiSettings.sourceFolder}")
-    packageName.set("${groupId}${openApiSettings.sourceFolder}")
+    schemaMappings.putAll(customImportingMapping)
+    importMappings.putAll(customImportingMapping)
+    typeMappings.putAll(customImportingMapping)
+
+    generatorName.set(openapiSettings.generator)
+    this.groupId.set("${groupId}${openapiSettings.sourceFolder}")
+    packageName.set("${groupId}${openapiSettings.sourceFolder}")
     inputSpec.set(openApiYamlFilePath)
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generate-resources")
     this.withXml.set(false)
-    apiPackage.set("${groupId}${openApiSettings.sourceFolder}.controller")
-    invokerPackage.set("${groupId}${openApiSettings.sourceFolder}.invoker")
+    apiPackage.set("${groupId}${openapiSettings.sourceFolder}.controller")
+    invokerPackage.set("${groupId}${openapiSettings.sourceFolder}.invoker")
     apiNameSuffix.set("Controller")
-    modelNameSuffix.set(openApiSettings.modelNameSuffix)
-    modelPackage.set("${groupId}${openApiSettings.sourceFolder}.model")
+    modelNameSuffix.set(openapiSettings.modelNameSuffix)
+    modelPackage.set("${groupId}${openapiSettings.sourceFolder}.model")
     skipOperationExample.set(true)
 
     val pluginConfigOptions = mutableMapOf(
@@ -72,7 +77,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
         "skipDefaultInterface" to "true",
         "defaultInterfaces" to "false",
         "delegatePattern" to "false",
-        "additionalModelTypeAnnotations" to openApiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
+        "additionalModelTypeAnnotations" to openapiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
         "documentationProvider" to DocumentationProvider.SPRING_DOC.type,
         "serializationLibrary" to "jackson",
         "gradleBuildFile" to "false",
@@ -85,45 +90,34 @@ fun OpenApiGeneratorGenerateExtension.apply(
         "java8" to "true"
     )
 
-    if (openApiSettings.reactive) {
-        pluginConfigOptions.putAll(mapOf("reactive" to "${openApiSettings.reactive}"))
+    if (openapiSettings.reactive) {
+        pluginConfigOptions.putAll(mapOf("reactive" to "${openapiSettings.reactive}"))
     }
 
     configOptions.set(pluginConfigOptions)
 }
 
-fun Project.getOpenApiSettings(): OpenApiSettings =
-    baseOpenApiSettings.computeIfAbsent(projectDir.name) { OpenApiSettings() }
-
-fun Project.openApiSettings(config: Action<OpenApiSettings>) = config.invoke(getOpenApiSettings())
-
-fun Project.openApiGenerateConfig(templateSourceDir: String?) {
+fun Project.openApiGenerateConfig(openapiSettings: OpenapiSettings) {
     afterEvaluate {
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
-            val kotlinTemplateDir = when (templateSourceDir.isNullOrBlank()) {
-                true -> templateSourceDir
-                false -> getOpenApiSettings().templateDir
-            }
-
-            kotlinTemplateDir?.let {
+            openapiSettings.templateDir?.let {
                 templateDir.set(it)
             }
         }
 
         extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
-            openApiSettings = getOpenApiSettings(),
-            groupId = "$group",
+            openapiSettings = openapiSettings,
+            groupId = group.toString(),
             projectPath = projectDir.path,
         )
     }
 }
 
-fun Project.applyKotlinSourceSets() {
-    val openApiSettings = getOpenApiSettings()
+fun Project.applyKotlinSourceSets(openapiSettings: OpenapiSettings) {
     extra["snippetsDir"] = file("build/generated-snippets")
     kotlinExtension.sourceSets["main"].kotlin {
         srcDir("$projectDir/build/generate-resources/src/main/kotlin")
-        exclude(openApiSettings.filesExclude)
+        exclude(openapiSettings.filesExclude)
     }
 }
 
