@@ -1,4 +1,4 @@
-# springboot-plugins 
+# springboot-plugins
 
 [![](https://jitpack.io/v/softwareplace/springboot.svg)](https://jitpack.io/#softwareplace/springboot)
 
@@ -19,7 +19,11 @@
 ```kotlin
 buildscript {
     repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
         maven("https://jitpack.io")
+        maven("https://repo.spring.io/milestone")
     }
 
     dependencies {
@@ -32,29 +36,67 @@ buildscript {
 
 # Configuration example
 
+> Kotlin configuration
+
 ```kotlin
-import com.github.softwareplace.springboot.kotlin.*
-import com.github.softwareplace.springboot.kotlin.openapi.openApiSettings
+import com.github.softwareplace.springboot.kotlin.kotlinMapStruct
+import com.github.softwareplace.springboot.kotlin.kotlinReactive
+import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenapiSettings
+import com.github.softwareplace.springboot.kotlin.testKotlinMockito
+import com.github.softwareplace.springboot.utils.jsonLogger
+import com.github.softwareplace.springboot.utils.springBootStartWeb
+import com.github.softwareplace.springboot.utils.springJettyApi
 
 
 plugins {
     id("com.github.softwareplace.springboot.kotlin")
-    id("com.github.softwareplace.springboot.kotlin-openapi")
 }
 
 group = "com.spring.example.openapi"
 version = "1.0.0"
 
-openApiSettings {
-    reactive = false
-}
+
+kotlinOpenapiSettings()
 
 dependencies {
     kotlinReactive()
     springJettyApi()
-    mappstruct()
+    kotlinMapStruct()
+    springBootStartWeb()
+
+    testKotlinMockito()
 }
 ```
+
+> Java project configuration
+
+````kotlin
+import com.github.softwareplace.springboot.java.javaMapStruct
+import com.github.softwareplace.springboot.java.lombok
+import com.github.softwareplace.springboot.java.openapi.javaOpenApiSettings
+import com.github.softwareplace.springboot.java.testJavaMockito
+import com.github.softwareplace.springboot.utils.springWebFlux
+
+plugins {
+    id("com.github.softwareplace.springboot.java")
+}
+
+javaOpenApiSettings()
+
+dependencies {
+    lombok()
+    springWebFlux()
+    javaMapStruct()
+
+    testJavaMockito()
+}
+````
+
+## Submodule configuration
+
+> By working with modular project, the example above will work for a submodule project. If the submodule requires a
+> `Spring Boot` dependency, on `build.gradle.kts` add `submoduleConfig()`. By running this method, `bootJar`
+> and `bootRun` tasks will be disabled and some no used open api generated files will be ignored.
 
 - For more example, see some [implementation example](example)
 

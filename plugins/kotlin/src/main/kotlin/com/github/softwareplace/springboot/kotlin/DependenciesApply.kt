@@ -1,9 +1,9 @@
 package com.github.softwareplace.springboot.kotlin
 
-import com.github.softwareplace.springboot.buildconfiguration.ORG_SPRINGFRAMEWORK_BOOT
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.buildconfiguration.kaptAnnotationProcessor
 import com.github.softwareplace.springboot.buildconfiguration.testImplementation
+import com.github.softwareplace.springboot.utils.mapStruct
 import com.github.softwareplace.springboot.utils.testJunitJupiter
 import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
@@ -17,17 +17,13 @@ fun Project.kotlinReactive() {
     }
 }
 
-fun Project.mapStructKaptAnnotationProcessor(version: String? = null) {
+fun Project.kotlinMapStruct(version: String? = null) {
+    mapStruct(version)
     dependencies {
         kaptAnnotationProcessor("org.mapstruct:mapstruct-processor:${version ?: Dependencies.Version.mapStructVersion}")
     }
 }
 
-fun Project.springBootKaptAnnotationProcessor() {
-    dependencies {
-        kaptAnnotationProcessor("$ORG_SPRINGFRAMEWORK_BOOT:spring-boot-configuration-processor")
-    }
-}
 
 fun Project.testKotlinMockito(
     mockitoKotlinVersion: String? = null,

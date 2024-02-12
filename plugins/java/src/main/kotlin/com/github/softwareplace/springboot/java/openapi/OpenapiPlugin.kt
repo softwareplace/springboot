@@ -9,15 +9,14 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
 
-fun Project.javaOpenapiSettings(config: Action<OpenapiSettings>? = null) {
+fun Project.javaOpenApiSettings(config: Action<OpenApiSettings>? = null) {
     apply(plugin = "org.openapi.generator")
 
-    val openApiSettings = OpenapiSettings()
+    val openApiSettings = OpenApiSettings()
     config?.invoke(openApiSettings)
 
-    applyTasks()
-    openapiGenerateConfig(openApiSettings)
-    applyJavaSourceSets(openApiSettings)
+    openApiGenerateConfig(openApiSettings)
+
     dependencies {
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${Dependencies.Version.springdocStarterWebmvc}")
         implementation("org.openapitools:jackson-databind-nullable:${Dependencies.Version.openApiToolsJacksonDatabindNullableVersion}")

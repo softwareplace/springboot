@@ -147,21 +147,13 @@ tasks {
     }
 }
 
-gradlePlugin {
-    plugins {
-        create("utils") {
-            id = "$sourceGroup.utils"
-            implementationClass = "$sourceGroup.utils.ProjectUtils"
 
-            publishing {
-                publications {
-                    create<MavenPublication>("maven") {
-                        artifactId = "utils"
-                        from(components["java"])
-                        Shared.publishConfig(this, sourceGroup, "utils")
-                    }
-                }
-            }
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = "utils"
+            from(components["java"])
+            Shared.publishConfig(this, sourceGroup, "utils")
         }
     }
 }
