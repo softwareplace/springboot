@@ -9,33 +9,12 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 
-enum class DocumentationProvider(val type: String) {
-    SPRING_DOC("springdoc"),
-    NONE("none"),
-    SOURCE("source")
-}
-
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
 private const val JAVA_LOCAL_TIME = "java.time.LocalTime"
 
-open class OpenapiSettings(
-    var groupId: String = "app",
-    var generator: String = "spring",
-    var sourceFolder: String = "rest",
-    var modelNameSuffix: String = "Rest",
-    var swaggerFileName: String = "openapi.yaml",
-    var overrideImportMapping: Boolean = false,
-    var importMapping: Map<String, String> = emptyMap(),
-    var filesExclude: List<String> = listOf("**/ApiUtil.java"),
-    var templateDir: String? = null,
-    var overrideAllAdditionalModelTypeAnnotations: Boolean = false,
-    var additionalModelTypeAnnotations: List<String> = emptyList(),
-)
-
 fun OpenApiGeneratorGenerateExtension.apply(
-    openApiSettings: OpenapiSettings,
-    groupId: String,
+    openApiSettings: OpenApiSettings,
     projectPath: String,
     openApiYamlFilePath: String = "${projectPath}/src/main/resources/${openApiSettings.swaggerFileName}"
 ) {
@@ -75,69 +54,69 @@ fun OpenApiGeneratorGenerateExtension.apply(
 
     schemaMappings.putAll(openApiSettings.importMapping)
     generatorName.set(openApiSettings.generator)
-    this.groupId.set("${groupId}.${openApiSettings.sourceFolder}")
-    packageName.set("${groupId}.${openApiSettings.sourceFolder}")
+    this.groupId.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}")
+    packageName.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}")
     inputSpec.set(openApiYamlFilePath)
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generated")
-    apiPackage.set("${groupId}.${openApiSettings.sourceFolder}.controller")
-    invokerPackage.set("${groupId}.${openApiSettings.sourceFolder}.invoker")
+    apiPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.controller")
+    invokerPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.invoker")
     apiNameSuffix.set("Controller")
     modelNameSuffix.set(openApiSettings.modelNameSuffix)
-    modelPackage.set("${groupId}.${openApiSettings.sourceFolder}.model")
+    modelPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.model")
     skipOperationExample.set(true)
-    configOptions.set(
-        mapOf(
-            "apiSuffix" to "Controller",
-            "apiNameSuffix" to "Controller",
-            "additionalModelTypeAnnotations" to lombokAdditionalModelTypeANotations.joinToString(separator = "\n"),
-            "interfaceOnly" to "true",
-            "skipDefaultInterface" to "true",
-            "defaultInterfaces" to "false",
-            "delegatePattern" to "false",
-            "documentationProvider" to DocumentationProvider.SPRING_DOC.type,
-            "serializationLibrary" to "jackson",
-            "gradleBuildFile" to "false",
-            "enumPropertyNaming" to "original",
-            "exceptionHandler" to "false",
-            "useSpringBoot3" to "true",
-            "useSwaggerUI" to "true",
-            "useTags" to "true",
-            "generateApis" to "true",
-            "java8" to "true"
-        )
+
+    val pluginConfigOptions = mutableMapOf(
+        "apiSuffix" to "Controller",
+        "apiNameSuffix" to "Controller",
+        "additionalModelTypeAnnotations" to lombokAdditionalModelTypeANotations.joinToString(separator = "\n"),
+        "interfaceOnly" to "true",
+        "skipDefaultInterface" to "true",
+        "defaultInterfaces" to "false",
+        "delegatePattern" to "false",
+        "documentationProvider" to openApiSettings.documentationProvider.type,
+        "serializationLibrary" to "jackson",
+        "gradleBuildFile" to "false",
+        "enumPropertyNaming" to "original",
+        "exceptionHandler" to "false",
+        "useSpringBoot3" to "true",
+        "useSwaggerUI" to "true",
+        "useTags" to "true",
+        "generateApis" to "true",
+        "java8" to "true"
     )
+
+    pluginConfigOptions.putAll(openApiSettings.configOptions)
+    configOptions.set(pluginConfigOptions)
 }
 
-fun Project.openapiGenerateConfig(openApiSettings: OpenapiSettings) {
-    afterEvaluate {
-        extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
-            openApiSettings.templateDir?.let {
-                templateDir.set(it)
-            }
+fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
+    extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply {
+        openApiSettings.templateDir?.let {
+            templateDir.set(it)
         }
-
-        extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
-            openApiSettings = openApiSettings,
-            projectPath = projectDir.path,
-            groupId = group.toString()
-        )
     }
-}
 
-fun Project.applyJavaSourceSets(openapiSettings: OpenapiSettings) {
+    if (openApiSettings.groupId.isBlank()) {
+        openApiSettings.groupId = group.toString()
+    }
+
+    extensions.getByName<OpenApiGeneratorGenerateExtension>("openApiGenerate").apply(
+        openApiSettings = openApiSettings,
+        projectPath = projectDir.path
+    )
+
     extra["snippetsDir"] = file("build/generated-snippets")
+
     extensions.getByName<SourceSetContainer>("sourceSets").apply {
         getByName("main").apply {
             java {
                 srcDir("$projectDir/build/generated/src/main/java")
-                exclude(openapiSettings.filesExclude)
+                exclude(openApiSettings.filesExclude)
             }
         }
     }
-}
 
-fun Project.applyTasks() {
     tasks.withType<KotlinCompile> {
         dependsOn(tasks.findByName("openApiGenerate"))
         kotlinOptions {
@@ -146,3 +125,4 @@ fun Project.applyTasks() {
         }
     }
 }
+

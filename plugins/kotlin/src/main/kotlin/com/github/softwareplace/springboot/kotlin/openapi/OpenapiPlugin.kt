@@ -10,13 +10,11 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
 
 
-fun Project.kotlinOpenapiSettings(config: Action<OpenapiSettings>? = null) {
-    val openapiSettings = OpenapiSettings()
-    config?.invoke(openapiSettings)
+fun Project.kotlinOpenApiSettings(config: Action<OpenApiSettings>? = null) {
+    val openApiSettings = OpenApiSettings()
+    config?.invoke(openApiSettings)
     apply(plugin = "org.openapi.generator")
-    openApiGenerateConfig(openapiSettings)
-    applyKotlinSourceSets(openapiSettings)
-    applyTasks()
+    openApiGenerateConfig(openApiSettings)
     dependencies {
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${Dependencies.Version.springdocStarterWebmvc}")
         testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${Dependencies.Version.springRstDocsMockMVCVersion}")
