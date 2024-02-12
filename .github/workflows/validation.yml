@@ -20,8 +20,6 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '21'
-      - name: Local Publish
-        run: make publish-version tag=1.0.0
-      - name: Example Test
-        run: cd example && make test
+      - name: Test Validation
+        run: make test
 
