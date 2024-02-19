@@ -1,5 +1,6 @@
 import com.github.softwareplace.springboot.kotlin.kotlinMapStruct
 import com.github.softwareplace.springboot.kotlin.kotlinReactive
+import com.github.softwareplace.springboot.kotlin.openapi.fromPackage
 import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenApiSettings
 import com.github.softwareplace.springboot.kotlin.testKotlinMockito
 import com.github.softwareplace.springboot.utils.jsonLogger
@@ -15,6 +16,9 @@ version = "1.0.0"
 
 kotlinOpenApiSettings {
     reactive = false
+    addCustomFormats = mapOf(
+        "user-data" to ("UserData" fromPackage "com.example.shared.model")
+    )
 }
 
 dependencies {

@@ -1,7 +1,8 @@
-springdoc:
-  swagger-ui:
-    use-root-path: true
-    default-models-expand-depth: -1
-  api-docs:
-    version: openapi_3_1
+server:
+  servlet:
+    context-path: "/api/kotlin-example/v1/"
+spring:
+  application:
+    name: kotlin-example
+
 

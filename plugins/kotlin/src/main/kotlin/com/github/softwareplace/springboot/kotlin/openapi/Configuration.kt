@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 import java.io.File
+import java.util.*
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -27,6 +28,11 @@ fun OpenApiGeneratorGenerateExtension.apply(
                 "time" to JAVA_LOCAL_TIME
             )
             customImporting.putAll(openApiSettings.importMapping)
+
+            openApiSettings.addCustomFormats.forEach { (key, source) ->
+                customImporting[key] = "${source.packageRef}.${source.sinpleClassName}".toCamelCase()
+            }
+
             customImporting
         }
     }
@@ -46,7 +52,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
     invokerPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}.invoker")
     apiNameSuffix.set("Controller")
     modelNameSuffix.set(openApiSettings.modelNameSuffix)
-    modelPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}.model")
+    modelPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.modelPackage}")
     skipOperationExample.set(true)
 
     val pluginConfigOptions: MutableMap<String, String> = mutableMapOf(
@@ -101,7 +107,7 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
 
     tasks {
         register("openapiResourceValidation") {
-            replaceTagInFiles(File("$projectDir/build/generate-resources/src/main/kotlin"))
+            revalidateFile(File("$projectDir/build/generate-resources/src/main/kotlin"), openApiSettings)
         }
 
         getByName("openApiGenerate") {
@@ -114,14 +120,42 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
     }
 }
 
-private fun replaceTagInFiles(directory: File) {
+private fun String.toCamelCase(): String {
+    val segments = split('.')
+    val camelCaseSegments = segments.map { it.parseFirstLetterToUpperCase() }
+    return camelCaseSegments.joinToString("")
+}
+
+private fun String.parseFirstLetterToUpperCase() =
+    replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
+private fun Project.revalidateFile(directory: File, openApiSettings: OpenApiSettings) {
     directory.walkTopDown().forEach { file ->
         if (file.isFile) {
-            val fileContent = file.readText()
+            var didChange = false
+            var fileContent = file.readText()
+
             if (fileContent.contains("@RequestMapping") && fileContent.contains("@Tag")) {
-                val updatedContent = replaceTagInContent(fileContent)
-                file.writeText(updatedContent)
+                fileContent = replaceTagInContent(fileContent)
+                didChange = true
             }
+
+            openApiSettings.addCustomFormats.forEach { (_, value) ->
+                val simpleClassNameKey =
+                    "${value.packageRef}.${value.sinpleClassName}${openApiSettings.modelNameSuffix}".toCamelCase()
+                val className = "${value.packageRef}.${value.sinpleClassName}"
+
+                if (fileContent.contains(simpleClassNameKey)) {
+                    fileContent = fileContent.replace(Regex("import.*$simpleClassNameKey"), "")
+                    fileContent = fileContent.replace(simpleClassNameKey, className)
+                    didChange = true
+                }
+            }
+
+            if (didChange) {
+                file.writeText(fileContent)
+            }
+
         }
     }
 }

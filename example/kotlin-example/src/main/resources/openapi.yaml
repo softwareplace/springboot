@@ -48,6 +48,9 @@ components:
           type: string
           format: time
           example: 10:55
+        userData:
+          type: string
+          format: user-data
       required:
         - success
         - message
