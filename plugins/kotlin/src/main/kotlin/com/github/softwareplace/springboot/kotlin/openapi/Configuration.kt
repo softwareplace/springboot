@@ -1,12 +1,12 @@
 package com.github.softwareplace.springboot.kotlin.openapi
 
+import com.github.softwareplace.springboot.utils.toCamelCase
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 import java.io.File
-import java.util.*
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -30,7 +30,7 @@ fun OpenApiGeneratorGenerateExtension.apply(
             customImporting.putAll(openApiSettings.importMapping)
 
             openApiSettings.addCustomFormats.forEach { (key, source) ->
-                customImporting[key] = "${source.packageRef}.${source.sinpleClassName}".toCamelCase()
+                customImporting[key] = "${source.second}.${source.first}".toCamelCase()
             }
 
             customImporting
@@ -48,9 +48,9 @@ fun OpenApiGeneratorGenerateExtension.apply(
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generate-resources")
     this.withXml.set(false)
-    apiPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}.controller")
-    invokerPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}.invoker")
-    apiNameSuffix.set("Controller")
+    apiPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.controllerPackage}")
+    invokerPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.invokerPackage}")
+    apiNameSuffix.set(openApiSettings.apiNameSuffix)
     modelNameSuffix.set(openApiSettings.modelNameSuffix)
     modelPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.modelPackage}")
     skipOperationExample.set(true)
@@ -58,8 +58,8 @@ fun OpenApiGeneratorGenerateExtension.apply(
     val pluginConfigOptions: MutableMap<String, String> = mutableMapOf(
         "additionalModelTypeAnnotations" to openApiSettings.additionalModelTypeAnnotations.joinToString(separator = "\n"),
         "documentationProvider" to openApiSettings.documentationProvider.type,
-        "apiSuffix" to "Controller",
-        "apiNameSuffix" to "Controller",
+        "apiSuffix" to openApiSettings.apiNameSuffix,
+        "apiNameSuffix" to openApiSettings.apiNameSuffix,
         "interfaceOnly" to "true",
         "skipDefaultInterface" to "true",
         "defaultInterfaces" to "false",
@@ -120,16 +120,7 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
     }
 }
 
-private fun String.toCamelCase(): String {
-    val segments = split('.')
-    val camelCaseSegments = segments.map { it.parseFirstLetterToUpperCase() }
-    return camelCaseSegments.joinToString("")
-}
-
-private fun String.parseFirstLetterToUpperCase() =
-    replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-
-private fun Project.revalidateFile(directory: File, openApiSettings: OpenApiSettings) {
+private fun revalidateFile(directory: File, openApiSettings: OpenApiSettings) {
     directory.walkTopDown().forEach { file ->
         if (file.isFile) {
             var didChange = false
@@ -142,8 +133,8 @@ private fun Project.revalidateFile(directory: File, openApiSettings: OpenApiSett
 
             openApiSettings.addCustomFormats.forEach { (_, value) ->
                 val simpleClassNameKey =
-                    "${value.packageRef}.${value.sinpleClassName}${openApiSettings.modelNameSuffix}".toCamelCase()
-                val className = "${value.packageRef}.${value.sinpleClassName}"
+                    "${value.second}.${value.first}${openApiSettings.modelNameSuffix}".toCamelCase()
+                val className = "${value.second}.${value.first}"
 
                 if (fileContent.contains(simpleClassNameKey)) {
                     fileContent = fileContent.replace(Regex("import.*$simpleClassNameKey"), "")

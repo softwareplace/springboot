@@ -6,7 +6,11 @@ data class OpenApiSettings(
      * */
     var groupId: String = "",
     var generator: String = "spring",
-    var sourceFolder: String = "rest",
+    var sourceFolder: String = ".rest",
+    var modelPackage: String = ".model",
+    var controllerPackage: String = ".controller",
+    var invokerPackage: String = ".invoker",
+    var apiNameSuffix: String = "Controller",
     var modelNameSuffix: String = "Rest",
     var swaggerFileName: String = "openapi.yaml",
 
@@ -18,6 +22,13 @@ data class OpenApiSettings(
     var filesExclude: List<String> = listOf("**/ApiUtil.java"),
     var documentationProvider: DocumentationProvider = DocumentationProvider.SPRING_DOC,
     var templateDir: String? = null,
+
+    /**
+     * When needs to add a custom object importing for format type.
+     * Example: mapOf("profile" to ("Profile" to "com.example.shared.model"))
+     */
+    var addCustomFormats: Map<String, Pair<String, String>> = emptyMap(),
+
     var overrideAllAdditionalModelTypeAnnotations: Boolean = false,
     var additionalModelTypeAnnotations: List<String> = emptyList(),
     /**

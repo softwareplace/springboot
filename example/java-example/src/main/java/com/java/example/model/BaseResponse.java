@@ -1,6 +1,7 @@
 package com.java.example.model;
 
 
+import com.example.shared.model.UserData;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public record BaseResponse(
         String message,
         LocalDate date,
         LocalDateTime dateTime,
-        LocalTime time) {
+        LocalTime time,
+        UserData userData) {
 
 }

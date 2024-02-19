@@ -1,5 +1,6 @@
 package com.github.softwareplace.springboot.java.openapi
 
+import com.github.softwareplace.springboot.utils.toCamelCase
 import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
@@ -8,6 +9,7 @@ import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
+import java.io.File
 
 private const val JAVA_LOCAL_DATE_TIME = "java.time.LocalDateTime"
 private const val JAVA_LOCAL_DATE = "java.time.LocalDate"
@@ -28,6 +30,11 @@ fun OpenApiGeneratorGenerateExtension.apply(
                 "time" to JAVA_LOCAL_TIME
             )
             customImporting.putAll(openApiSettings.importMapping)
+
+            openApiSettings.addCustomFormats.forEach { (key, source) ->
+                customImporting[key] = "${source.second}.${source.first}".toCamelCase()
+            }
+
             customImporting
         }
     }
@@ -55,21 +62,21 @@ fun OpenApiGeneratorGenerateExtension.apply(
 
     schemaMappings.putAll(openApiSettings.importMapping)
     generatorName.set(openApiSettings.generator)
-    this.groupId.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}")
-    packageName.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}")
+    this.groupId.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}")
+    packageName.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}")
     inputSpec.set(openApiYamlFilePath)
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generated")
-    apiPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.controller")
-    invokerPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.invoker")
-    apiNameSuffix.set("Controller")
+    apiPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.controllerPackage}")
+    invokerPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.invokerPackage}")
+    apiNameSuffix.set(openApiSettings.apiNameSuffix)
     modelNameSuffix.set(openApiSettings.modelNameSuffix)
-    modelPackage.set("${openApiSettings.groupId}.${openApiSettings.sourceFolder}.model")
+    modelPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.modelPackage}")
     skipOperationExample.set(true)
 
     val pluginConfigOptions = mutableMapOf(
-        "apiSuffix" to "Controller",
-        "apiNameSuffix" to "Controller",
+        "apiSuffix" to openApiSettings.apiNameSuffix,
+        "apiNameSuffix" to openApiSettings.apiNameSuffix,
         "additionalModelTypeAnnotations" to lombokAdditionalModelTypeANotations.joinToString(separator = "\n"),
         "interfaceOnly" to "true",
         "skipDefaultInterface" to "true",
@@ -118,11 +125,49 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
         }
     }
 
+    tasks.register("openapiResourceValidation") {
+        revalidateFile(File("$projectDir/build/generated/src/main/java"), openApiSettings)
+    }
+
+    tasks.getByName("openApiGenerate") {
+        doLast { tasks.findByName("openapiResourceValidation") }
+    }
+
     tasks.withType<KotlinCompile> {
         dependsOn(tasks.findByName("openApiGenerate"))
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
             jvmTarget = Dependencies.Version.jdkVersion
+        }
+    }
+}
+
+private fun revalidateFile(directory: File, openApiSettings: OpenApiSettings) {
+    directory.walkTopDown().forEach { file ->
+        if (file.isFile) {
+            var didChange = false
+            var fileContent = file.readText()
+
+            openApiSettings.addCustomFormats.forEach { (_, value) ->
+                val simpleClassNameKey =
+                    "${value.second}.${value.first}".toCamelCase()
+                val simpleClassNameRestKey =
+                    "${value.second}.${value.first}${openApiSettings.modelNameSuffix}".toCamelCase()
+
+                val className = "${value.second}.${value.first}"
+
+                if (fileContent.contains(simpleClassNameKey) || fileContent.contains(simpleClassNameRestKey)) {
+                    fileContent = fileContent.replace(Regex("import.*$simpleClassNameRestKey;"), "")
+                    fileContent = fileContent.replace(Regex("import.*$simpleClassNameKey;"), "")
+                    fileContent = fileContent.replace(simpleClassNameKey, className)
+                    didChange = true
+                }
+            }
+
+            if (didChange) {
+                file.writeText(fileContent)
+            }
+
         }
     }
 }

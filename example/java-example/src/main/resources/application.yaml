@@ -1,0 +1,9 @@
+server:
+  servlet:
+    context-path: "/api/java-example/v1/"
+  port: 3002
+spring:
+  application:
+    name: java-example
+
+

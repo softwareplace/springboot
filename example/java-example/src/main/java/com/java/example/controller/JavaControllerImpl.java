@@ -1,5 +1,6 @@
 package com.java.example.controller;
 
+import com.example.shared.model.UserData;
 import com.java.example.model.BaseResponse;
 import com.java.example.model.BaseResponseMapper;
 import com.java.example.rest.controller.JavaCodeGenExampleController;
@@ -28,6 +29,7 @@ public class JavaControllerImpl implements JavaCodeGenExampleController {
                 .date(LocalDate.now())
                 .dateTime(LocalDateTime.now())
                 .timestamp(System.currentTimeMillis())
+                .userData(new UserData("Spring Boot Plugin", "https://github.com/softwareplace/springboot"))
                 .build();
         return ResponseEntity.ok(mapper.parse(response));
     }
