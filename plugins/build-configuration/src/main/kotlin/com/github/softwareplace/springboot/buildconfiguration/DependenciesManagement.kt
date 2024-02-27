@@ -89,15 +89,9 @@ fun excludeMapFor(group: String?, module: String?): Map<String, String> =
 
 fun <T : ModuleDependency> T.exclude(group: String? = null, module: String? = null): T =
     uncheckedCast(exclude(excludeMapFor(group, module)))
+fun DependencyHandlerScope.implementation(target: String) = add("implementation", target)
 
-
-fun DependencyHandlerScope.implementation(target: String) {
-    add("implementation", target)
-}
-
-fun DependencyHandlerScope.implementation(target: ProjectDependency) {
-    add("implementation", target)
-}
+fun DependencyHandlerScope.implementation(target: ProjectDependency) = add("implementation", target)
 
 fun DependencyHandler.implementation(
     dependencyNotation: String,
@@ -110,28 +104,18 @@ fun DependencyHandler.testImplementation(
     dependencyNotation: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
-    this, "implementation", dependencyNotation, dependencyConfiguration
+    this, "testImplementation", dependencyNotation, dependencyConfiguration
 )
 
-fun DependencyHandlerScope.testImplementation(target: String) {
-    add("testImplementation", target)
-}
+fun DependencyHandlerScope.testImplementation(target: String) = add("testImplementation", target)
 
-fun DependencyHandlerScope.runtimeOnly(target: String) {
-    add("runtimeOnly", target)
-}
+fun DependencyHandlerScope.runtimeOnly(target: String) = add("runtimeOnly", target)
 
-fun DependencyHandlerScope.kaptAnnotationProcessor(target: String) {
-    add("kapt", target)
-}
+fun DependencyHandlerScope.kaptAnnotationProcessor(target: String) = add("kapt", target)
 
-fun DependencyHandlerScope.annotationProcessor(target: String) {
-    add("annotationProcessor", target)
-}
+fun DependencyHandlerScope.annotationProcessor(target: String) = add("annotationProcessor", target)
 
-fun DependencyHandlerScope.addSpringframeworkBoot(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
-}
+fun DependencyHandlerScope.addSpringframeworkBoot(module: String) = implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
 
 fun DependencyHandlerScope.addSpringframeworkBoot(
     module: String,
@@ -142,15 +126,14 @@ fun DependencyHandlerScope.addSpringframeworkBoot(
     dependencyConfiguration
 )
 
-fun DependencyHandlerScope.addSpringframeworkBootTest(module: String) {
-    implementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
-}
+fun DependencyHandlerScope.addSpringframeworkBootTest(module: String) =
+    testImplementation("$ORG_SPRINGFRAMEWORK_BOOT:$module")
 
 fun DependencyHandlerScope.addSpringframeworkBootTest(
     module: String,
     dependencyConfiguration: Action<ExternalModuleDependency>
 ): ExternalModuleDependency = addDependencyTo(
-    this, "implementation",
+    this, "testImplementation",
     "$ORG_SPRINGFRAMEWORK_BOOT:$module",
     dependencyConfiguration
 )
