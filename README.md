@@ -59,7 +59,7 @@ buildscript {
 ```kotlin
 import com.github.softwareplace.springboot.kotlin.kotlinMapStruct
 import com.github.softwareplace.springboot.kotlin.kotlinReactive
-import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenapiSettings
+import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenApiSettings
 import com.github.softwareplace.springboot.kotlin.testKotlinMockito
 import com.github.softwareplace.springboot.utils.jsonLogger
 import com.github.softwareplace.springboot.utils.springBootStartWeb
@@ -73,8 +73,10 @@ plugins {
 group = "com.spring.example.openapi"
 version = "1.0.0"
 
-
-kotlinOpenapiSettings()
+// Used for submodules that no needs bootJar, bootRun tasks.
+// submoduleConfig()
+    
+kotlinOpenApiSettings()
 
 dependencies {
     kotlinReactive()
@@ -92,21 +94,32 @@ dependencies {
 import com.github.softwareplace.springboot.java.javaMapStruct
 import com.github.softwareplace.springboot.java.lombok
 import com.github.softwareplace.springboot.java.openapi.javaOpenApiSettings
-import com.github.softwareplace.springboot.java.testJavaMockito
 import com.github.softwareplace.springboot.utils.springWebFlux
+import com.github.softwareplace.springboot.utils.testMockito
 
 plugins {
     id("com.github.softwareplace.springboot.java")
 }
 
-javaOpenApiSettings()
+// Used for submodules that no needs bootJar, bootRun tasks.
+// submoduleConfig()
+
+javaOpenApiSettings {
+    // Override the current generated model anotation. 
+    overrideAllAdditionalModelTypeAnnotations = true
+    additionalModelTypeAnnotations = listOf(
+        lombokBuilder,
+        lombokData,
+        lombokAllArgsConstructor
+    )
+}
 
 dependencies {
     lombok()
     springWebFlux()
     javaMapStruct()
 
-    testJavaMockito()
+    testMockito()
 }
 ````
 
