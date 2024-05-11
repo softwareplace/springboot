@@ -1,3 +1,4 @@
+import com.github.softwareplace.springboot.buildconfiguration.applyGraalvm
 import com.github.softwareplace.springboot.kotlin.kotlinMapStruct
 import com.github.softwareplace.springboot.kotlin.kotlinReactive
 import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenApiSettings
@@ -9,6 +10,8 @@ import com.github.softwareplace.springboot.utils.springJettyApi
 plugins {
     id("com.github.softwareplace.springboot.kotlin")
 }
+
+applyGraalvm()
 
 group = "com.kotlin.example.openapi"
 version = "1.0.0"

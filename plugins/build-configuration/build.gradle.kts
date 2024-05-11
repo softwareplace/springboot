@@ -9,6 +9,7 @@ plugins {
     id("signing")
     id("maven-publish")
     id("com.github.softwareplace.springboot.versions")
+    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion", "5.3.0")
     id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion", "2.14.0")
     id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion", "3.0.0")
@@ -209,6 +210,7 @@ java {
 
 dependencies {
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
+    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.Version.kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Dependencies.Version.kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.Version.kotlinVersion}")
