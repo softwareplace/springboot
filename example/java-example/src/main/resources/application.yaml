@@ -5,5 +5,36 @@ server:
 spring:
   application:
     name: java-example
+  security:
+    issuer: storage-api
+    encrypt-strength: ${ENV_ENCRYPT_STRENGTH:10}
+    pub-key: ${ENV_JWT_PUBLIC_KEY:classpath:/pub.key}
+    private-key: ${ENV_JWT_PRIVATE_KEY:classpath:/private.key}
+    stack-trace-log-enable: ${ENV_STACK_TRACE_LOG_ENABLE:true}
+    jwt-expiration-time: ${ENV_JWT_EXPIRATION_TIME:2592000}
+    paths-redirect:
+      - name: "swagger-ui/index.html"
+        value: [ "/", "/docs", "/swagger" ]
+    open-url:
+      - "/file/download/**"
+      - "/swagger-resources/**"
+      - "/swagger-ui.html/**"
+      - "/swagger-config/**"
+      - "/authorization"
+      - "/swagger-ui/**"
+      - "/favicon.ico/**"
+      - "/v3/api-docs/**"
+      - "/v3/api-docs"
+      - "/webjars/**"
+      - "/password/**"
+      - "/swagger/**"
+      - "/health/**"
+      - "/assets/**"
+      - "/error/**"
+      - "/address"
+      - "/csrf/**"
+      - "/swagger"
+      - "/docs"
+      - "/"
 
 

@@ -4,6 +4,7 @@ import com.github.softwareplace.springboot.kotlin.kotlinReactive
 import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenApiSettings
 import com.github.softwareplace.springboot.kotlin.testKotlinMockito
 import com.github.softwareplace.springboot.utils.jsonLogger
+import com.github.softwareplace.springboot.utils.springBootSecurityUtil
 import com.github.softwareplace.springboot.utils.springBootStartWeb
 import com.github.softwareplace.springboot.utils.springJettyApi
 
@@ -25,13 +26,13 @@ kotlinOpenApiSettings {
 
 dependencies {
     implementation(project(":security"))
+    springBootStartWeb()
+    springBootSecurityUtil("1.0.4")
     jsonLogger()
 
     kotlinReactive()
 
     springJettyApi()
-    springBootStartWeb()
-
     kotlinMapStruct()
 
     testKotlinMockito()
