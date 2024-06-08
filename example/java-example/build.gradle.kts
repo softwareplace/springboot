@@ -13,7 +13,6 @@ group = "com.java.example"
 
 javaOpenApiSettings {
     overrideAllAdditionalModelTypeAnnotations = true
-    additionalModelTypeAnnotations = lombokDataBuilder
     addCustomFormats = mapOf(
         "user-data" to ("UserData" to "com.example.shared.model")
     )

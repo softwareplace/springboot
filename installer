@@ -13,20 +13,20 @@ fi
 echo "Publishing $buildTag"
 
 if ! ./gradlew --parallel \
-      versions:assemble versions:publishToMavenLocal \
-      utils:assemble utils:publishToMavenLocal \
-      build-configuration:assemble build-configuration:publishToMavenLocal \
-      java:assemble java:publishToMavenLocal \
-      kotlin:assemble kotlin:publishToMavenLocal \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag";
+      versions:assemble versions:publishToMavenLocal --stacktrace \
+      utils:assemble utils:publishToMavenLocal --stacktrace \
+      build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
+      java:assemble java:publishToMavenLocal --stacktrace \
+      kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then
   echo "Publish sub-plugins failed $buildTag"
   exit 1
 fi
 
 if ! ./gradlew --parallel \
-      :assemble :publishToMavenLocal \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag";
+      :assemble :publishToMavenLocal --stacktrace \
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then
   echo "Publish plugins failed for tag $buildTag"
   exit 1
