@@ -3,7 +3,6 @@ package com.github.softwareplace.springboot.utils
 import com.github.softwareplace.springboot.buildconfiguration.*
 import com.github.softwareplace.springboot.versions.Dependencies
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.exclude
 
@@ -137,6 +136,7 @@ fun Project.mapStruct(version: String? = null) {
 }
 
 fun Project.springWebFlux() {
+    springBootStartWeb()
     dependencies {
         addSpringframeworkBoot("spring-boot-starter-webflux")
         runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
@@ -157,13 +157,26 @@ fun Project.springBootSecurity(excludeSpringLogging: Boolean = false) {
 fun Project.springBootSecurityUtil(version: String? = null) {
     dependencies {
         springBootOauth2ResourceServer()
-        implementation("com.github.softwareplace:spring-boot-security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}")
+        springBootSecurity()
+        implementation("com.github.softwareplace:spring-boot-security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}") {
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-oauth2-resource-server")
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-validation")
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_SECURITY)
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-test")
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_WEB)
+            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter")
+        }
     }
 }
 
-fun ExternalModuleDependency.excludeSpringLogging() {
-    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-logging")
-    exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-validation")
+fun Project.excludeSpringLogging() {
+    configurations.exclude(
+        group = ORG_SPRINGFRAMEWORK_BOOT,
+        modules = arrayOf(
+            "spring-boot-starter-logging",
+            "spring-boot-starter-validation"
+        )
+    )
 }
 
 fun Project.removeTomcatServer() {

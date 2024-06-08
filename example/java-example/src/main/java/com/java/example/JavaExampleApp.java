@@ -1,13 +1,16 @@
 package com.java.example;
 
+import com.example.shared.ConfigurationInit;
 import com.example.shared.SharedModuleExample;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
+@ImportAutoConfiguration(classes = {ConfigurationInit.class})
 public class JavaExampleApp {
 
     @PostConstruct
