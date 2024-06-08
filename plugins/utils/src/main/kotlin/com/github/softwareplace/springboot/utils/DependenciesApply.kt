@@ -137,9 +137,6 @@ fun Project.mapStruct(version: String? = null) {
 }
 
 fun Project.springWebFlux() {
-    configurations.all {
-        exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-tomcat")
-    }
     dependencies {
         addSpringframeworkBoot("spring-boot-starter-webflux")
         runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
@@ -159,6 +156,7 @@ fun Project.springBootSecurity(excludeSpringLogging: Boolean = false) {
 
 fun Project.springBootSecurityUtil(version: String? = null) {
     dependencies {
+        springBootOauth2ResourceServer()
         implementation("com.github.softwareplace:spring-boot-security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}")
     }
 }
@@ -182,6 +180,18 @@ fun Project.removeTomcatServer() {
 fun Project.passay(version: String? = null) {
     dependencies {
         implementation("org.passay:passay:${version ?: Dependencies.Version.passayVersion}")
+    }
+}
+
+fun Project.springBootOauth2ResourceServer() {
+    dependencies {
+        addSpringframeworkBoot("spring-boot-starter-oauth2-resource-server")
+    }
+}
+
+fun Project.springBootThymeleaf() {
+    dependencies {
+        addSpringframeworkBoot("spring-boot-starter-thymeleaf")
     }
 }
 
