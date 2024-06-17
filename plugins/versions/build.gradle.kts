@@ -129,11 +129,13 @@ tasks {
     }
     compileKotlin {
         dependsOn("updatedPluginVersion")
-        kotlinOptions {
-            freeCompilerArgs = listOf(
+        compilerOptions {
+            freeCompilerArgs.set(
+                listOf(
                 "-Xjsr305=strict",
                 "-Xmx1024m",
                 "-Xopt-in=kotlin.RequiresOptIn"
+                )
             )
         }
     }
@@ -287,6 +289,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty("kotlinVersion")}")
 }
 
+
 fun generateDependenciesVersion(gradlePropertiesFile: File) {
     val ignoringValue = listOf(
         "releaseBranch",
@@ -314,15 +317,20 @@ fun generateDependenciesVersion(gradlePropertiesFile: File) {
 
     var updatedTemplate = ""
 
+
+    val template = "val Project.keyVar: String\n" +
+            "    get() = properties.getOrDefault(\"keyVar\", \"keyVersion\") as String\n\n"
+
     properties.forEach { (key, value) ->
         if (!ignoringValue.contains(key)) {
             if ("pluginsVersion".equals(key, ignoreCase = true)) {
-                updatedTemplate += "val pluginsVersion: String = System.getProperty(\"$key\", \"$tagVersion\")\n\t\t"
-
+                updatedTemplate += template.replace("keyVar", key)
+                    .replace("keyVersion", tagVersion)
             } else {
                 val formattedValue = value.replace("\"", "\\\"")
                 val formattedKey = formatKey(key)
-                updatedTemplate += "val $formattedKey: String = System.getProperty(\"$key\", \"$formattedValue\")\n\t\t"
+                updatedTemplate += template.replace("keyVar", formattedKey)
+                    .replace("keyVersion", formattedValue)
             }
         }
     }

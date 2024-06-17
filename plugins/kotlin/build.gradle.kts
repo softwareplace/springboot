@@ -1,7 +1,7 @@
 import com.github.softwareplace.springboot.buildconfiguration.Shared
 import com.github.softwareplace.springboot.buildconfiguration.implementation
+import com.github.softwareplace.springboot.versions.*
 import com.github.softwareplace.springboot.versions.Dependencies
-import com.github.softwareplace.springboot.versions.getTag
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -63,11 +63,13 @@ sourceSets {
 
 tasks {
     compileKotlin {
-        kotlinOptions {
-            freeCompilerArgs = listOf(
-                "-Xjsr305=strict",
-                "-Xmx1024m",
-                "-Xopt-in=kotlin.RequiresOptIn"
+        compilerOptions {
+            freeCompilerArgs.set(
+                listOf(
+                    "-Xjsr305=strict",
+                    "-Xmx1024m",
+                    "-Xopt-in=kotlin.RequiresOptIn"
+                )
             )
         }
     }
@@ -106,7 +108,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
-                "Kotlin-Version" to Dependencies.Version.kotlinVersion,
+                "Kotlin-Version" to kotlinVersion,
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -133,7 +135,7 @@ tasks {
             isAuthor = true
             header = "@Software Place Spring Plugins"
             addStringOption("Xdoclint:html,syntax,reference", "-quiet")
-            links("https://docs.oracle.com/en/java/javase/${Dependencies.Version.jdkVersion}/docs/api/")
+            links("https://docs.oracle.com/en/java/javase/${jdkVersion}/docs/api/")
         }
     }
 
@@ -202,7 +204,7 @@ dependencies {
     implementation("com.github.softwareplace.springboot:utils:$tagVersion")
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
     implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:${Dependencies.Version.openApiToolsVersion}") {
+    implementation("org.openapitools:openapi-generator-gradle-plugin:${openApiToolsVersion}") {
         exclude("com.fasterxml.jackson.core", "jackson-databind")
     }
 }

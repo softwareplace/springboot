@@ -1,5 +1,7 @@
 import com.github.softwareplace.springboot.versions.Dependencies
 import com.github.softwareplace.springboot.versions.getTag
+import com.github.softwareplace.springboot.versions.graalvmBuildToolsNativeVersion
+import com.github.softwareplace.springboot.versions.kotlinVersion
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -90,7 +92,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
-                "Kotlin-Version" to Dependencies.Version.kotlinVersion,
+                "Kotlin-Version" to kotlinVersion,
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -207,8 +209,8 @@ java {
 
 dependencies {
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
-    implementation("org.graalvm.buildtools:native-gradle-plugin:${Dependencies.Version.graalvmBuildToolsNativeVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${Dependencies.Version.kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Dependencies.Version.kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.Version.kotlinVersion}")
+    implementation("org.graalvm.buildtools:native-gradle-plugin:${graalvmBuildToolsNativeVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 }

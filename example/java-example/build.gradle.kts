@@ -1,7 +1,6 @@
 import com.github.softwareplace.springboot.java.lombok
 import com.github.softwareplace.springboot.java.openapi.javaOpenApiSettings
 import com.github.softwareplace.springboot.utils.jsonLogger
-import com.github.softwareplace.springboot.utils.springBootSecurityUtil
 import com.github.softwareplace.springboot.utils.springWebFlux
 import com.github.softwareplace.springboot.utils.testMockito
 
@@ -21,7 +20,6 @@ javaOpenApiSettings {
 
 dependencies {
     implementation(project(":security"))
-    springBootSecurityUtil("1.0.4")
     springWebFlux()
 
     jsonLogger()

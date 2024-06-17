@@ -2,6 +2,8 @@ import com.github.softwareplace.springboot.buildconfiguration.Shared
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.versions.Dependencies
 import com.github.softwareplace.springboot.versions.getTag
+import com.github.softwareplace.springboot.versions.jdkVersion
+import com.github.softwareplace.springboot.versions.kotlinVersion
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -62,11 +64,13 @@ sourceSets {
 
 tasks {
     compileKotlin {
-        kotlinOptions {
-            freeCompilerArgs = listOf(
+        compilerOptions {
+            freeCompilerArgs.set(
+                listOf(
                 "-Xjsr305=strict",
                 "-Xmx1024m",
                 "-Xopt-in=kotlin.RequiresOptIn"
+                )
             )
         }
     }
@@ -105,7 +109,7 @@ tasks {
                         "java.vm.version"
                     )
                 })",
-                "Kotlin-Version" to Dependencies.Version.kotlinVersion,
+                "Kotlin-Version" to kotlinVersion,
                 "Built-By" to builtByValue,
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
@@ -132,7 +136,7 @@ tasks {
             isAuthor = true
             header = "@Software Place Spring Plugins"
             addStringOption("Xdoclint:html,syntax,reference", "-quiet")
-            links("https://docs.oracle.com/en/java/javase/${Dependencies.Version.jdkVersion}/docs/api/")
+            links("https://docs.oracle.com/en/java/javase/${jdkVersion}/docs/api/")
         }
     }
 

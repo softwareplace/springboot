@@ -1,7 +1,7 @@
 package com.github.softwareplace.springboot.utils
 
 import com.github.softwareplace.springboot.buildconfiguration.*
-import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.*
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.exclude
@@ -14,29 +14,29 @@ const val SPRING_BOOT_STARTER_WEB = "spring-boot-starter-web"
 const val SPRING_BOOT_STARTER_JETTY = "spring-boot-starter-jetty"
 const val SPRING_BOOT_STARTER_SECURITY = "spring-boot-starter-security"
 
-fun Project.jsonLogger(version: String? = null, loggBackVersion: String? = null) {
+fun Project.jsonLogger() {
     dependencies {
-        loggBack(loggBackVersion)
-        implementation("com.github.softwareplace:json-logger:${version ?: Dependencies.Version.jsonLoggerVersion}")
+        loggBack()
+        implementation("com.github.softwareplace:json-logger:${jsonLoggerVersion}")
     }
 }
 
-fun Project.logstashLogbackEncoderVersion(version: String? = null) {
+fun Project.logstashLogbackEncoderVersion() {
     dependencies {
-        implementation("net.logstash.logback:logstash-logback-encoder:${version ?: Dependencies.Version.logstashLogbackEncoderVersion}")
+        implementation("net.logstash.logback:logstash-logback-encoder:${logstashLogbackEncoderVersion}")
     }
 }
 
-fun Project.loggBack(version: String? = null) {
+fun Project.loggBack() {
     dependencies {
-        implementation("ch.qos.logback:logback-classic:${version ?: Dependencies.Version.loggBackVersion}")
-        implementation("ch.qos.logback:logback-core:${version ?: Dependencies.Version.loggBackVersion}")
+        implementation("ch.qos.logback:logback-classic:${loggBackVersion}")
+        implementation("ch.qos.logback:logback-core:${loggBackVersion}")
     }
 }
 
-fun Project.slf4j(version: String? = null) {
+fun Project.slf4j() {
     dependencies {
-        implementation("org.slf4j:slf4j-api:${version ?: Dependencies.Version.slf4jApiVersion}")
+        implementation("org.slf4j:slf4j-api:${slf4jApiVersion}")
     }
 }
 
@@ -45,7 +45,6 @@ fun Project.slf4j(version: String? = null) {
  * [testImplementation]:org.springframework.security:spring-security-test,
  * */
 fun Project.springSecurity(
-    version: String? = null,
     excludeSpringLogging: Boolean = false,
 ) {
     dependencies {
@@ -55,7 +54,7 @@ fun Project.springSecurity(
             }
         }
 
-        testImplementation("org.springframework.security:spring-security-test:${version ?: Dependencies.Version.springBootSecurityTestVersion}") {
+        testImplementation("org.springframework.security:spring-security-test:${springBootSecurityTestVersion}") {
             if (excludeSpringLogging) {
                 excludeSpringLogging()
             }
@@ -63,9 +62,9 @@ fun Project.springSecurity(
     }
 }
 
-fun Project.jakarta(version: String? = null) {
+fun Project.jakarta() {
     dependencies {
-        implementation("jakarta.annotation:jakarta.annotation-api:${version ?: Dependencies.Version.jakartaAnnotationVersion}")
+        implementation("jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}")
     }
 }
 
@@ -76,10 +75,9 @@ fun Project.jakarta(version: String? = null) {
  * */
 fun Project.springBootStartWeb(
     excludeSpringLogging: Boolean = false,
-    jakartaVersion: String? = null,
 ) {
     dependencies {
-        jakarta(jakartaVersion)
+        jakarta()
         addSpringframeworkBoot(SPRING_BOOT_STARTER_WEB) {
             if (excludeSpringLogging) {
                 excludeSpringLogging()
@@ -115,7 +113,7 @@ fun Project.addSpringBootStarterValidation(excludeSpringLogging: Boolean = false
 fun Project.addCaching() {
     dependencies {
         addSpringframeworkBoot("spring-boot-starter-cache")
-        implementation("com.github.ben-manes.caffeine:caffeine:${Dependencies.Version.benManesCaffeineVersion}")
+        implementation("com.github.ben-manes.caffeine:caffeine:${benManesCaffeineVersion}")
     }
 }
 
@@ -125,13 +123,13 @@ fun Project.springJettyApi() {
     }
     dependencies {
         implementation("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
-        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.jettyHttp2Server}")
+        implementation("org.eclipse.jetty.http2:http2-server:${jettyHttp2Server}")
     }
 }
 
-fun Project.mapStruct(version: String? = null) {
+fun Project.mapStruct() {
     dependencies {
-        implementation("org.mapstruct:mapstruct:${version ?: Dependencies.Version.mapStructVersion}")
+        implementation("org.mapstruct:mapstruct:${mapStructVersion}")
     }
 }
 
@@ -140,7 +138,7 @@ fun Project.springWebFlux() {
     dependencies {
         addSpringframeworkBoot("spring-boot-starter-webflux")
         runtimeOnly("$ORG_SPRINGFRAMEWORK_BOOT:$SPRING_BOOT_STARTER_JETTY")
-        implementation("org.eclipse.jetty.http2:http2-server:${Dependencies.Version.jettyHttp2Server}")
+        implementation("org.eclipse.jetty.http2:http2-server:${jettyHttp2Server}")
     }
 }
 
@@ -154,11 +152,11 @@ fun Project.springBootSecurity(excludeSpringLogging: Boolean = false) {
     }
 }
 
-fun Project.springBootSecurityUtil(version: String? = null) {
+fun Project.springBootSecurityUtil() {
     dependencies {
         springBootOauth2ResourceServer()
         springBootSecurity()
-        implementation("com.github.softwareplace:spring-boot-security-util:${version ?: Dependencies.Version.springBootSecurityUtilVersion}") {
+        implementation("com.github.softwareplace:spring-boot-security-util:${springBootSecurityUtilVersion}") {
             exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-oauth2-resource-server")
             exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-validation")
             exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_SECURITY)
@@ -190,9 +188,9 @@ fun Project.removeTomcatServer() {
     )
 }
 
-fun Project.passay(version: String? = null) {
+fun Project.passay() {
     dependencies {
-        implementation("org.passay:passay:${version ?: Dependencies.Version.passayVersion}")
+        implementation("org.passay:passay:${passayVersion}")
     }
 }
 
@@ -208,36 +206,35 @@ fun Project.springBootThymeleaf() {
     }
 }
 
-fun Project.jsonWebToken(version: String? = null) {
+fun Project.jsonWebToken() {
     dependencies {
-        implementation("com.auth0:java-jwt:${version ?: Dependencies.Version.auth0JavaJwtVersion}")
+        implementation("com.auth0:java-jwt:${auth0JavaJwtVersion}")
     }
 }
 
 /**
- * args: [version] - Optional version of flyway-core dependency.
  * args: [modules] - List of modules that will use flyway migration. Example: "flyway-database-postgresql".
  * @see <a href="https://github.com/flyway/flyway/tree/main/flyway-database">flyway-database</a> for more modules.
  * */
-fun Project.flayWayMigration(version: String? = null, modules: List<String> = emptyList()) {
+fun Project.flayWayMigration(modules: List<String> = emptyList()) {
     dependencies {
-        implementation("org.flywaydb:flyway-core:${version ?: Dependencies.Version.flywaydbVersion}")
+        implementation("org.flywaydb:flyway-core:${flywaydbVersion}")
         modules.forEach {
-            implementation("org.flywaydb:$it:${version ?: Dependencies.Version.flywaydbVersion}")
+            implementation("org.flywaydb:$it:${flywaydbVersion}")
         }
     }
 }
 
-fun Project.rxJava(version: String? = null) {
+fun Project.rxJava() {
     dependencies {
-        implementation("io.reactivex.rxjava2:rxjava:${version ?: Dependencies.Version.rxJavaVersion}")
+        implementation("io.reactivex.rxjava2:rxjava:${rxJavaVersion}")
     }
 }
 
-fun Project.retrofit2(version: String? = null) {
+fun Project.retrofit2() {
     dependencies {
-        implementation("com.squareup.retrofit2:retrofit:${version ?: Dependencies.Version.retrofit2Version}")
-        implementation("com.squareup.retrofit2:converter-jackson:${version ?: Dependencies.Version.retrofit2Version}")
+        implementation("com.squareup.retrofit2:retrofit:${retrofit2Version}")
+        implementation("com.squareup.retrofit2:converter-jackson:${retrofit2Version}")
     }
 }
 
@@ -255,28 +252,26 @@ fun Project.springDataJpa(excludeSpringLogging: Boolean = false) {
 /**
  * Also call [springDataJpa] method.
  * */
-fun Project.postgresql(version: String? = null, excludeSpringLogging: Boolean = false) {
+fun Project.postgresql(excludeSpringLogging: Boolean = false) {
     dependencies {
         springDataJpa(excludeSpringLogging)
-        implementation("org.postgresql:postgresql:${version ?: Dependencies.Version.postgresqlVersion}")
+        implementation("org.postgresql:postgresql:${postgresqlVersion}")
     }
 }
 
 
-fun Project.testContainersPostgresql(version: String? = null) {
+fun Project.testContainersPostgresql() {
     dependencies {
-        testImplementation("org.testcontainers:junit-jupiter:${version ?: Dependencies.Version.testContainersVersion}")
-        testImplementation("org.testcontainers:postgresql:${version ?: Dependencies.Version.testContainersVersion}")
+        testImplementation("org.testcontainers:junit-jupiter:${testContainersVersion}")
+        testImplementation("org.testcontainers:postgresql:${testContainersVersion}")
     }
 }
 
-fun Project.testMockito(
-    mockitoVersion: String? = null,
-    jUnitJupiterVersion: String? = null
-) {
+fun Project.testMockito() {
+    val mockitoVersion = mockitoVersion
     dependencies {
-        testImplementation("org.mockito:mockito-core:${mockitoVersion ?: Dependencies.Version.mockitoVersion}")
-        testImplementation("org.mockito:mockito-junit-jupiter:${mockitoVersion ?: Dependencies.Version.mockitoVersion}")
-        testImplementation("org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion ?: Dependencies.Version.jUnitJupiterVersion}")
+        testImplementation("org.mockito:mockito-core:$mockitoVersion")
+        testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
+        testImplementation("org.junit.jupiter:junit-jupiter:${jUnitJupiterVersion}")
     }
 }

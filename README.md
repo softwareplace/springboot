@@ -14,7 +14,7 @@
 # Requires
 
 - Java 21
-- Kotlin 1.9.22
+- Kotlin 2.0.0
 - Gradle 8.5
 
 # Usage
@@ -100,6 +100,9 @@ import com.github.softwareplace.springboot.utils.testMockito
 plugins {
     id("com.github.softwareplace.springboot.java")
 }
+
+// Access a values declared on gradle.properties
+// val springBootVersion: String by project
 
 // Used for submodules that no needs bootJar, bootRun tasks.
 // submoduleConfig()

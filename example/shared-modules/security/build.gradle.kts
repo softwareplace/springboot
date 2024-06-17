@@ -13,7 +13,7 @@ version = "1.0.0"
 submoduleConfig()
 
 dependencies {
-    springBootSecurityUtil("1.0.4")
+    springBootSecurityUtil()
     loggBack()
     jsonLogger()
 }

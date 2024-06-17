@@ -1,7 +1,7 @@
 package com.github.softwareplace.springboot.java.openapi
 
 import com.github.softwareplace.springboot.utils.toCamelCase
-import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.jdkVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.extra
@@ -137,7 +137,7 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
     tasks.withType<KotlinCompile> {
         dependsOn(tasks.findByName("openApiGenerate"))
         compilerOptions {
-            jvmTarget.set(JvmTarget.valueOf("JVM_${Dependencies.Version.jdkVersion}"))
+            jvmTarget.set(JvmTarget.valueOf("JVM_${jdkVersion}"))
             this.freeCompilerArgs.set(listOf("-Xjsr305=strict"))
         }
     }

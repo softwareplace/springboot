@@ -12,7 +12,7 @@ fi
 
 echo "Publishing $buildTag"
 
-if ! ./gradlew --parallel \
+if ! ./gradlew clean --parallel \
       versions:assemble versions:publishToMavenLocal --stacktrace \
       utils:assemble utils:publishToMavenLocal --stacktrace \
       build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
@@ -24,7 +24,7 @@ then
   exit 1
 fi
 
-if ! ./gradlew --parallel \
+if ! ./gradlew clean --parallel \
       :assemble :publishToMavenLocal --stacktrace \
       -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then

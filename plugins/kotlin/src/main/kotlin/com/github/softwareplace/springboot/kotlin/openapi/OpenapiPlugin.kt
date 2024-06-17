@@ -2,7 +2,8 @@ package com.github.softwareplace.springboot.kotlin.openapi
 
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.buildconfiguration.testImplementation
-import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.springRstDocsMockMVCVersion
+import com.github.softwareplace.springboot.versions.springdocStarterWebmvc
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -24,7 +25,7 @@ fun Project.kotlinOpenApiSettings(config: Action<OpenApiSettings>? = null) {
 
     openApiGenerateConfig(openApiSettings)
     dependencies {
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${Dependencies.Version.springdocStarterWebmvc}")
-        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${Dependencies.Version.springRstDocsMockMVCVersion}")
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocStarterWebmvc}")
+        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:${springRstDocsMockMVCVersion}")
     }
 }

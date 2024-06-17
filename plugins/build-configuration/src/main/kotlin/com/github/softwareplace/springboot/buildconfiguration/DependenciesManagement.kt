@@ -1,6 +1,8 @@
 package com.github.softwareplace.springboot.buildconfiguration
 
 import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.jacksonVersion
+import com.github.softwareplace.springboot.versions.kotlinVersion
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ConfigurationContainer
@@ -21,7 +23,6 @@ fun <T> uncheckedCast(obj: Any?): T =
     obj as T
 
 fun Project.fasterXmlJackson() {
-    val jacksonVersion = Dependencies.Version.jacksonVersion
     dependencies {
         implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
         implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
@@ -37,21 +38,21 @@ fun Project.kotlinDeps() {
             Dependencies.buildDependency(
                 Dependencies.Group.orgJetbrainsKotlinSpring,
                 Dependencies.Module.orgJetbrainsKotlinPluginSpring,
-                Dependencies.Version.kotlinVersion,
+                kotlinVersion,
             )
         )
         implementation(
             Dependencies.buildDependency(
                 Dependencies.Group.orgJetbrainsKotlinJpa,
                 Dependencies.Module.orgJetbrainsKotlinPluginJpa,
-                Dependencies.Version.kotlinVersion,
+                kotlinVersion,
             )
         )
         implementation(
             Dependencies.buildDependency(
                 Dependencies.Group.orgJetbrainsKotlin,
                 Dependencies.Module.kotlinReflect,
-                Dependencies.Version.kotlinVersion,
+                kotlinVersion,
             )
         )
 
@@ -66,7 +67,7 @@ fun Project.kotlinDeps() {
             Dependencies.buildDependency(
                 Dependencies.Group.orgJetbrainsKotlin,
                 Dependencies.Module.kotlinGradlePlugin,
-                Dependencies.Version.kotlinVersion
+                kotlinVersion
             )
         )
     }

@@ -1,6 +1,9 @@
 package com.github.softwareplace.springboot.buildconfiguration
 
-import com.github.softwareplace.springboot.versions.Dependencies
+import com.github.softwareplace.springboot.versions.jdkVersion
+import com.github.softwareplace.springboot.versions.kotlinVersion
+import com.github.softwareplace.springboot.versions.snakeYamlVersion
+import com.github.softwareplace.springboot.versions.springBootVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
@@ -11,6 +14,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class BuildConfigurationPlugin : Plugin<Project> {
@@ -20,13 +24,16 @@ class BuildConfigurationPlugin : Plugin<Project> {
             applyRepositories()
             kotlinDeps()
             dependencies {
-                implementation("org.springframework.boot:spring-boot-gradle-plugin:${Dependencies.Version.springBootVersion}")
+                implementation("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
             }
         }
     }
 
     private fun Project.applyTasks() {
         allprojects {
+            kotlinExtension.sourceSets["main"].kotlin {
+                srcDir("$projectDir/build/generated/src/main/kotlin")
+            }
 
             try {
                 tasks.getByName<Jar>("jar") {
@@ -52,14 +59,14 @@ class BuildConfigurationPlugin : Plugin<Project> {
 
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
-                    jvmTarget.set(JvmTarget.valueOf("JVM_${Dependencies.Version.jdkVersion}"))
+                    jvmTarget.set(JvmTarget.valueOf("JVM_${jdkVersion}"))
                     this.freeCompilerArgs.set(listOf("-Xjsr305=strict"))
                 }
             }
 
             tasks.withType<JavaCompile> {
-                sourceCompatibility = Dependencies.Version.jdkVersion
-                targetCompatibility = Dependencies.Version.jdkVersion
+                sourceCompatibility = jdkVersion
+                targetCompatibility = jdkVersion
                 inputs.files(tasks.named("processResources"))
             }
 
@@ -83,11 +90,11 @@ class BuildConfigurationPlugin : Plugin<Project> {
                     }
 
                     if (requested.group == "org.yaml") {
-                        useVersion(Dependencies.Version.snakeYamlVersion)
+                        useVersion(snakeYamlVersion)
                     }
 
                     if (requested.group == "org.jetbrains.kotlin") {
-                        useVersion(Dependencies.Version.kotlinVersion)
+                        useVersion(kotlinVersion)
                     }
                 }
             }

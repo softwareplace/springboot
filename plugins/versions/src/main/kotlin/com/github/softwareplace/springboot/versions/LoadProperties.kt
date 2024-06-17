@@ -10,6 +10,7 @@ import java.util.*
 class LoadProperties : Plugin<Project> {
 
     override fun apply(target: Project) {
+
         val inputStream = javaClass.classLoader.getResourceAsStream("gradle.properties")
         target.loadGradleProperties(inputStream)
 
@@ -20,7 +21,10 @@ class LoadProperties : Plugin<Project> {
         loadGradleProperties(projectGradleProperties, target)
     }
 
-    private fun loadGradleProperties(projectGradleProperties: File, target: Project) {
+    private fun loadGradleProperties(
+        projectGradleProperties: File,
+        target: Project
+    ) {
         if (projectGradleProperties.exists()) {
             println("Loading ${projectGradleProperties.path}")
             target.loadGradleProperties(FileInputStream(projectGradleProperties))
