@@ -10,6 +10,7 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.*
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class BuildConfigurationPlugin : Plugin<Project> {
@@ -49,11 +50,10 @@ class BuildConfigurationPlugin : Plugin<Project> {
                 }
             }
 
-
             tasks.withType<KotlinCompile>().configureEach {
-                kotlinOptions {
-                    freeCompilerArgs += "-Xjsr305=strict"
-                    jvmTarget = Dependencies.Version.jdkVersion
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.valueOf("JVM_${Dependencies.Version.jdkVersion}"))
+                    this.freeCompilerArgs.set(listOf("-Xjsr305=strict"))
                 }
             }
 

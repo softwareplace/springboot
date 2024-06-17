@@ -10,13 +10,10 @@ plugins {
     id("maven-publish")
     id("com.github.softwareplace.springboot.versions")
     id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
-    id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion", "5.3.0")
-    id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion", "2.14.0")
-    id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion", "3.0.0")
-    id("io.github.gradle-nexus.publish-plugin") version System.getProperty(
-        "ioGithubGradleNexusPublishPluginVersion",
-        "1.1.0"
-    )
+    id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion")
+    id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion")
+    id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion")
+    id("io.github.gradle-nexus.publish-plugin") version System.getProperty("ioGithubGradleNexusPublishPluginVersion")
 }
 
 val tagVersion: String by lazy { getTag() }

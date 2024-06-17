@@ -11,14 +11,11 @@ plugins {
     id("java")
     id("maven-publish")
     id("signing")
-    id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion", "5.3.0")
-    id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion", "2.14.0")
-    id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion", "3.0.0")
-    id("io.github.gradle-nexus.publish-plugin") version System.getProperty(
-        "ioGithubGradleNexusPublishPluginVersion",
-        "1.1.0"
-    )
-    kotlin("jvm") version System.getProperty("kotlinVersion", "1.9.22")
+    id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion")
+    id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion")
+    id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion")
+    id("io.github.gradle-nexus.publish-plugin") version System.getProperty("ioGithubGradleNexusPublishPluginVersion")
+    kotlin("jvm") version System.getProperty("kotlinVersion")
 }
 
 sourceSets {
@@ -331,12 +328,14 @@ fun generateDependenciesVersion(gradlePropertiesFile: File) {
     }
     val templateContent = dependenceTemplateFile.readText()
         .replace("{{dependenciesVersion}}", updatedTemplate)
-        .replace("{{comment}}", """
+        .replace(
+            "{{comment}}", """
           ** ========================================
           ** Generated for tag version $tagVersion
           ** ========================================
           ** Do not edit manually.
-        """.trimIndent())
+        """.trimIndent()
+        )
 
     dependenceTargetFile.writeText(templateContent)
 

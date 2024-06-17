@@ -214,9 +214,17 @@ fun Project.jsonWebToken(version: String? = null) {
     }
 }
 
-fun Project.flayWayMigration(version: String? = null) {
+/**
+ * args: [version] - Optional version of flyway-core dependency.
+ * args: [modules] - List of modules that will use flyway migration. Example: "flyway-database-postgresql".
+ * @see <a href="https://github.com/flyway/flyway/tree/main/flyway-database">flyway-database</a> for more modules.
+ * */
+fun Project.flayWayMigration(version: String? = null, modules: List<String> = emptyList()) {
     dependencies {
-        runtimeOnly("org.flywaydb:flyway-core:${version ?: Dependencies.Version.flywaydbVersion}")
+        implementation("org.flywaydb:flyway-core:${version ?: Dependencies.Version.flywaydbVersion}")
+        modules.forEach {
+            implementation("org.flywaydb:$it:${version ?: Dependencies.Version.flywaydbVersion}")
+        }
     }
 }
 

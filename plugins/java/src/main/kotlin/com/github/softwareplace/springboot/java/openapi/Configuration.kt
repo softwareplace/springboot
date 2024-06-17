@@ -7,6 +7,7 @@ import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.extensions.OpenApiGeneratorGenerateExtension
 import java.io.File
@@ -135,9 +136,9 @@ fun Project.openApiGenerateConfig(openApiSettings: OpenApiSettings) {
 
     tasks.withType<KotlinCompile> {
         dependsOn(tasks.findByName("openApiGenerate"))
-        kotlinOptions {
-            freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = Dependencies.Version.jdkVersion
+        compilerOptions {
+            jvmTarget.set(JvmTarget.valueOf("JVM_${Dependencies.Version.jdkVersion}"))
+            this.freeCompilerArgs.set(listOf("-Xjsr305=strict"))
         }
     }
 }
