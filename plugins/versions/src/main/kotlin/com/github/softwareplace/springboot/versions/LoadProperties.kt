@@ -13,8 +13,14 @@ class LoadProperties : Plugin<Project> {
         val inputStream = javaClass.classLoader.getResourceAsStream("gradle.properties")
         target.loadGradleProperties(inputStream)
 
+        val rootGradleProperties = File("${target.rootDir}/gradle.properties")
         val projectGradleProperties = File("${target.projectDir}/gradle.properties")
 
+        loadGradleProperties(rootGradleProperties, target)
+        loadGradleProperties(projectGradleProperties, target)
+    }
+
+    private fun loadGradleProperties(projectGradleProperties: File, target: Project) {
         if (projectGradleProperties.exists()) {
             println("Loading ${projectGradleProperties.path}")
             target.loadGradleProperties(FileInputStream(projectGradleProperties))
