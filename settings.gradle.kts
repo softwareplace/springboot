@@ -8,7 +8,7 @@ includeBuild("plugins/utils")
 includeBuild("plugins/java")
 includeBuild("plugins/kotlin")
 includeBuild("libs/starter")
-includeBuild("libs/security")
+includeBuild("libs/security/security")
 
 val properties = Properties()
 val inputStream =

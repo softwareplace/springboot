@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: Spring boot Security util example
+  description: |-
+    Spring sample
+  version: 1.0.0
+tags:
+  - name: Example
+    description: Example resource
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get user detail
+      description: Get user detail
+      parameters:
+        - $ref: "#/components/parameters/AuthorizationToken"
+      operationId: getUserDetail
+      responses:
+        200:
+          description: User account created successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDetail"
+        '403':
+          description: Illegal access
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+  /users/create:
+    post:
+      tags:
+        - Users
+      summary: Create an user account
+      description: Create an user account
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: User account created successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDetail"
+        '400':
+          description: Invalid user data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+components:
+  parameters:
+    AuthorizationToken:
+      in: header
+      required: true
+      name: Authorization
+      schema:
+        type: string
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        cnpj:
+          type: string
+        cpf:
+          type: string
+      required:
+        - name
+        - password
+        - email
+        - cpf
+        - cnpj
+
+    UserDetail:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        createdAt:
+          type: local-date-time
+        name:
+          type: string
+        email:
+          type: string
+        cnpj:
+          type: string
+        cpf:
+          type: string
+      required:
+        - name
+        - password
+        - email
+        - cpf
+        - cnpj
+        - createdAt
+
+    Response:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+        success:
+          type: boolean
+        errorInfo:
+          type: object
+      required:
+        - timestamp
+        - message
+        - success
+    Authorization:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Response"
+      properties:
+        jwt:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+      required:
+        - jwt

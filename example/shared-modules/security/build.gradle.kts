@@ -1,7 +1,4 @@
-import com.github.softwareplace.springboot.utils.jsonLogger
-import com.github.softwareplace.springboot.utils.loggBack
-import com.github.softwareplace.springboot.utils.springBootSecurityUtil
-import com.github.softwareplace.springboot.utils.submoduleConfig
+import com.github.softwareplace.springboot.utils.*
 
 plugins {
     id("com.github.softwareplace.springboot.kotlin")
@@ -14,6 +11,7 @@ submoduleConfig()
 
 dependencies {
     springBootSecurityUtil()
+    springBootStarter()
     loggBack()
     jsonLogger()
 }

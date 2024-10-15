@@ -1,0 +1,57 @@
+server:
+  servlet:
+    context-path: /api/spring-security-example/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+
+spring:
+  #  jpa:
+  #    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  #    hibernate:
+  #      ddl-auto: update
+  #    show-sql: true
+  #    properties:
+  #      hibernate.format_sql: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  security:
+    encrypt-strength: 6
+    pub-key: classpath:pub.key
+    private-key: classpath:private.key
+    issuer: spring-boot-security-util-example
+    stack-trace-log-enable: true
+    jwt-expiration-time: 900
+    paths-redirect:
+      - name: "swagger-ui/index.html"
+        value: [ "/", "/docs", "/swagger" ]
+    open-url:
+      - "/users/create"
+      - "/swagger-resources/**"
+      - "/swagger-ui.html/**"
+      - "/swagger-config/**"
+      - "/authorization"
+      - "/swagger-ui/**"
+      - "/favicon.ico/**"
+      - "/v3/api-docs/**"
+      - "/v3/api-docs"
+      - "/webjars/**"
+      - "/actuator/**"
+      - "/swagger/**"
+      - "/assets/**"
+      - "/csrf/**"
+      - "/docs/**"
+      - "/error"
+      - "/"
+
+

@@ -1,6 +1,6 @@
 package com.example.shared.model
 
-import com.softwareplace.springsecurity.model.UserData
+import com.github.softwareplace.springboot.security.model.UserData
 
 class InMemoryUser : UserData {
     override fun getUsername() = "useremail@gmail.com"
