@@ -24,7 +24,8 @@ object Shared {
                 developer {
                     id.set(pluginId)
                     name.set("@Software Place Spring Plugins")
-                    email.set("eliasmflilico@gmail.com")
+                    email.set("eliasmeirelesf@gmail.com")
+                    url.set("https://eliasmeireles.com")
                 }
             }
         }

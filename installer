@@ -18,6 +18,8 @@ if ! ./gradlew clean --parallel \
       build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
       java:assemble java:publishToMavenLocal --stacktrace \
       kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
+      starter:assemble starter:publishToMavenLocal --stacktrace \
+      security:assemble security:publishToMavenLocal --stacktrace \
       -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then
   echo "Publish sub-plugins failed $buildTag"

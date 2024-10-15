@@ -156,14 +156,7 @@ fun Project.springBootSecurityUtil() {
     dependencies {
         springBootOauth2ResourceServer()
         springBootSecurity()
-        implementation("com.github.softwareplace:spring-boot-security-util:${springBootSecurityUtilVersion}") {
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-oauth2-resource-server")
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-validation")
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_SECURITY)
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter-test")
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = SPRING_BOOT_STARTER_WEB)
-            exclude(group = ORG_SPRINGFRAMEWORK_BOOT, module = "spring-boot-starter")
-        }
+        implementation("com.github.softwareplace.springboot:security")
     }
 }
 
@@ -222,6 +215,12 @@ fun Project.flayWayMigration(modules: List<String> = emptyList()) {
         modules.forEach {
             implementation("org.flywaydb:$it:${flywaydbVersion}")
         }
+    }
+}
+
+fun Project.springBootStarter() {
+    dependencies {
+        implementation("com.github.softwareplace.springboot:starter")
     }
 }
 

@@ -47,7 +47,6 @@ fun OpenApiGeneratorGenerateExtension.apply(
     inputSpec.set(openApiYamlFilePath)
     generateApiDocumentation.set(true)
     outputDir.set("${projectPath}/build/generate-resources")
-    this.withXml.set(false)
     apiPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.controllerPackage}")
     invokerPackage.set("${openApiSettings.groupId}${openApiSettings.sourceFolder}${openApiSettings.invokerPackage}")
     apiNameSuffix.set(openApiSettings.apiNameSuffix)
