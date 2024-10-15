@@ -1,0 +1,24 @@
+spring:
+  security:
+    encrypt-strength: 6
+    pub-key: classpath:pub.key
+    private-key: classpath:private.key
+    issuer: spring-boot-security-util-example
+    stackTraceLogEnable: true
+    jwtExpirationTime: 144000000
+    openUrl:
+      - "/users/create"
+      - "/swagger-resources/**"
+      - "/swagger-ui.html/**"
+      - "/swagger-config/**"
+      - "/authorization"
+      - "/swagger-ui/**"
+      - "/favicon.ico/**"
+      - "/v3/api-docs/**"
+      - "/v3/api-docs"
+      - "/webjars/**"
+      - "/swagger/**"
+      - "/assets/**"
+      - "/csrf/**"
+      - "/docs/**"
+      - "/error"

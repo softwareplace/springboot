@@ -60,7 +60,11 @@ class BuildConfigurationPlugin : Plugin<Project> {
             tasks.withType<KotlinCompile>().configureEach {
                 compilerOptions {
                     jvmTarget.set(JvmTarget.valueOf("JVM_${jdkVersion}"))
-                    this.freeCompilerArgs.set(listOf("-Xjsr305=strict"))
+                    this.freeCompilerArgs.set(
+                        listOf(
+                            "-Xjsr305=strict",
+                        )
+                    )
                 }
             }
 
@@ -71,8 +75,7 @@ class BuildConfigurationPlugin : Plugin<Project> {
             }
 
             tasks.withType<Jar> {
-                dependsOn(tasks.withType<KotlinCompile>())
-                duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+                duplicatesStrategy = DuplicatesStrategy.INCLUDE
             }
         }
     }
@@ -105,6 +108,8 @@ class BuildConfigurationPlugin : Plugin<Project> {
                 gradlePluginPortal()
                 maven("https://jitpack.io")
                 maven("https://repo.spring.io/milestone")
+                maven("https://plugins.gradle.org/m2/")  // For Gradle plugins
+                maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
             }
         }
     }

@@ -5,6 +5,7 @@ import com.github.softwareplace.springboot.kotlin.openapi.kotlinOpenApiSettings
 import com.github.softwareplace.springboot.kotlin.testKotlinMockito
 import com.github.softwareplace.springboot.utils.jsonLogger
 import com.github.softwareplace.springboot.utils.springBootStartWeb
+import com.github.softwareplace.springboot.utils.springBootStarter
 import com.github.softwareplace.springboot.utils.springJettyApi
 
 plugins {
@@ -29,7 +30,7 @@ dependencies {
     jsonLogger()
 
     kotlinReactive()
-
+    springBootStarter()
     springJettyApi()
     kotlinMapStruct()
 

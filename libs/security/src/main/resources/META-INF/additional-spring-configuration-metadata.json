@@ -1,0 +1,109 @@
+{
+  "properties": [
+    {
+      "name": "spring.security.issuer",
+      "type": "java.lang.String",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "issuer",
+      "description": "List of URLs that are open to access without authentication."
+    },
+    {
+      "name": "spring.security.pubKey",
+      "type": "java.lang.String",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "pubKey",
+      "description": "The public jwt api key file path."
+    },
+    {
+      "name": "java.lang.String",
+      "type": "java.security.interfaces.RSAPrivateKey",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "privateKey",
+      "description": "The private jwt api key file path."
+    },
+    {
+      "name": "spring.security.encryptStrength",
+      "type": "java.lang.Integer",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "privateKey",
+      "description": "the log rounds to use, between 4 and 31 required by org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.",
+      "defaultValue": 6
+    },
+    {
+      "name": "spring.security.openUrl",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "openUrl",
+      "description": "List of URLs that are open to access without authentication.",
+      "defaultValue": []
+    },
+    {
+      "name": "spring.security.allowedOrigins",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "allowedOrigins",
+      "description": "List of allowed origins in CORS requests.",
+      "defaultValue": [
+        "*"
+      ]
+    },
+    {
+      "name": "spring.security.allowedMethods",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "allowedMethods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of allowed methods in CORS requests.",
+      "defaultValue": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "OPTIONS"
+      ]
+    },
+    {
+      "name": "spring.security.allowedHeaders",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "allowedHeaders",
+      "description": "List of allowed headers in CORS requests.",
+      "defaultValue": [
+        "Access-Control-Allow-Headers",
+        "Authorization",
+        "Content-Type",
+        "authentication"
+      ]
+    },
+    {
+      "name": "spring.security.jwtExpirationTime",
+      "type": "java.lang.Long",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "jwtExpirationTime",
+      "description": "Expiration time for JWT tokens. If not set, the generated jwt expires in 15 minutes.",
+      "defaultValue": 900
+    },
+    {
+      "name": "spring.security.corsConfigPattern",
+      "type": "java.lang.String",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "corsConfigPattern",
+      "description": "CORS configuration pattern.",
+      "defaultValue": "/**"
+    },
+    {
+      "name": "spring.security.stackTraceLogEnable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "stackTraceLogEnable",
+      "description": "Enable or disable Throwable.printStackTrace calling on error handler."
+    },
+    {
+      "name": "spring.security.pathsRedirect",
+      "type": "java.util.List<com.github.softwareplace.springboot.security.config.DataEntry<java.lang.String, java.util.List<java.lang.String>>>",
+      "sourceType": "com.github.softwareplace.springboot.security.config.ApplicationInfo",
+      "method": "pathsRedirect",
+      "description": "The name represents the path to be redirected and the value represents the paths that will be redirected to."
+    }
+  ]
+}
