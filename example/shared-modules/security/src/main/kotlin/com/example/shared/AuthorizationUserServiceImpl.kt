@@ -1,8 +1,8 @@
 package com.example.shared
 
 import com.example.shared.model.InMemoryUser
-import com.softwareplace.springsecurity.model.RequestUser
-import com.softwareplace.springsecurity.service.AuthorizationUserService
+import com.github.softwareplace.springboot.security.model.RequestUser
+import com.github.softwareplace.springboot.security.service.AuthorizationUserService
 import org.springframework.stereotype.Service
 
 @Service
