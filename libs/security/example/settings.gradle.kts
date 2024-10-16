@@ -3,7 +3,7 @@ rootProject.name = "springboot-security-example"
 include(":app")
 include(":security")
 
-project(":security").projectDir = file("../security")
+//project(":security").projectDir = file("../security")
 
 pluginManagement {
     repositories {
