@@ -224,6 +224,12 @@ fun Project.springBootStarter() {
     }
 }
 
+fun Project.springBootDataCommons() {
+    dependencies {
+        implementation("com.github.softwareplace.springboot:data-commons")
+    }
+}
+
 fun Project.rxJava() {
     dependencies {
         implementation("io.reactivex.rxjava2:rxjava:${rxJavaVersion}")
