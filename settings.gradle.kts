@@ -9,10 +9,10 @@ includeBuild("plugins/java")
 includeBuild("plugins/kotlin")
 includeBuild("libs/starter")
 includeBuild("libs/security/security")
+includeBuild("libs/data-commons")
 
 val properties = Properties()
-val inputStream =
-    rootDir.resolve("gradle.properties").inputStream()
+val inputStream = rootDir.resolve("gradle.properties").inputStream()
 properties.load(inputStream)
 
 properties.forEach { (key, value) ->
