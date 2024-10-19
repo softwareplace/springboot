@@ -18,6 +18,10 @@ version = tagVersion
 
 submoduleConfig()
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
+}
+
 tasks.register<Jar>("sourceJar") {
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
@@ -40,10 +44,10 @@ publishing {
 
 dependencies {
     springBootStartWeb()
-    springBootStarter()
     springDataJpa()
     mapStruct()
 
+    springBootStarter()
     testKotlinMockito()
     testImplementation("com.h2database:h2")
 }

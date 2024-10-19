@@ -21,12 +21,9 @@ submoduleConfig()
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
-
-tasks {
-    jar {
-        archiveClassifier.set("sources")
-        from(sourceSets.main.get().allSource)
-    }
+tasks.register<Jar>("sourceJar") {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
 }
 
 publishing {
@@ -39,7 +36,7 @@ publishing {
             java.targetCompatibility = JavaVersion.toVersion(jdkVersion)
 
             from(components["java"])
-            artifact(tasks.named("jar").get())
+            artifact(tasks.named("sourceJar").get())
         }
     }
 }
