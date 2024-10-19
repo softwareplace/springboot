@@ -22,6 +22,13 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
 
+tasks {
+    jar {
+        archiveClassifier.set("sources")
+        from(sourceSets.main.get().allSource)
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -32,6 +39,7 @@ publishing {
             java.targetCompatibility = JavaVersion.toVersion(jdkVersion)
 
             from(components["java"])
+            artifact(tasks.named("jar").get())
         }
     }
 }

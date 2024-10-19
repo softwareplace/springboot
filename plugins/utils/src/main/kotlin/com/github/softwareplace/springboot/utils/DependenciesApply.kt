@@ -273,7 +273,6 @@ fun Project.testContainersPostgresql() {
 }
 
 fun Project.testMockito() {
-    val mockitoVersion = mockitoVersion
     dependencies {
         testImplementation("org.mockito:mockito-core:$mockitoVersion")
         testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")

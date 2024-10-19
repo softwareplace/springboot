@@ -13,7 +13,7 @@ example-test:
 	cd example && make test
 
 gradle-wrapper:
-	./gradle wrapper --gradle-version=$(target)
+	./gradlew wrapper --gradle-version=$(target)
 
 publish:
 	./localPublish

@@ -1,4 +1,4 @@
-rootProject.name = "security-example"
+rootProject.name = "plugins-example"
 
 include(":security")
 include(":java-example")

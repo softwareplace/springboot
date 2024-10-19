@@ -12,7 +12,7 @@ fi
 
 echo "Publishing $buildTag"
 
-if ! ./gradlew clean --parallel \
+if ! ./gradlew clean --parallel -Dorg.gradle.jvmargs="-Xmx2g -Xms128m -XX:ReservedCodeCacheSize=200m -XX:+HeapDumpOnOutOfMemoryError" \
       versions:assemble versions:publishToMavenLocal --stacktrace \
       utils:assemble utils:publishToMavenLocal --stacktrace \
       build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
@@ -27,7 +27,7 @@ then
   exit 1
 fi
 
-if ! ./gradlew clean --parallel \
+if ! ./gradlew clean --parallel -Dorg.gradle.jvmargs="-Xmx2g -Xms128m -XX:ReservedCodeCacheSize=200m -XX:+HeapDumpOnOutOfMemoryError" \
       :assemble :publishToMavenLocal --stacktrace \
       -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then

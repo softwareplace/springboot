@@ -65,8 +65,7 @@ tasks {
             freeCompilerArgs.set(
                 listOf(
                     "-Xjsr305=strict",
-                    "-Xmx1024m",
-                    "-Xopt-in=kotlin.RequiresOptIn"
+                    "-opt-in=kotlin.RequiresOptIn"
                 )
             )
         }
