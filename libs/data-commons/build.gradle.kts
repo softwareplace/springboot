@@ -22,10 +22,6 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
 
-tasks.register<Jar>("sourceJar") {
-    archiveClassifier.set("sources")
-    from(sourceSets.main.get().allSource)
-}
 
 publishing {
     publications {
@@ -37,9 +33,13 @@ publishing {
             java.targetCompatibility = JavaVersion.toVersion(jdkVersion)
 
             from(components["java"])
-            artifact(tasks.named("sourceJar").get())
         }
     }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
