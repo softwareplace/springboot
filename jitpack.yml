@@ -4,4 +4,4 @@ before_install:
   - sdk install 21.ea.35-open
   - sdk use java 21.ea.35-open
 install:
-  make publish
+  make publish-version tag=1.0.15-SNAPSHOT
