@@ -7,6 +7,7 @@ includeBuild("plugins/build-configuration")
 includeBuild("plugins/utils")
 includeBuild("plugins/java")
 includeBuild("plugins/kotlin")
+includeBuild("plugins/graalvm")
 
 // Libs
 includeBuild("libs/starter")

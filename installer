@@ -25,6 +25,7 @@ echo "Publishing $buildTag"
     data-commons:assemble data-commons:publishToMavenLocal \
     starter:assemble starter:publishToMavenLocal \
     security:assemble security:publishToMavenLocal \
+    graalvm:assemble graalvm:publishToMavenLocal \
     :assemble :publishToMavenLocal \
     -Pgroup=com.github.softwareplace.springboot \
     --refresh-dependencies -Pversion="$buildTag" \
