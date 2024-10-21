@@ -22,18 +22,17 @@ echo "Publishing $buildTag"
     utils:assemble utils:publishToMavenLocal \
     java:assemble java:publishToMavenLocal \
     kotlin:assemble kotlin:publishToMavenLocal \
-    data-commons:assemble data-commons:publishToMavenLocal \
-    starter:assemble starter:publishToMavenLocal \
-    security:assemble security:publishToMavenLocal \
     graalvm:assemble graalvm:publishToMavenLocal \
-    :assemble :publishToMavenLocal \
     -Pgroup=com.github.softwareplace.springboot \
     --refresh-dependencies -Pversion="$buildTag" \
     --stacktrace
 
 ./gradlew clean --parallel -Dorg.gradle.jvmargs="$JVM_ARGS" \
-    :assemble :publishToMavenLocal --parallel -Dorg.gradle.jvmargs="$JVM_ARGS" \
+    data-commons:assemble data-commons:publishToMavenLocal \
+    starter:assemble starter:publishToMavenLocal \
+    security:assemble security:publishToMavenLocal \
+    :assemble :publishToMavenLocal \
     -Pgroup=com.github.softwareplace.springboot \
     --refresh-dependencies -Pversion="$buildTag" \
-    --stacktrace --parallel \
-    -Dorg.gradle.jvmargs="$JVM_ARGS"
+    --stacktrace
+
