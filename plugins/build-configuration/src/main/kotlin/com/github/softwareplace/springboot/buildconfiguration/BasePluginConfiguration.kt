@@ -39,8 +39,4 @@ abstract class BasePluginConfiguration : Plugin<Project> {
     }
 }
 
-fun Project.applyGraalvm() {
-    apply(plugin = "org.graalvm.buildtools.native")
-}
-
 

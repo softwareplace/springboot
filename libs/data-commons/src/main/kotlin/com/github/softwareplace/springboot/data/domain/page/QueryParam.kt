@@ -21,28 +21,22 @@ data class QueryParam(
 
     private fun Direction.toDirection(sort: Sort): Sort {
         return when (this) {
-            Direction.DESC,
-            Direction.desc -> sort.descending()
-
+            Direction.DESC -> sort.descending()
             else -> sort.ascending()
         }
     }
 
     enum class Direction(val value: String) {
-        @JsonProperty("asc")
-        asc("asc"),
-
         @JsonProperty("ASC")
         ASC("ASC"),
-
-        @JsonProperty("desc")
-        desc("desc"),
 
         @JsonProperty("DESC")
         DESC("DESC");
 
         companion object {
-            fun from(value: String) = entries.firstOrNull { it.value.equals(value, true) }
+            fun from(value: String): Direction? {
+                return values().firstOrNull { it.value.equals(value, true) }
+            }
         }
     }
 }

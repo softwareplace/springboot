@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 buildTag=$1
 
 if [ -z "$buildTag" ]; then
@@ -10,27 +12,27 @@ if [ -z "$buildTag" ]; then
   buildTag="1.0.0-SNAPSHOT"
 fi
 
+JVM_ARGS="-Xmx2g -Xms1g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8 -XX:+UseG1GC -XX:InitiatingHeapOccupancyPercent=75"
+
 echo "Publishing $buildTag"
 
-if ! ./gradlew clean --parallel -Dorg.gradle.jvmargs="-Xmx2g -Xms128m -XX:ReservedCodeCacheSize=200m -XX:+HeapDumpOnOutOfMemoryError" \
-      versions:assemble versions:publishToMavenLocal --stacktrace \
-      utils:assemble utils:publishToMavenLocal --stacktrace \
-      build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
-      java:assemble java:publishToMavenLocal --stacktrace \
-      kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
-      starter:assemble starter:publishToMavenLocal --stacktrace \
-      security:assemble security:publishToMavenLocal --stacktrace \
-      data-commons:assemble data-commons:publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
-then
-  echo "Publish sub-plugins failed $buildTag"
-  exit 1
-fi
+./gradlew clean --parallel -Dorg.gradle.jvmargs="$JVM_ARGS" \
+    versions:assemble versions:publishToMavenLocal \
+    build-configuration:assemble build-configuration:publishToMavenLocal \
+    utils:assemble utils:publishToMavenLocal \
+    java:assemble java:publishToMavenLocal \
+    kotlin:assemble kotlin:publishToMavenLocal \
+    data-commons:assemble data-commons:publishToMavenLocal \
+    starter:assemble starter:publishToMavenLocal \
+    security:assemble security:publishToMavenLocal \
+    :assemble :publishToMavenLocal \
+    -Pgroup=com.github.softwareplace.springboot \
+    --refresh-dependencies -Pversion="$buildTag" \
+    --stacktrace
 
-if ! ./gradlew clean --parallel -Dorg.gradle.jvmargs="-Xmx2g -Xms128m -XX:ReservedCodeCacheSize=200m -XX:+HeapDumpOnOutOfMemoryError" \
-      :assemble :publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
-then
-  echo "Publish plugins failed for tag $buildTag"
-  exit 1
-fi
+./gradlew clean --parallel -Dorg.gradle.jvmargs="$JVM_ARGS" \
+    :assemble :publishToMavenLocal --parallel -Dorg.gradle.jvmargs="$JVM_ARGS" \
+    -Pgroup=com.github.softwareplace.springboot \
+    --refresh-dependencies -Pversion="$buildTag" \
+    --stacktrace --parallel \
+    -Dorg.gradle.jvmargs="$JVM_ARGS"
