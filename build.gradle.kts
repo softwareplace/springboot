@@ -80,4 +80,7 @@ dependencies {
     implementation("com.github.softwareplace.springboot:utils:$tagVersion")
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
     implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
+    implementation("com.github.softwareplace.springboot:data-commons:$tagVersion")
+    implementation("com.github.softwareplace.springboot:starter:$tagVersion")
+    implementation("com.github.softwareplace.springboot:security:$tagVersion")
 }
