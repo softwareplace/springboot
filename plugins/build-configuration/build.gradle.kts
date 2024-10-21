@@ -1,5 +1,6 @@
 import com.github.softwareplace.springboot.versions.Dependencies
 import com.github.softwareplace.springboot.versions.getTag
+import com.github.softwareplace.springboot.versions.graalvmBuildToolsNativeVersion
 import com.github.softwareplace.springboot.versions.kotlinVersion
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -10,6 +11,7 @@ plugins {
     id("signing")
     id("maven-publish")
     id("com.github.softwareplace.springboot.versions")
+    id("org.graalvm.buildtools.native") version System.getProperty("graalvmBuildToolsNativeVersion")
     id("biz.aQute.bnd.builder") version System.getProperty("bizAQuteBndBuilderVersion")
     id("net.nemerosa.versioning") version System.getProperty("netNemerosaVersioningVersion")
     id("org.ajoberstar.git-publish") version System.getProperty("orgAjoberstarGitPublishVersion")
@@ -206,6 +208,7 @@ java {
 
 dependencies {
     implementation("com.github.softwareplace.springboot:versions:$tagVersion")
+    implementation("org.graalvm.buildtools:native-gradle-plugin:${graalvmBuildToolsNativeVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
