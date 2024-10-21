@@ -76,4 +76,8 @@ dependencies {
 
     implementation("com.github.softwareplace.springboot:kotlin:$tagVersion")
     implementation("com.github.softwareplace.springboot:java:$tagVersion")
+    implementation("com.github.softwareplace.springboot:graalvm:$tagVersion")
+    implementation("com.github.softwareplace.springboot:utils:$tagVersion")
+    implementation("com.github.softwareplace.springboot:versions:$tagVersion")
+    implementation("com.github.softwareplace.springboot:build-configuration:$tagVersion")
 }
