@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 21
+      - name: Set up GraalVM JDK 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
+          distribution: 'graalvm'
           java-version: '21'
+          java-package: 'graalvm' # This installs GraalVM and its tools
       - name: Test Validation
         run: make test
-

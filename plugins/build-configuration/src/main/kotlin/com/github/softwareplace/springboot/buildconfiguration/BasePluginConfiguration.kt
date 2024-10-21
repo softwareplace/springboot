@@ -96,6 +96,7 @@ fun Project.applyGraalvm(action: Action<GraalVMExtension>? = null) {
 
     dependencies {
         implementation("org.graalvm.buildtools:native-gradle-plugin:${graalvmBuildToolsNativeVersion}")
+        implementation("org.springframework.boot:spring-boot-gradle-plugin")
     }
 
     // Get the GraalVMExtension from the project and apply the provided action or the default configuration
@@ -111,7 +112,7 @@ fun Project.applyGraalvm(action: Action<GraalVMExtension>? = null) {
  *
  * This method applies common GraalVM Native Image build settings to the `main` binary configuration.
  * It configures the native image to support HTTP and HTTPS, initializes classes at build time,
- * reports unsupported elements at runtime, and includes essential resource, reflection, and proxy
+ * reports unsupported elements at runtime, and includes essential resource, reflection, serialization, and proxy
  * configuration files. It also provides the ability to add more custom build arguments via the `args` parameter.
  *
  * ### Default Configuration:
@@ -124,10 +125,11 @@ fun Project.applyGraalvm(action: Action<GraalVMExtension>? = null) {
  * - `-H:IncludeResources=openapi.yaml|openapi.yml`: Includes OpenAPI configuration files (`openapi.yaml` and `openapi.yml`).
  * - `-H:IncludeResources=application.yaml|application.yml|application.properties`: Includes application configuration files.
  * - `--report-unsupported-elements-at-runtime`: Allows unsupported elements to be reported at runtime.
- * - `-H:ConfigurationFileDirectories=./src/main/resources/META-INF/native-image`: Specifies the directory for native image configuration files.
- * - `-H:ReflectionConfigurationFiles=./src/main/resources/META-INF/native-image/reflect-config.json`: Includes reflection configuration.
- * - `-H:ResourceConfigurationFiles=./src/main/resources/META-INF/native-image/resource-config.json`: Includes resource configuration.
- * - `-H:DynamicProxyConfigurationFiles=./src/main/resources/META-INF/native-image/proxy-config.json`: Includes proxy configuration for dynamic proxies.
+ * - `-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image`: Specifies the directory for native image configuration files.
+ * - `-H:ReflectionConfigurationFiles=src/main/resources/META-INF/native-image/reflect-config.json`: Includes reflection configuration.
+ * - `-H:ResourceConfigurationFiles=src/main/resources/META-INF/native-image/resource-config.json`: Includes resource configuration.
+ * - `-H:DynamicProxyConfigurationFiles=src/main/resources/META-INF/native-image/proxy-config.json`: Includes proxy configuration for dynamic proxies.
+ * - `-H:SerializationConfigurationFiles=src/main/resources/META-INF/native-image/serialization-config.json`: Includes serialization configuration for classes that require custom serialization.
  *
  * ### Additional Custom Arguments:
  * - The `args` parameter allows you to provide custom arguments that will be added to the `buildArgs` list for the GraalVM build process.
@@ -136,7 +138,7 @@ fun Project.applyGraalvm(action: Action<GraalVMExtension>? = null) {
  *
  * ```kotlin
  * graalvmNative {
- *     configWith("-H:DynamicProxyConfigurationFiles=./src/main/resources/META-INF/native-image/custom-proxy-config.json")
+ *     configWith("-H:DynamicProxyConfigurationFiles=src/main/resources/META-INF/native-image/custom-proxy-config.json")
  * }
  * ```
  *
@@ -149,7 +151,6 @@ fun GraalVMExtension.configWith(vararg args: String) {
     apply {
         binaries {
             named("main") {
-                // Default GraalVM build arguments
                 buildArgs.add("--no-fallback")
                 buildArgs.add("--enable-http")
                 buildArgs.add("--enable-https")
@@ -159,17 +160,17 @@ fun GraalVMExtension.configWith(vararg args: String) {
                 buildArgs.add("--report-unsupported-elements-at-runtime")
                 buildArgs.add("-H:IncludeResources=openapi.yaml|openapi.yml")
                 buildArgs.add("-H:IncludeResources=application.yaml|application.yml|application.properties")
-                buildArgs.add("-H:ConfigurationFileDirectories=./src/main/resources/META-INF/native-image")
-                buildArgs.add("-H:ReflectionConfigurationFiles=./src/main/resources/META-INF/native-image/reflect-config.json")
-                buildArgs.add("-H:ResourceConfigurationFiles=./src/main/resources/META-INF/native-image/resource-config.json")
-                buildArgs.add("-H:DynamicProxyConfigurationFiles=./src/main/resources/META-INF/native-image/proxy-config.json")
-
-                // Add any custom arguments passed to the function
+                buildArgs.add("-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image")
+                buildArgs.add("-H:ReflectionConfigurationFiles=src/main/resources/META-INF/native-image/reflect-config.json")
+                buildArgs.add("-H:ResourceConfigurationFiles=src/main/resources/META-INF/native-image/resource-config.json")
+                buildArgs.add("-H:DynamicProxyConfigurationFiles=src/main/resources/META-INF/native-image/proxy-config.json")
+                buildArgs.add("-H:SerializationConfigurationFiles=src/main/resources/META-INF/native-image/serialization-config.json")
                 args.forEach(buildArgs::add)
             }
         }
     }
 }
+
 
 
 
