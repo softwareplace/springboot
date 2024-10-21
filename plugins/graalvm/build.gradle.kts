@@ -1,12 +1,15 @@
 import com.github.softwareplace.springboot.buildconfiguration.Shared
 import com.github.softwareplace.springboot.buildconfiguration.implementation
 import com.github.softwareplace.springboot.versions.*
+import com.github.softwareplace.springboot.versions.Dependencies
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 plugins {
     `kotlin-dsl`
     id("java")
+    id("idea")
+    id("eclipse")
     id("signing")
     id("maven-publish")
     id("com.github.softwareplace.springboot.build-configuration")
