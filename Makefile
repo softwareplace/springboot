@@ -16,7 +16,8 @@ gradle-wrapper:
 	./gradlew wrapper --gradle-version=$(target)
 
 publish:
-	./localPublish
+	./installer
 
 publish-version:
 	./installer $(tag)
+

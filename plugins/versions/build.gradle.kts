@@ -323,6 +323,7 @@ fun generateDependenciesVersion(gradlePropertiesFile: File) {
     properties.forEach { (key, value) ->
         if (!ignoringValue.contains(key)) {
             if ("pluginsVersion".equals(key, ignoreCase = true)) {
+                println("PLUGIN:VERSION: Applying version $tagVersion to $key")
                 updatedTemplate += template.replace("keyVar", key)
                     .replace("keyVersion", tagVersion)
             } else {

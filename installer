@@ -1,16 +1,18 @@
 #!/bin/sh
 
-buildTag=$1
+buildTargetTag=$1
 
-if [ -z "$buildTag" ]; then
-  buildTag=$(git describe --tags --abbrev=0)
+echo "Specified tag $buildTargetTag"
+
+if [ -z "$buildTargetTag" ]; then
+  buildTargetTag=$(git describe --tags --abbrev=0)
 fi
 
-if [ -z "$buildTag" ]; then
-  buildTag="1.0.0-SNAPSHOT"
+if [ -z "$buildTargetTag" ]; then
+  buildTargetTag="1.0.0-SNAPSHOT"
 fi
 
-echo "Publishing $buildTag"
+echo "Publishing $buildTargetTag"
 
 if ! ./gradlew clean --parallel \
       versions:assemble versions:publishToMavenLocal --stacktrace \
@@ -19,17 +21,17 @@ if ! ./gradlew clean --parallel \
       java:assemble java:publishToMavenLocal --stacktrace \
       kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
       graalvm:assemble graalvm:publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
 then
-  echo "Publish sub-plugins failed $buildTag"
+  echo "Publish sub-plugins failed $buildTargetTag"
   exit 1
 fi
 
 if ! ./gradlew clean --parallel \
       :assemble :publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
 then
-  echo "Publish plugins failed for tag $buildTag"
+  echo "Publish plugins failed for tag $buildTargetTag"
   exit 1
 fi
 
@@ -37,8 +39,8 @@ if ! ./gradlew clean --parallel \
       starter:assemble starter:publishToMavenLocal --stacktrace \
       security:assemble security:publishToMavenLocal --stacktrace \
       data-commons:assemble data-commons:publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
 then
-  echo "Publish libs failed $buildTag"
+  echo "Publish libs failed $buildTargetTag"
   exit 1
 fi
