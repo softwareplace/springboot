@@ -19,9 +19,6 @@ if ! ./gradlew clean --parallel \
       java:assemble java:publishToMavenLocal --stacktrace \
       kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
       graalvm:assemble graalvm:publishToMavenLocal --stacktrace \
-      starter:assemble starter:publishToMavenLocal --stacktrace \
-      security:assemble security:publishToMavenLocal --stacktrace \
-      data-commons:assemble data-commons:publishToMavenLocal --stacktrace \
       -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then
   echo "Publish sub-plugins failed $buildTag"
@@ -33,5 +30,15 @@ if ! ./gradlew clean --parallel \
       -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
 then
   echo "Publish plugins failed for tag $buildTag"
+  exit 1
+fi
+
+if ! ./gradlew clean --parallel \
+      starter:assemble starter:publishToMavenLocal --stacktrace \
+      security:assemble security:publishToMavenLocal --stacktrace \
+      data-commons:assemble data-commons:publishToMavenLocal --stacktrace \
+      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTag" --stacktrace;
+then
+  echo "Publish libs failed $buildTag"
   exit 1
 fi
