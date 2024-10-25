@@ -1,7 +1,10 @@
 import com.github.softwareplace.springboot.buildconfiguration.Shared
 import com.github.softwareplace.springboot.buildconfiguration.testImplementation
 import com.github.softwareplace.springboot.kotlin.testKotlinMockito
-import com.github.softwareplace.springboot.utils.*
+import com.github.softwareplace.springboot.utils.mapStruct
+import com.github.softwareplace.springboot.utils.springBootStartWeb
+import com.github.softwareplace.springboot.utils.springDataJpa
+import com.github.softwareplace.springboot.utils.submoduleConfig
 import com.github.softwareplace.springboot.versions.Dependencies
 import com.github.softwareplace.springboot.versions.getTag
 import com.github.softwareplace.springboot.versions.jdkVersion
@@ -194,7 +197,6 @@ dependencies {
     springDataJpa()
     mapStruct()
 
-    springBootStarter()
     testKotlinMockito()
     testImplementation("com.h2database:h2")
 }

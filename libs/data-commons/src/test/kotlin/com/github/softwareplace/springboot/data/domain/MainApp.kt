@@ -3,20 +3,13 @@ package com.github.softwareplace.springboot.data.domain
 import com.github.softwareplace.springboot.data.domain.model.Address
 import com.github.softwareplace.springboot.data.domain.model.AppUserData
 import com.github.softwareplace.springboot.data.domain.service.UsersService
-import com.github.softwareplace.springboot.starter.StarterModule
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import java.util.*
 
 @SpringBootApplication
-@ImportAutoConfiguration(
-    value = [
-        StarterModule::class
-    ]
-)
 class MainApp {
     @Bean
     fun runner(service: UsersService): ApplicationRunner {
