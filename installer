@@ -26,19 +26,17 @@ if ! ./gradlew clean --parallel --stacktrace \
       utils:publishToMavenLocal \
       build-configuration:publishToMavenLocal \
       java:publishToMavenLocal \
-      kotlin:publishToMavenLocal \
-      :publishToMavenLocal;
+      kotlin:publishToMavenLocal;
 then
   echo "Publish sub-plugins failed $buildTargetTag"
   exit 1
 fi
 
-cp ./settings/libs-settings.gradle.kts ./settings.gradle.kts
 
 publishToLocal() {
   echo "BUILD_RUNNER:$1 $buildTargetTag"
   if ! ./gradlew clean --parallel \
-        "$1:assemble" "$1:publishToMavenLocal" --stacktrace \
+        "$1:publishToMavenLocal" --stacktrace \
         -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
   then
     echo "BUILD_RUNNER:$1 failed $buildTargetTag"
@@ -46,8 +44,11 @@ publishToLocal() {
   fi
 }
 
+publishToLocal ""
+
+cp ./settings/default-settings.gradle.kts ./settings.gradle.kts
+
 publishToLocal data-commons
 publishToLocal starter
 publishToLocal security
 
-cp ./settings/default-settings.gradle.kts ./settings.gradle.kts
