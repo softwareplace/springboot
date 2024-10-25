@@ -46,7 +46,8 @@ publishToLocal() {
   fi
 }
 
-cp ./settings/default-settings.gradle.kts ./settings.gradle.kts
 publishToLocal data-commons
 publishToLocal starter
 publishToLocal security
+
+cp ./settings/default-settings.gradle.kts ./settings.gradle.kts
