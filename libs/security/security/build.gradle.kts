@@ -193,7 +193,6 @@ dependencies {
     addSpringframeworkBoot("spring-boot-starter-oauth2-resource-server")
     springBootStartWeb()
     springSecurity()
-    springBootStarter()
     jsonLogger()
     passay()
     testKotlinMockito()
