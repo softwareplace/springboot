@@ -21,3 +21,7 @@ publish:
 publish-version:
 	./installer $(tag)
 
+test-docker:
+	docker build --debug  -t softwareplace/springboot .
+	docker run --rm softwareplace/springboot
+

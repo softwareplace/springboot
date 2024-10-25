@@ -1,7 +1,7 @@
 jdk:
   - openjdk21
 before_install:
-  - sdk install 21.ea.35-open
-  - sdk use java 21.ea.35-open
+  - sdk install 21.0.2-graalce
+  - sdk use java 21.0.2-graalce
 install:
   make publish
