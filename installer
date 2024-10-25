@@ -16,35 +16,25 @@ if [ -z "$buildTargetTag" ]; then
   buildTargetTag="1.0.0-SNAPSHOT"
 fi
 
-echo "Publishing $buildTargetTag"
 
-if ! ./gradlew clean --parallel \
-      versions:assemble versions:publishToMavenLocal --stacktrace \
-      utils:assemble utils:publishToMavenLocal --stacktrace \
-      build-configuration:assemble build-configuration:publishToMavenLocal --stacktrace \
-      java:assemble java:publishToMavenLocal --stacktrace \
-      kotlin:assemble kotlin:publishToMavenLocal --stacktrace \
-      graalvm:assemble graalvm:publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
-then
-  echo "Publish sub-plugins failed $buildTargetTag"
-  exit 1
-fi
+publishToLocal() {
+  echo "BUILD_RUNNER:$1 $buildTargetTag"
+  if ! ./gradlew clean --parallel \
+        "$1:assemble" "$1:publishToMavenLocal" --stacktrace \
+        -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
+  then
+    echo "BUILD_RUNNER:$1 failed $buildTargetTag"
+    exit 1
+  fi
+}
 
-if ! ./gradlew clean --parallel \
-      :assemble :publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
-then
-  echo "Publish plugins failed for tag $buildTargetTag"
-  exit 1
-fi
-
-if ! ./gradlew clean --parallel \
-      starter:assemble starter:publishToMavenLocal --stacktrace \
-      security:assemble security:publishToMavenLocal --stacktrace \
-      data-commons:assemble data-commons:publishToMavenLocal --stacktrace \
-      -Pgroup=com.github.softwareplace.springboot --refresh-dependencies -Pversion="$buildTargetTag" --stacktrace;
-then
-  echo "Publish libs failed $buildTargetTag"
-  exit 1
-fi
+publishToLocal version
+publishToLocal utils
+publishToLocal build-configuration
+publishToLocal java
+publishToLocal kotlin
+publishToLocal graalvm
+publishToLocal plugins
+publishToLocal data-commons
+publishToLocal starter
+publishToLocal security

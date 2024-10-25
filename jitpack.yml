@@ -4,4 +4,4 @@ before_install:
   - sdk install 21.0.2-graalce
   - sdk use java 21.0.2-graalce
 install:
-  make test-docker
+  make publish
