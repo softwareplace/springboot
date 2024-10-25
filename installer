@@ -17,6 +17,24 @@ if [ -z "$buildTargetTag" ]; then
 fi
 
 
+if ! ./gradlew clean --parallel --stacktrace \
+      -Pgroup=com.github.softwareplace.springboot \
+      --refresh-dependencies \
+      -Pversion="$buildTargetTag" \
+      versions:publishToMavenLocal \
+      utils:publishToMavenLocal \
+      build-configuration:publishToMavenLocal \
+      java:publishToMavenLocal \
+      kotlin:publishToMavenLocal \
+      starter:publishToMavenLocal \
+      security:publishToMavenLocal \
+      data-commons:publishToMavenLocal \
+      publishToMavenLocal;
+then
+  echo "Publish sub-plugins failed $buildTargetTag"
+  exit 1
+fi
+
 publishToLocal() {
   echo "BUILD_RUNNER:$1 $buildTargetTag"
   if ! ./gradlew clean --parallel \
@@ -28,13 +46,7 @@ publishToLocal() {
   fi
 }
 
-publishToLocal version
-publishToLocal utils
-publishToLocal build-configuration
-publishToLocal java
-publishToLocal kotlin
-publishToLocal graalvm
-publishToLocal ""
+
 publishToLocal data-commons
 publishToLocal starter
 publishToLocal security

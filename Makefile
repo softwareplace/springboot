@@ -23,6 +23,6 @@ publish-version:
 
 test-docker:
 	docker build --debug -t softwareplace/springboot .
-	docker run --rm -v ~/.m2:/root/.m2 softwareplace/springboot
+	docker run --rm -v ./out/.m2:/root/.m2 softwareplace/springboot
 
 
