@@ -34,7 +34,7 @@ publishToLocal build-configuration
 publishToLocal java
 publishToLocal kotlin
 publishToLocal graalvm
-publishToLocal plugins
+publishToLocal ""
 publishToLocal data-commons
 publishToLocal starter
 publishToLocal security
