@@ -22,6 +22,7 @@ publish-version:
 	./installer $(tag)
 
 test-docker:
-	docker build --debug  -t softwareplace/springboot .
-	docker run --rm softwareplace/springboot
+	docker build --debug -t softwareplace/springboot .
+	docker run --rm -v ~/.m2:/root/.m2 softwareplace/springboot
+
 
