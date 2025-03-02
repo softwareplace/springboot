@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 target ?= 8.5
 tag ?= 1.0.0-SNAPSHOT
 
@@ -20,3 +22,6 @@ publish:
 
 publish-version:
 	./installer $(tag)
+
+tag-sync:
+	comm -23 <(git tag | sort) <(git ls-remote --tags origin | sed 's/.*\///' | sed 's/\^{}//' | sort) | xargs -n 1 git tag -d
